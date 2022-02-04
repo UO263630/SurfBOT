@@ -4,17 +4,9 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 #Libreria para el acceso a la base de datos
 import pymysql
 
-#import requests
-#from geopy.geocoders import Nominatim 
-#import numpy as np
-#import pandas as pd
-#import time as sleep
-#import datetime
+
 import getgfs
-#import matplotlib.pyplot as plt
-#from pvlib.forecast import GFS, NAM, NDFD, HRRR, RAP
-#import time
-#import threading
+
 
 #Token del bot de telegram
 BOT_TOKEN = '5257201108:AAFkh9t-lYtHy2zThEvMVMst-eqwOC_jgM0'
