@@ -20,7 +20,7 @@ RESULT=""
 GLOBALE=0
 RESULTE=""
 
-#Base de datos de playas
+#Base de Datos de playas
 database_host = 'bnhukxmv5yeixvtezd51-mysql.services.clever-cloud.com' 
 username = 'uhvo87uj6up0zzym' 
 password = 'Qlh2E0viyQFPSEdQ6PHc' 
@@ -51,12 +51,9 @@ def help(update, context):
 
 
 
-
 #Busqueda de la playa en la Base de Datos
 def buscar(update,playa):
 
-
-    
     cursor = db.cursor()
     
     n = playa[1:]
@@ -81,7 +78,7 @@ def buscar(update,playa):
             CY = row['Coordenada_Y']
             ZS = row['Zona_Surf']
             PR = row['Provincia']
-            print("Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
+            #print("Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
             return CX,CY
 
     print(count)
@@ -110,7 +107,7 @@ def buscar(update,playa):
         
 
 
-    db.close()
+    #db.close()
 
 #Busqueda de la playa despues de haber esocogido una opción.
 #Solo se accede a este metodo si se hay varias opciones
@@ -124,7 +121,7 @@ def buscar2(update,playa):
         ZS = playa['Zona_Surf']
         PR = playa['Provincia']
         TM = playa['Termino_Municipal']
-        print("Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
+        #print("Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
         return CX,CY
 
 
@@ -132,13 +129,13 @@ def buscar2(update,playa):
 
 def echo(update, context):
     global GLOBAL
-    print("GLOBAL2 "+ str(GLOBAL))
+    #print("GLOBAL2 "+ str(GLOBAL))
     g = GLOBAL
 
     #Solo se entra aqui si ya se ha introducido el nombre de una playa y hay varias opciones
     if(g != 0):  
-        print("ENTRA")
-        print(update.message.text)
+        #print("ENTRA")
+        #print(update.message.text)
         s = update.message.text
         t = s.split('/')
         
@@ -184,18 +181,12 @@ def echo(update, context):
             update.message.reply_text('Playa: ' + t[1])
             y,x = buscar(update,t[1])
             if(y != x ):
-                update.message.reply_text("Coordenadas X: " + x + "Coordendas Y: " + y)
+                update.message.reply_text("Coordenadas X: " + x + "Coordenadas Y: " + y)
 
                 suscribirse(update, x,y)
-        
-
-    
-    
-
-        
-
-
+            
     print("---------------------------------------------")
+
 
 
 
@@ -230,7 +221,7 @@ def suscribirse(update,x,y):
 
     if(t==0):
         result=cursor.fetchall()
-
+        
         count = cursor.execute("INSERT INTO suscrito (ID,Usuario,Nombre,Provincia,Municipio,CX,CY) VALUES (%s,%s,%s,%s,%s,%s,%s)", (chat_id, user_first_name ,nombre, provincia, municipio, x,y) )
         #count = cursor.execute("SELECT * FROM suscrito")
         #result=cursor.fetchall()
@@ -307,7 +298,6 @@ def Unfollow(update, context):
 
 
 
-    
 def main():
     # Creamos el Updater y le pasamos el token de nuestro bot. Este se encargará de manejar las peticiones de los usuarios.
     updater = Updater(BOT_TOKEN, use_context=True)
