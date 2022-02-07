@@ -159,6 +159,10 @@ def echo(update, context):
                     update.message.reply_text("Coordenadas X: " + x + "Coordendas Y: " + y)
 
                     suscribirse(update, x,y)
+
+                    x = str(x).replace(",",".")
+                    y = str(y).replace(",",".")
+
             
 
     else:
@@ -185,8 +189,13 @@ def echo(update, context):
             y,x = buscar(update,t[1])
             if(y != x ):
                 update.message.reply_text("Coordenadas X: " + x + "Coordendas Y: " + y)
-
+                
+                
                 suscribirse(update, x,y)
+
+                x = str(x).replace(",",".")
+                y = str(y).replace(",",".")
+
         
 
     
@@ -202,11 +211,12 @@ def echo(update, context):
 def suscribirse(update,x,y): 
     cursor = db.cursor()
     
-    count = cursor.execute("SELECT Nombre,Provincia,Termino_Municipal FROM BBDD WHERE Coordenada_Y = (%s) and Coordenada_X = (%s)" , (x , y ))
+    count = cursor.execute("SELECT Nombre,Provincia,Termino_Municipal FROM BBDD WHERE Coordenada_Y = (%s) and Coordenada_X = (%s)" , (str(x) , str(y) ))
     
     print(count)
 
     result=cursor.fetchall()
+    print(result)
     row = result[0]
     #print(row['Nombre'])
     nombre = row['Nombre']
