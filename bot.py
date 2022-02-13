@@ -7,6 +7,8 @@ import pymysql
 
 import getgfs
 
+#Clase Forecast para hacer las predicciones
+import Forecast
 
 #Token del bot de telegram
 BOT_TOKEN = '5257201108:AAFkh9t-lYtHy2zThEvMVMst-eqwOC_jgM0'
@@ -112,7 +114,7 @@ def buscar(update,playa):
 
     db.close()
 
-#Busqueda de la playa despues de haber esocogido una opción.
+#Busqueda de la playa despues de haber escogido una opción.
 #Solo se accede a este metodo si se hay varias opciones
 def buscar2(update,playa):
     count=1
@@ -158,10 +160,15 @@ def echo(update, context):
                 if(y != x ):
                     update.message.reply_text("Coordenadas X: " + x + "Coordendas Y: " + y)
 
-                    suscribirse(update, x,y)
+                    aux=suscribirse(update, x,y)
+                    if(aux==1):
+                        x = str(x).replace(",",".")
+                        y = str(y).replace(",",".")
 
-                    x = str(x).replace(",",".")
-                    y = str(y).replace(",",".")
+                        print(x)
+                        print(y)
+                        
+                        Forecast.Forecast(update,x,y)
 
             
 
@@ -191,10 +198,18 @@ def echo(update, context):
                 update.message.reply_text("Coordenadas X: " + x + "Coordendas Y: " + y)
                 
                 
-                suscribirse(update, x,y)
+                aux=suscribirse(update, x,y)
+                if(aux==1):
+                    x = str(x).replace(",",".")
+                    y = str(y).replace(",",".")
 
-                x = str(x).replace(",",".")
-                y = str(y).replace(",",".")
+                    print(x)
+                    print(y)
+
+                    Forecast.Forecast(update,x,y)
+                
+                else:
+                    print("")
 
         
 
@@ -210,7 +225,7 @@ def echo(update, context):
 
 def suscribirse(update,x,y): 
     cursor = db.cursor()
-    
+    aux=0
     count = cursor.execute("SELECT Nombre,Provincia,Termino_Municipal FROM BBDD WHERE Coordenada_Y = (%s) and Coordenada_X = (%s)" , (str(x) , str(y) ))
     
     print(count)
@@ -237,18 +252,26 @@ def suscribirse(update,x,y):
             t= t +1;
 
     print(result)
+    count = cursor.execute("SELECT * FROM suscrito WHERE ID = (%s) AND Usuario = (%s) ", (chat_id, user_first_name))
 
-    if(t==0):
-        result=cursor.fetchall()
-
-        count = cursor.execute("INSERT INTO suscrito (ID,Usuario,Nombre,Provincia,Municipio,CX,CY) VALUES (%s,%s,%s,%s,%s,%s,%s)", (chat_id, user_first_name ,nombre, provincia, municipio, x,y) )
-        #count = cursor.execute("SELECT * FROM suscrito")
-        #result=cursor.fetchall()
-        #print(result)
-        db.commit()
+    if(count>=3):
+        update.message.reply_text("No puedes suscribirte a mas playas")
+        
     else:
-        update.message.reply_text("Ya estas suscrito a esa playa")
-    
+        if(t==0):
+            result=cursor.fetchall()
+
+            count = cursor.execute("INSERT INTO suscrito (ID,Usuario,Nombre,Provincia,Municipio,CX,CY) VALUES (%s,%s,%s,%s,%s,%s,%s)", (chat_id, user_first_name ,nombre, provincia, municipio, x,y) )
+            #count = cursor.execute("SELECT * FROM suscrito")
+            #result=cursor.fetchall()
+            #print(result)
+            db.commit()
+            aux=1
+        else:
+            update.message.reply_text("Ya estas suscrito a esa playa")
+    print(aux)
+    return aux
+        
 
 
 def subs(update, context):
@@ -256,9 +279,12 @@ def subs(update, context):
     cursor = db.cursor()
     count = cursor.execute("SELECT * FROM suscrito")
     result= cursor.fetchall()
-    print(result)
-    for row in result:
-        update.message.reply_text("Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n")
+    print(len(result))
+    if(len(result) ==0):
+        update.message.reply_text("No estas suscrito a ninguna playa")
+    else:
+        for row in result:
+            update.message.reply_text("Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n")
 
 
 def Unfollow(update, context):
