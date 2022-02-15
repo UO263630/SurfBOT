@@ -1,12 +1,49 @@
+from telegram import ChatAction,InlineKeyboardMarkup, InlineKeyboardButton
+from telegram.ext import CallbackQueryHandler
+import arrow
+import requests
+from tabulate import tabulate
+TABLA1=[]
+TABLA2=[]
+TABLA3=[]
+TABLA4=[]
+
+
+buttonI = InlineKeyboardButton(
+        text= "<--",
+        callback_data='BI'
+)
+buttonD = InlineKeyboardButton(
+        text= "--->",
+        callback_data='BD'
+)
+
+buttonG= InlineKeyboardButton(
+        text= "Graficas",
+        callback_data='BG'
+)
+
+buttonI2 = InlineKeyboardButton(
+        text= "<--",
+        callback_data='BI2'
+)
+buttonD2 = InlineKeyboardButton(
+        text= "--->",
+        callback_data='BD2'
+)
+
+buttonG2= InlineKeyboardButton(
+        text= "Graficas2",
+        callback_data='BG2'
+)
 
 def Forecast(update,lat,lon):
 
     la = lat
     lo = lon
     tz='UTC+1'
-
-    import arrow
-    import requests
+    global TABLA1,TABLA2,TABLA3,TABLA4
+    
 
     # Get first hour of today
     start = arrow.now().floor('day')
@@ -63,7 +100,7 @@ def Forecast(update,lat,lon):
     'noaa': 3.34, 'sg': 3.84}, 'swellPeriod': {'dwd': 10.33, 'icon': 11.09, 'meteo': 9.49, 'noaa': 11.82, 'sg': 9.49}, 'time': '2022-02-14T19:00:00+00:00', 'waveDirection': {'icon': 303.08, 'meteo': 305.44, 'noaa': 310.83, 'sg': 305.44}, 'windSpeed': {'icon': 11.23, 'noaa': 3.47, 'sg': 11.23}}, {'airTemperature': {'dwd': 9.72, 'noaa': 6.43, 'sg': 9.72}, 'swellDirection': {'dwd': 312.95, 'icon': 309.05, 'meteo': 309.12, 'noaa': 318.38, 'sg': 309.12}, 'swellHeight': {'dwd': 3.22, 'icon': 3.37, 'meteo': 3.9, 'noaa': 3.3, 'sg': 3.9}, 'swellPeriod': {'dwd': 10.3, 'icon': 10.99, 'meteo': 9.41, 'noaa': 11.86, 'sg': 9.41}, 'time': '2022-02-14T20:00:00+00:00', 'waveDirection': {'icon': 303.86, 'meteo': 306.51, 'noaa': 311.51, 'sg': 306.51}, 'windSpeed': {'icon': 10.98, 'noaa': 2.8, 'sg': 10.98}}, {'airTemperature': {'dwd': 9.78, 'noaa': 5.94, 'sg': 9.78}, 'swellDirection': {'dwd': 313.37, 'icon': 309.71, 'meteo': 310.07, 'noaa': 316.6, 'sg': 310.07}, 'swellHeight': {'dwd': 3.17, 'icon': 3.39, 'meteo': 3.96, 'noaa': 3.26, 'sg': 3.96}, 'swellPeriod': {'dwd': 10.32, 'icon': 10.89, 'meteo': 9.32, 'noaa': 11.89, 'sg': 9.32}, 'time': '2022-02-14T21:00:00+00:00', 'waveDirection': {'icon': 304.64, 'meteo': 307.59, 'noaa': 312.18, 'sg': 307.59}, 'windSpeed': {'icon': 10.74, 'noaa': 2.14, 'sg': 10.74}}, {'airTemperature': {'dwd': 10.03, 'noaa': 5.46, 'sg': 10.03}, 'swellDirection': {'dwd': 313.63, 'icon': 309.91, 'meteo': 310.21, 'noaa': 317.61, 'sg': 310.21}, 'swellHeight': {'dwd': 3.13, 'icon': 3.37, 'meteo': 3.95, 'noaa': 3.19, 'sg': 3.95}, 'swellPeriod': {'dwd': 10.27, 'icon': 10.79, 'meteo': 9.22, 'noaa': 11.84, 'sg': 9.22}, 'time': '2022-02-14T22:00:00+00:00', 'waveDirection': {'icon': 305.22, 'meteo': 308.15, 'noaa': 312.72, 'sg': 308.15}, 'windSpeed': {'icon': 10.35, 'noaa': 2.09, 'sg': 10.35}}, {'airTemperature': {'dwd': 9.68, 'noaa': 4.97, 'sg': 9.68}, 'swellDirection': {'dwd': 314.15, 'icon': 310.11, 'meteo': 310.35, 'noaa': 
     318.63, 'sg': 310.35}, 'swellHeight': {'dwd': 3.06, 'icon': 3.36, 'meteo': 3.93, 'noaa': 3.13, 'sg': 3.93}, 'swellPeriod': {'dwd': 10.32, 'icon': 10.69, 'meteo': 9.11, 'noaa': 11.79, 'sg': 9.11}, 'time': '2022-02-14T23:00:00+00:00', 'waveDirection': {'icon': 305.79, 'meteo': 308.72, 'noaa': 313.27, 'sg': 308.72}, 'windSpeed': {'icon': 9.96, 'noaa': 2.04, 'sg': 9.96}}], 'meta': {'cost': 1, 'dailyQuota': 10, 'end': '2022-02-14 23:00', 'lat': 43.588, 'lng': -5.9391, 'params': ['airTemperature', 'windSpeed', 'waveDirection', 'swellPeriod', 'swellHeight', 'swellDirection'], 'requestCount': 1, 'start': '2022-02-12 23:00'}}
         
-   
+
 
     x=1
     data= []
@@ -130,18 +167,66 @@ def Forecast(update,lat,lon):
                 data4.append(d2[:])
         x=x+1
         
-    from tabulate import tabulate
-    #print(data)
-    #print(tabulate( data , headers=["hora","airTemperature" , "windSpeed","waveDirection","swellPeriod","swellHeight","swellDirection"]  ))
-    update.message.reply_text( tabulate( data , headers=["hora","Temperatura" , "Velocidad viento"]  )  )
-    update.message.reply_text( tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola"]  )  )
+    
+ 
+    
+    TABLA1=tabulate( data , headers=["hora","Temperatura" , "Velocidad viento"]  ) 
+    update.message.reply_text( 
+        text= tabulate( data , headers=["hora","Temperatura" , "Velocidad viento"]  ) ,
+        reply_markup= InlineKeyboardMarkup([
+                        [buttonI , buttonD , buttonG]
+                    ])
+    )
+    ID=update.message.message_id
+    TABLA2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola"]  ) 
+   
+    
+
     print("Al dia siguiente")
     update.message.reply_text("Al dia siguiente")
-    #print(tabulate( data3 , headers=["hora","airTemperature" , "windSpeed","waveDirection","swellPeriod","swellHeight","swellDirection"]  ))
-    update.message.reply_text(tabulate( data3 , headers=["hora","Temperatura" , "Velocidad viento"]  )  )
-    update.message.reply_text(tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola"]  ) )
+
+    TABLA3=tabulate( data3 , headers=["hora","Temperatura" , "Velocidad viento"]  ) 
+    update.message.reply_text( 
+        text= tabulate( data3 , headers=["hora","Temperatura" , "Velocidad viento"]  )  ,
+        reply_markup= InlineKeyboardMarkup([
+                        [buttonI2 , buttonD2 , buttonG2]
+                    ])
+    )
+
+    TABLA4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola"]  )
 
 
+def cambioI(update):
+    update.callback_query.edit_message_text(text=TABLA1,
+                                    reply_markup= InlineKeyboardMarkup([
+                        [buttonI , buttonD , buttonG]
+                    ])
+    )
+
+
+def cambioD(update):
+    update.callback_query.edit_message_text(text=TABLA2,
+                                    reply_markup= InlineKeyboardMarkup([
+                        [buttonI , buttonD , buttonG]
+                    ])
+    )
+
+
+
+def cambioI2(update):
     
+    update.callback_query.edit_message_text(text=TABLA3,
+                                    reply_markup= InlineKeyboardMarkup([
+                                    [buttonI2 , buttonD2 , buttonG2]
+                                    ])
+    )
+
+
+def cambioD2(update):
+    update.callback_query.edit_message_text(text=TABLA4,
+                                    reply_markup= InlineKeyboardMarkup([
+                                    [buttonI2 , buttonD2 , buttonG2]
+                                    ])
+    )
 
     
