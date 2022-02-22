@@ -341,7 +341,7 @@ def BotonG2(update,context):
 def subs_auto():
     bot= telepot.Bot(BOT_TOKEN)
     print("entra")
-    count,result=BBDD.prueba()
+    count,result=BBDD.subs_auto()
     #print(result)
     global ID,USER
     for x in result:
