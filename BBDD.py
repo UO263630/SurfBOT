@@ -45,6 +45,16 @@ def buscarNomMun(chat_id, user_first_name):
 
     return count,result
 
+def subs_auto():
+    cursor = db.cursor()
+
+    count = cursor.execute("SELECT ID,Usuario FROM suscrito ")
+    result=cursor.fetchall()
+
+    return count,result
+
+
+
 
 def buscarCoo(x,y):
     cursor = db.cursor()
