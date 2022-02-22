@@ -1,16 +1,17 @@
 #Libreria para conectarse con el bot de telegram
-from importlib.metadata import entry_points
-from matplotlib.pyplot import text
+from datetime import datetime
+
 from telegram import CallbackQuery
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler,ConversationHandler
 #from telegram.ext import InlineKeyboardMarkup, InlineKeyboardButton
+import time
+import schedule
+#Para los hilos
+import threading
 
+#Para enviar mensajes sin otro mensaje previo 
+import telepot
 
-#Libreria para el acceso a la base de datos
-import pymysql
-
-
-import getgfs
 
 #Clase Forecast para hacer las predicciones
 import Forecast
@@ -26,24 +27,9 @@ GLOBAL=0
 RESULT=""
 GLOBALE=0
 RESULTE=""
+ID=""
+USER=""
 
-"""
-#Base de datos de playas
-database_host = 'bnhukxmv5yeixvtezd51-mysql.services.clever-cloud.com' 
-username = 'uhvo87uj6up0zzym' 
-password = 'Qlh2E0viyQFPSEdQ6PHc' 
-database_name = 'bnhukxmv5yeixvtezd51' 
-
-
-db = pymysql.connect(host= database_host,
-                            user=username,
-                            password=password,
-                            database=database_name,
-                            charset='utf8mb4',
-                            cursorclass=pymysql.cursors.DictCursor)
-
-
-"""
 
 # Configuramos el comando start para enviar un mensaje de bienvenida  
 def start(update, context):  
@@ -268,8 +254,7 @@ def suscribirse(update,x,y):
 
 def subs(update, context):
      
-    #cursor = db.cursor()
-    #count = cursor.execute("SELECT * FROM suscrito")
+    print("entra")
     chat_id = update.message.chat_id
     user_first_name = str(update.message.chat.username)
     count,result=BBDD.buscarNomMun(chat_id, user_first_name)
@@ -341,7 +326,7 @@ def BotonD(update,context):
     Forecast.cambioD(update)
 
 def BotonG(update,context):
-    print("NADA")
+    Forecast.cambioG(update)
 
 def BotonI2(update,context):
     Forecast.cambioI2(update)
@@ -352,6 +337,40 @@ def BotonD2(update,context):
 def BotonG2(update,context):
     print("NADA2")
     
+
+def subs_auto():
+    bot= telepot.Bot(BOT_TOKEN)
+    print("entra")
+    count,result=BBDD.prueba()
+    #print(result)
+    global ID,USER
+    for x in result:
+        print(x["ID"])
+        id=x["ID"]
+        print(x["Usuario"])
+        user=x["Usuario"]
+
+        if(id != ID and user != USER):
+
+            count,result=BBDD.buscarNomMun(id,user)
+            print(result)
+            if(len(result) !=0):
+                bot.sendMessage(chat_id=id,text="----Mensaje automatico----")
+                bot.sendMessage(chat_id=id,text="Playas suscritas de "+ user+"\n")
+                for row in result:
+                    t="Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n"
+                    bot.sendMessage(chat_id=id,text=t)
+                ID=id
+                USER=user
+
+        
+
+        
+
+
+
+
+
 def main():
     # Creamos el Updater y le pasamos el token de nuestro bot. Este se encargará de manejar las peticiones de los usuarios.
     updater = Updater(BOT_TOKEN, use_context=True)
@@ -401,10 +420,23 @@ def main():
 
     updater.start_polling()
 
-    updater.idle()
+    updater.idle()  
+    
+    
+
+def automatico():
+    schedule.every().day.at("10:00").do(subs_auto)
+    #schedule.every(15).seconds.do(subs_auto)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 if __name__ == '__main__':
+    
+    t=threading.Thread(name="hilo automatico",target=automatico)
+    t.start()
+
     main()
 
 
