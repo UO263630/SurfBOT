@@ -153,7 +153,8 @@ def echo(update, context):
                         print(x)
                         print(y)
                         
-                        Forecast.Forecast(update,x,y)
+                        chat_id = update.message.chat_id
+                        Forecast.Forecast(update,x,y,BOT_TOKEN,chat_id)
 
             
 
@@ -190,8 +191,9 @@ def echo(update, context):
 
                     print(x)
                     print(y)
-
-                    Forecast.Forecast(update,x,y)
+                    
+                    chat_id = update.message.chat_id
+                    Forecast.Forecast(update,x,y,BOT_TOKEN,chat_id)
                 
                 else:
                     print("")
@@ -325,8 +327,11 @@ def BotonI(update,context):
 def BotonD(update,context):
     Forecast.cambioD(update)
 
-def BotonG(update,context):
-    Forecast.cambioG(update)
+def BotonGS(update,context):
+    Forecast.cambioGS(update)
+
+def BotonGV(update,context):
+    Forecast.cambioGV(update)
 
 def BotonI2(update,context):
     Forecast.cambioI2(update)
@@ -334,9 +339,12 @@ def BotonI2(update,context):
 def BotonD2(update,context):
     Forecast.cambioD2(update)
 
-def BotonG2(update,context):
-    print("NADA2")
-    
+def BotonGS2(update,context):
+    Forecast.cambioGS2(update)
+
+def BotonGV2(update,context):
+    Forecast.cambioGV2(update)
+
 
 def subs_auto():
     bot= telepot.Bot(BOT_TOKEN)
@@ -365,10 +373,6 @@ def subs_auto():
 
         
 
-        
-
-
-
 
 
 def main():
@@ -389,10 +393,12 @@ def main():
             CommandHandler("playa",echo),
             CallbackQueryHandler(pattern="BI",callback =BotonI),
             CallbackQueryHandler(pattern="BD",callback =BotonD),
-            CallbackQueryHandler(pattern="BG",callback =BotonG),
+            CallbackQueryHandler(pattern="BGS",callback =BotonGS),
+            CallbackQueryHandler(pattern="BGV",callback =BotonGV),
             CallbackQueryHandler(pattern="BI2",callback =BotonI2),
             CallbackQueryHandler(pattern="BD2",callback =BotonD2),
-            CallbackQueryHandler(pattern="BG2",callback =BotonG2)
+            CallbackQueryHandler(pattern="BGV2",callback =BotonGV2),
+            CallbackQueryHandler(pattern="BGS2",callback =BotonGS2)
         ],
         states={},
         fallbacks=[]
