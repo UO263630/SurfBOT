@@ -7,13 +7,12 @@ def grafica1(grados,aux):
     x = np.linspace(1, 23, 12)
     #grados=[306.76, 306.55, 306.29, 306.45, 307.03, 320.28, 321.86, 311.77, 311.85, 310.8, 308.63, 310.16]
     ejex=["01:00","03:00","05:00","07:00","09:00","11:00","13:00","15:00","17:00","19:00","21:00","23:00"]
-    print("----------------")
    
 
     fig = plt.figure()
     ax = fig.gca()
-    print(x)
-    print(np.zeros(x.shape))
+    #print(x)
+    #print(np.zeros(x.shape))
 
     a=[]
     i=0
@@ -22,8 +21,8 @@ def grafica1(grados,aux):
         a.append(1-b)
         i=i+1;
 
-    print(len(a))
-    print(a)
+    #print(len(a))
+    #print(a)
     plt.xticks(x,ejex)
     plt.xlabel("horas",size=8)
     plt.title("Dirección del viento")
@@ -50,8 +49,8 @@ def grafica2(grados,aux):
 
     fig = plt.figure()
     ax = fig.gca()
-    print(x)
-    print(np.zeros(x.shape))
+    #print(x)
+    #print(np.zeros(x.shape))
 
     a=[]
     i=0
@@ -60,8 +59,8 @@ def grafica2(grados,aux):
         a.append(1-b)
         i=i+1;
 
-    print(len(a))
-    print(a)
+    #print(len(a))
+    #print(a)
     plt.xticks(x,ejex)
     plt.xlabel("horas",size=8)
     plt.title("Dirección de oleaje")

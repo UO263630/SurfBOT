@@ -1,5 +1,6 @@
 #Libreria para conectarse con el bot de telegram
 from datetime import datetime
+from tkinter import Button
 
 from telegram import CallbackQuery
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler,ConversationHandler
@@ -322,28 +323,43 @@ def Unfollow(update, context):
 
 
 def BotonI(update,context):
+    print("BotonI")
     Forecast.cambioI(update)
+    print("BotonIF")
+    return ConversationHandler.END
 
 def BotonD(update,context):
+    print("BotonD")
     Forecast.cambioD(update)
+    print("BotonDF")
+    return ConversationHandler.END
 
 def BotonGS(update,context):
     Forecast.cambioGS(update)
+    return ConversationHandler.END
 
 def BotonGV(update,context):
     Forecast.cambioGV(update)
+    return ConversationHandler.END
 
 def BotonI2(update,context):
+    print("BotonI2")
     Forecast.cambioI2(update)
+    print("BotonI2F")
+    return ConversationHandler.END
 
-def BotonD2(update,context):
+def BotonDN(update,context):
+    print("BotonD2")
     Forecast.cambioD2(update)
+    return ConversationHandler.END
 
 def BotonGS2(update,context):
     Forecast.cambioGS2(update)
+    return ConversationHandler.END
 
 def BotonGV2(update,context):
     Forecast.cambioGV2(update)
+    return ConversationHandler.END
 
 
 def subs_auto():
@@ -373,8 +389,6 @@ def subs_auto():
 
         
 
-
-
 def main():
     # Creamos el Updater y le pasamos el token de nuestro bot. Este se encargará de manejar las peticiones de los usuarios.
     updater = Updater(BOT_TOKEN, use_context=True)
@@ -391,19 +405,21 @@ def main():
     dp.add_handler(ConversationHandler(
         entry_points=[
             CommandHandler("playa",echo),
-            CallbackQueryHandler(pattern="BI",callback =BotonI),
-            CallbackQueryHandler(pattern="BD",callback =BotonD),
             CallbackQueryHandler(pattern="BGS",callback =BotonGS),
             CallbackQueryHandler(pattern="BGV",callback =BotonGV),
-            CallbackQueryHandler(pattern="BI2",callback =BotonI2),
-            CallbackQueryHandler(pattern="BD2",callback =BotonD2),
-            CallbackQueryHandler(pattern="BGV2",callback =BotonGV2),
-            CallbackQueryHandler(pattern="BGS2",callback =BotonGS2)
+            CallbackQueryHandler(pattern="BI",callback =BotonI),
+            CallbackQueryHandler(pattern="BD",callback =BotonD),
+            CallbackQueryHandler(pattern="B22I",callback =BotonI2),
+            CallbackQueryHandler(pattern='B33I',callback =BotonDN),
+            CallbackQueryHandler(pattern="B22GV",callback =BotonGV2),
+            CallbackQueryHandler(pattern="B22GS",callback =BotonGS2)
         ],
         states={},
-        fallbacks=[]
+        fallbacks=[],
+        allow_reentry=True
     ))
-
+    
+    
 
     dp.add_handler(CommandHandler("Subs", subs))
     dp.add_handler(CommandHandler("Eliminar", Unfollow))
