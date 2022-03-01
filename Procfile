@@ -1,1 +1,1 @@
-reminder: python src/bot.py
+reminder: python bot.py
