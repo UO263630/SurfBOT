@@ -435,8 +435,7 @@ def subs_auto():
                 ID=id
                 USER=user
 
-        
-import prueba2
+   
 def main():
     # Creamos el Updater y le pasamos el token de nuestro bot. Este se encargará de manejar las peticiones de los usuarios.
     updater = Updater(BOT_TOKEN, use_context=True)
