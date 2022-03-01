@@ -1,1 +1,1 @@
-reminder: python src/quickstart.py
+reminder: python src/bot.py
