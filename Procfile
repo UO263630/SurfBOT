@@ -1,1 +1,1 @@
-worker: npm start
+reminder: python src/quickstart.py
