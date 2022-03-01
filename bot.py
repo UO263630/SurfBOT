@@ -1,6 +1,6 @@
 #Libreria para conectarse con el bot de telegram
 from datetime import datetime
-from tkinter import Button
+#from tkinter import Button
 
 from telegram import CallbackQuery
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler,ConversationHandler
@@ -153,9 +153,17 @@ def echo(update, context):
 
                         print(x)
                         print(y)
+                        update.message.reply_text("Te acabas de suscribir con exito")
+                        #print("///////////////////////")
+                        #print(threading.active_count())
                         
-                        chat_id = update.message.chat_id
-                        Forecast.Forecast(update,x,y,BOT_TOKEN,chat_id)
+                        #chat_id = update.message.chat_id
+
+                        #threading.Thread(target=Forecast.Forecast,args=(update,x,y,BOT_TOKEN,chat_id,1)).start()
+                        #threading.Thread(target=prueba,args=(update,x,y,BOT_TOKEN,chat_id,0)).start()
+                        #print(threading.active_count())
+                        #print("///////////////////////")
+                        
 
             
 
@@ -181,7 +189,7 @@ def echo(update, context):
             print(t[1])
             update.message.reply_text('Playa: ' + t[1])
             y,x = buscar(update,t[1])
-            if(y != x ):
+            if(y != x ):    
                 #update.message.reply_text("Coordenadas X: " + x + "Coordendas Y: " + y)
                 
                 
@@ -192,9 +200,16 @@ def echo(update, context):
 
                     print(x)
                     print(y)
+                    update.message.reply_text("Te acabas de suscribir con exito")
+                    #print("///////////////////////")
+
+                   # print(threading.active_count())
+                    #chat_id = update.message.chat_id
+                    #threading.Thread(target=Forecast.Forecast,args=(update,x,y,BOT_TOKEN,chat_id,1)).start()
+                    #threading.Thread(target=Forecast,args=(update,x,y,BOT_TOKEN,chat_id,1)).start()
                     
-                    chat_id = update.message.chat_id
-                    Forecast.Forecast(update,x,y,BOT_TOKEN,chat_id)
+                    #print(threading.active_count())
+                    #print("///////////////////////")
                 
                 else:
                     print("")
@@ -208,6 +223,7 @@ def echo(update, context):
 
 
     print("---------------------------------------------")
+
 
 
 
@@ -324,40 +340,50 @@ def Unfollow(update, context):
 
 def BotonI(update,context):
     print("BotonI")
+    #Forecast.cambioI(update)
     Forecast.cambioI(update)
     print("BotonIF")
+    print(threading.get_ident())
     return ConversationHandler.END
 
 def BotonD(update,context):
     print("BotonD")
+    #Forecast.cambioD(update)
     Forecast.cambioD(update)
     print("BotonDF")
+    print(threading.get_ident())
     return ConversationHandler.END
 
 def BotonGS(update,context):
+    #Forecast.cambioGS(update)
     Forecast.cambioGS(update)
     return ConversationHandler.END
 
 def BotonGV(update,context):
+    #Forecast.cambioGV(update)
     Forecast.cambioGV(update)
     return ConversationHandler.END
 
 def BotonI2(update,context):
     print("BotonI2")
+    #Forecast.cambioI2(update)
     Forecast.cambioI2(update)
     print("BotonI2F")
     return ConversationHandler.END
 
 def BotonDN(update,context):
     print("BotonD2")
+    #Forecast.cambioD2(update)
     Forecast.cambioD2(update)
     return ConversationHandler.END
 
 def BotonGS2(update,context):
+    #Forecast.cambioGS2(update)
     Forecast.cambioGS2(update)
     return ConversationHandler.END
 
 def BotonGV2(update,context):
+    #Forecast.cambioGV2(update)
     Forecast.cambioGV2(update)
     return ConversationHandler.END
 
@@ -375,20 +401,42 @@ def subs_auto():
         user=x["Usuario"]
 
         if(id != ID and user != USER):
-
+        
             count,result=BBDD.buscarNomMun(id,user)
             print(result)
+            aux=0
             if(len(result) !=0):
                 bot.sendMessage(chat_id=id,text="----Mensaje automatico----")
                 bot.sendMessage(chat_id=id,text="Playas suscritas de "+ user+"\n")
                 for row in result:
+                    #print(row)
                     t="Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n"
+                    
+                    x=row['CX']
+                    y=row['CY']
+                    
+                    x = str(x).replace(",",".")
+                    y = str(y).replace(",",".")
+                    if(aux==1):
+                        time.sleep(10)
                     bot.sendMessage(chat_id=id,text=t)
+                    print("////////////////////")
+                    
+                    print(threading.get_ident())
+                    print(threading.active_count())
+                    n=threading.Thread(target=Forecast.Forecast , args=(x,y,BOT_TOKEN,id))
+                    #prueba2.Forecast(x,y,BOT_TOKEN,id)
+                    n.start()
+                    
+                    print(n.getName()) 
+                    print(threading.active_count())
+                    print(threading.enumerate())
+                    aux=1
                 ID=id
                 USER=user
 
         
-
+import prueba2
 def main():
     # Creamos el Updater y le pasamos el token de nuestro bot. Este se encargará de manejar las peticiones de los usuarios.
     updater = Updater(BOT_TOKEN, use_context=True)
@@ -447,7 +495,7 @@ def main():
     
 
 def automatico():
-    schedule.every().day.at("10:00").do(subs_auto)
+    schedule.every().day.at("16:47").do(subs_auto)
     #schedule.every(15).seconds.do(subs_auto)
     while True:
         schedule.run_pending()

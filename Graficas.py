@@ -14,6 +14,8 @@ def grafica1(grados,aux):
     #print(x)
     #print(np.zeros(x.shape))
 
+    
+
     a=[]
     i=0
     while(i<len(grados)):
@@ -38,6 +40,7 @@ def grafica1(grados,aux):
     else:
         plt.savefig("WindDirection2.png",bbox_inches="tight")
     #plt.show()
+    
 
 
 def grafica2(grados,aux):
@@ -52,15 +55,15 @@ def grafica2(grados,aux):
     #print(x)
     #print(np.zeros(x.shape))
 
+   
+
     a=[]
     i=0
     while(i<len(grados)):
         b=-np.tan(grados[i])*x[i]
         a.append(1-b)
         i=i+1;
-
-    #print(len(a))
-    #print(a)
+   
     plt.xticks(x,ejex)
     plt.xlabel("horas",size=8)
     plt.title("Dirección de oleaje")

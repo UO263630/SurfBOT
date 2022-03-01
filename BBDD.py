@@ -40,7 +40,7 @@ def buscar(playa):
 def buscarNomMun(chat_id, user_first_name):
     cursor = db.cursor()
 
-    count = cursor.execute("SELECT Nombre,Municipio,Provincia FROM suscrito WHERE ID = (%s) AND Usuario = (%s) ", (chat_id, user_first_name))
+    count = cursor.execute("SELECT Nombre,Municipio,Provincia,CX,CY FROM suscrito WHERE ID = (%s) AND Usuario = (%s) ", (chat_id, user_first_name))
     result=cursor.fetchall()
 
     return count,result
