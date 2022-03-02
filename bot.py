@@ -498,7 +498,7 @@ def automatico():
     #schedule.every(15).seconds.do(subs_auto)
     while True:
         schedule.run_pending()
-        print("hola")
+        print("hola2")
         time.sleep(1)
 
 
