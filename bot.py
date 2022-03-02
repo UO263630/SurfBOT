@@ -69,7 +69,8 @@ def buscar(update,playa):
             CY = row['Coordenada_Y']
             ZS = row['Zona_Surf']
             PR = row['Provincia']
-            print("Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
+            TN = row['Nombre']
+            print("Playa= " +TN + "Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
             return CX,CY
 
     print(count)
@@ -85,7 +86,8 @@ def buscar(update,playa):
             ZS = row['Zona_Surf']
             PR = row['Provincia']
             TM = row['Termino_Municipal']
-            update.message.reply_text("Provincia= "+PR+",Municipio="+TM+", ZonaSurf="+ ZS + " /"+str(t) )
+            TN= row['Nombre']
+            update.message.reply_text("Playa= " +TN + " ,Provincia= "+PR+",Municipio="+TM+", ZonaSurf="+ ZS + " /"+str(t) )
             t=t+1
 
         global GLOBAL
@@ -112,7 +114,8 @@ def buscar2(update,playa):
         ZS = playa['Zona_Surf']
         PR = playa['Provincia']
         TM = playa['Termino_Municipal']
-        print("Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
+        TN = playa['Nombre']
+        print("Playa: "+ TN + "Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
         return CX,CY
 
 
@@ -129,7 +132,6 @@ def echo(update, context):
         print(update.message.text)
         s = update.message.text
         t = s.split('/')
-        
         #Comprobación de que no se introduzca otra playa en vez de la opcion correcta
         if(len(t[1]) !=1):
             
@@ -171,7 +173,7 @@ def echo(update, context):
         print(update.message.text)
         s = update.message.text
         t = s.split('/')
-
+        
         #Comprobación de que no se introduce un valor erroneo 
         x=0
         aux=g
@@ -180,7 +182,10 @@ def echo(update, context):
                 if(t[1] != g):
                     x=x+1
                 g = g - 1
-        if(x>0):
+        
+        t=s.split('/playa')
+        print(t[1])
+        if(x>0 or t[1] =="" ):
             update.message.reply_text("Esa no es una opcion valida. Vuelve a introducir el nombre de la playa correcta")
             GLOBAL = 0
 
@@ -295,6 +300,7 @@ def Unfollow(update, context):
     user_first_name = str(update.message.chat.username)
     g = GLOBALE
     if(g!= 0):
+
         s = update.message.text
         print(len(s))
         t = s.split('/')    
@@ -495,6 +501,7 @@ def main():
 
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
+    schedule.every().day.at("17:00").do(subs_auto)
     #schedule.every(15).seconds.do(subs_auto)
     while True:
         schedule.run_pending()

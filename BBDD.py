@@ -20,7 +20,7 @@ def insertar(chat_id, user_first_name ,nombre, provincia, municipio, x,y):
     cursor = db.cursor()
 
     count = cursor.execute("INSERT INTO suscrito (ID,Usuario,Nombre,Provincia,Municipio,CX,CY) VALUES (%s,%s,%s,%s,%s,%s,%s)", (chat_id, user_first_name ,nombre, provincia, municipio, x,y) )
-    result=cursor.fetchall()
+    result=cursor.fetchall()    
 
     db.commit()
 
@@ -29,7 +29,9 @@ def insertar(chat_id, user_first_name ,nombre, provincia, municipio, x,y):
 def buscar(playa):
     cursor = db.cursor()
 
-    count = cursor.execute("SELECT Coordenada_X,Coordenada_Y,Zona_Surf,Provincia,Termino_Municipal FROM BBDD WHERE Nombre = (%s) " ,playa )
+    #count = cursor.execute("SELECT Coordenada_X,Coordenada_Y,Zona_Surf,Provincia,Termino_Municipal FROM BBDD WHERE Nombre LIKE %(%s)% " , playa )
+    cursor.execute("SET @playa = (%s)",playa)
+    count = cursor.execute("SELECT Coordenada_X,Coordenada_Y,Zona_Surf,Provincia,Termino_Municipal,Nombre FROM BBDD WHERE Nombre LIKE CONCAT('%' , @playa , '%') ")
     result=cursor.fetchall()
     #print(result)
 
