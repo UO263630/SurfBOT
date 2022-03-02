@@ -420,17 +420,17 @@ def subs_auto():
                     if(aux==1):
                         time.sleep(10)
                     bot.sendMessage(chat_id=id,text=t)
-                    print("////////////////////")
+                    #print("////////////////////")
                     
-                    print(threading.get_ident())
-                    print(threading.active_count())
-                    n=threading.Thread(target=Forecast.Forecast , args=(x,y,BOT_TOKEN,id))
-                    #prueba2.Forecast(x,y,BOT_TOKEN,id)
-                    n.start()
+                    #print(threading.get_ident())
+                    #print(threading.active_count())
+                    #n=threading.Thread(target=Forecast.Forecast , args=(x,y,BOT_TOKEN,id))
+                    Forecast.Forecast(x,y,BOT_TOKEN,id)
+                    #n.start()
                     
-                    print(n.getName()) 
-                    print(threading.active_count())
-                    print(threading.enumerate())
+                    #print(n.getName()) 
+                    #print(threading.active_count())
+                    #print(threading.enumerate())
                     aux=1
                 ID=id
                 USER=user
@@ -494,11 +494,11 @@ def main():
     
 
 def automatico():
-    schedule.every().day.at("15:20").do(subs_auto)
+    schedule.every().day.at("16:37").do(subs_auto)
     #schedule.every(15).seconds.do(subs_auto)
     while True:
         schedule.run_pending()
-        print("hola2")
+        
         time.sleep(1)
 
 
