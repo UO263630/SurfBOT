@@ -28,7 +28,6 @@ def insertar(chat_id, user_first_name ,nombre, provincia, municipio, x,y):
 
 def buscar(playa):
     cursor = db.cursor()
-    p
     #count = cursor.execute("SELECT Coordenada_X,Coordenada_Y,Zona_Surf,Provincia,Termino_Municipal FROM BBDD WHERE Nombre LIKE %(%s)% " , playa )
     cursor.execute("SET @playa = (%s)",playa)
     count = cursor.execute("SELECT Coordenada_X,Coordenada_Y,Zona_Surf,Provincia,Termino_Municipal,Nombre FROM BBDD WHERE Nombre LIKE CONCAT('%' , @playa , '%') ")
