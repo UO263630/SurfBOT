@@ -501,7 +501,7 @@ def main():
 
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("08:35").do(subs_auto)
+    schedule.every().day.at("09:30").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
