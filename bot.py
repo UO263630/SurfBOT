@@ -400,6 +400,7 @@ def subs_auto():
     count,result=BBDD.subs_auto()
     #print(result)
     global ID,USER
+    evento = threading.Event()
     for x in result:
         print(x["ID"])
         id=x["ID"]
@@ -407,7 +408,7 @@ def subs_auto():
         user=x["Usuario"]
 
         if(id != ID and user != USER):
-        
+            
             count,result=BBDD.buscarNomMun(id,user)
             print(result)
             aux=0
@@ -426,20 +427,22 @@ def subs_auto():
                     if(aux==1):
                         time.sleep(10)
                     bot.sendMessage(chat_id=id,text=t)
-                    #print("////////////////////")
+                    print("////////////////////")
                     
                     #print(threading.get_ident())
-                    #print(threading.active_count())
-                    #n=threading.Thread(target=Forecast.Forecast , args=(x,y,BOT_TOKEN,id))
-                    Forecast.Forecast(x,y,BOT_TOKEN,id)
-                    #n.start()
+                    print(threading.active_count())
+                    n=threading.Thread(target=Forecast.Forecast , args=(x,y,BOT_TOKEN,id,evento) )
                     
-                    #print(n.getName()) 
-                    #print(threading.active_count())
-                    #print(threading.enumerate())
+                    #Forecast.Forecast(x,y,BOT_TOKEN,id)
+                    n.start()
+                    evento.wait()
+                   #print(n.getName()) 
+                    print(threading.active_count())
+                    print(threading.enumerate())
+                    print("////////////////////FIN")
                     aux=1
-                ID=id
-                USER=user
+            ID=id
+            USER=user
 
    
 def main():
@@ -501,7 +504,7 @@ def main():
 
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("09:30").do(subs_auto)
+    schedule.every().day.at("10:30").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
