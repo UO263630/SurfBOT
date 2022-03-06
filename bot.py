@@ -431,7 +431,8 @@ def subs_auto():
                     
                     #print(threading.get_ident())
                     print(threading.active_count())
-                    n=threading.Thread(target=Forecast.Forecast , args=(x,y,BOT_TOKEN,id,evento) )
+                    #n=threading.Thread(target=Forecast.Forecast , args=(x,y,BOT_TOKEN,id,evento) )
+                    n=threading.Thread(target=prueba , args=(x,y,BOT_TOKEN,id,evento) )
                     
                     #Forecast.Forecast(x,y,BOT_TOKEN,id)
                     n.start()
@@ -444,7 +445,28 @@ def subs_auto():
             ID=id
             USER=user
 
-   
+
+def prueba(x,y,BOT_TOKEN,id,evento):
+    Forecast.buttonI
+    Forecast.buttonD
+    Forecast.buttonGV
+    Forecast.buttonGS
+    Forecast.buttonI2
+    Forecast.buttonNUEVO
+    Forecast.buttonGV2
+    Forecast.buttonGS2
+    Forecast.cambioI(0)
+    Forecast.cambioD(0)
+    Forecast.cambioGV(0)
+    Forecast.cambioGS(0)
+    Forecast.cambioI2(0)
+    Forecast.cambioD2(0)
+    Forecast.cambioGV2(0)
+    Forecast.cambioGS2(0)
+    Forecast.Forecast(x,y,BOT_TOKEN,id,evento)
+    
+
+
 def main():
     # Creamos el Updater y le pasamos el token de nuestro bot. Este se encargará de manejar las peticiones de los usuarios.
     updater = Updater(BOT_TOKEN, use_context=True)
@@ -504,7 +526,7 @@ def main():
 
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("09:10").do(subs_auto)
+    schedule.every().day.at("09:46").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
