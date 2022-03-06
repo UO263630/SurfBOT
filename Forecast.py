@@ -133,7 +133,7 @@ def Forecast(lat,lon,BOT_TOKEN,chat_id,evento):
     wd = []
 
     for row in json_data['hours']:
-        if(row['time'] >= str(start)):
+        if(row['time'] >= str(start) and x%2!=0 ):
             print(x)
             dyh=row['time']
             fecha=dyh.split("T")
@@ -188,7 +188,7 @@ def Forecast(lat,lon,BOT_TOKEN,chat_id,evento):
                 data4.append(d2[:])
                 DIRS2.append(sD)
                 DIRV2.append(wD)
-        x=x+2
+        x=x+1
         
     
     bot= telegram.Bot(BOT_TOKEN)
