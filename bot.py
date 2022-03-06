@@ -437,7 +437,7 @@ def subs_auto():
                     n.start()
                     evento.wait()
                    #print(n.getName()) 
-                    print(threading.active_count())
+                    #print(threading.active_count())
                     print(threading.enumerate())
                     print("////////////////////FIN")
                     aux=1
@@ -504,7 +504,7 @@ def main():
 
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("08:25").do(subs_auto)
+    schedule.every().day.at("08:34").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
