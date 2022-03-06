@@ -83,7 +83,7 @@ def Forecast(lat,lon,BOT_TOKEN,chat_id,evento):
     end = start.shift(days=+2)
     print(end)
 
-    """
+    
     response = requests.get(
     'https://api.stormglass.io/v2/weather/point',
     params={
@@ -118,7 +118,7 @@ def Forecast(lat,lon,BOT_TOKEN,chat_id,evento):
     12.31, 'noaa': 14.52, 'sg': 12.31}, 'time': '2022-03-07T18:00:00+00:00', 'waveDirection': {'icon': 330.93, 'meteo': 328.37, 'noaa': 308.41, 'sg': 328.37}, 'windSpeed': {'icon': 
     7.97, 'noaa': 2.63, 'sg': 7.97}}, {'airTemperature': {'dwd': 11.17, 'noaa': 6.48, 'sg': 11.17}, 'swellDirection': {'dwd': 12.13, 'icon': 319.56, 'meteo': 305.35, 'noaa': 320.19, 'sg': 305.35}, 'swellHeight': {'dwd': 1.24, 'icon': 1.56, 'meteo': 0.77, 'noaa': 0.29, 'sg': 0.77}, 'swellPeriod': {'dwd': 7.95, 'icon': 9.72, 'meteo': 12.22, 'noaa': 14.59, 'sg': 12.22}, 'time': '2022-03-07T19:00:00+00:00', 'waveDirection': {'icon': 334.15, 'meteo': 329.47, 'noaa': 316.03, 'sg': 329.47}, 'windSpeed': {'icon': 7.68, 'noaa': 2.39, 'sg': 7.68}}, {'airTemperature': {'dwd': 11.09, 'noaa': 5.94, 'sg': 11.09}, 'swellDirection': {'dwd': 20.39, 'icon': 321.62, 'meteo': 305.49, 'noaa': 321.19, 'sg': 305.49}, 'swellHeight': {'dwd': 1.3, 'icon': 1.55, 'meteo': 0.79, 'noaa': 0.3, 'sg': 0.79}, 'swellPeriod': {'dwd': 7.72, 'icon': 9.62, 'meteo': 12.14, 'noaa': 14.66, 'sg': 12.14}, 'time': '2022-03-07T20:00:00+00:00', 'waveDirection': {'icon': 337.36, 'meteo': 330.57, 'noaa': 323.66, 'sg': 330.57}, 'windSpeed': {'icon': 7.38, 'noaa': 2.16, 'sg': 7.38}}, {'airTemperature': {'dwd': 11.1, 'noaa': 5.39, 'sg': 11.1}, 'swellDirection': {'dwd': 25.54, 'icon': 323.67, 'meteo': 305.63, 'noaa': 322.18, 'sg': 305.63}, 'swellHeight': {'dwd': 1.35, 'icon': 1.55, 'meteo': 0.82, 'noaa': 0.32, 'sg': 0.82}, 'swellPeriod': {'dwd': 7.69, 'icon': 9.52, 'meteo': 12.05, 'noaa': 14.73, 'sg': 12.05}, 'time': '2022-03-07T21:00:00+00:00', 'waveDirection': {'icon': 340.58, 'meteo': 331.67, 'noaa': 331.28, 'sg': 331.67}, 'windSpeed': {'icon': 7.09, 'noaa': 1.92, 'sg': 7.09}}, {'airTemperature': {'dwd': 11.08, 'noaa': 
     5.99, 'sg': 11.08}, 'swellDirection': {'dwd': 27.78, 'icon': 328.17, 'meteo': 305.17, 'noaa': 317.46, 'sg': 305.17}, 'swellHeight': {'dwd': 1.35, 'icon': 1.57, 'meteo': 0.87, 'noaa': 0.36, 'sg': 0.87}, 'swellPeriod': {'dwd': 7.8, 'icon': 9.3, 'meteo': 11.74, 'noaa': 13.59, 'sg': 11.74}, 'time': '2022-03-07T22:00:00+00:00', 'waveDirection': {'icon': 339.72, 'meteo': 330.47, 'noaa': 328.22, 'sg': 330.47}, 'windSpeed': {'icon': 6.11, 'noaa': 1.95, 'sg': 6.11}}, {'airTemperature': {'dwd': 10.61, 'noaa': 6.6, 'sg': 10.61}, 'swellDirection': {'dwd': 28.6, 'icon': 332.68, 'meteo': 304.72, 'noaa': 312.75, 'sg': 304.72}, 'swellHeight': {'dwd': 1.33, 'icon': 1.58, 'meteo': 0.91, 'noaa': 0.41, 'sg': 0.91}, 'swellPeriod': {'dwd': 7.94, 'icon': 9.07, 'meteo': 11.44, 'noaa': 12.45, 'sg': 11.44}, 'time': '2022-03-07T23:00:00+00:00', 'waveDirection': {'icon': 338.85, 'meteo': 329.27, 'noaa': 325.16, 'sg': 329.27}, 'windSpeed': {'icon': 5.13, 'noaa': 1.99, 'sg': 5.13}}], 'meta': {'cost': 1, 'dailyQuota': 10, 'end': '2022-03-07 23:00', 'lat': 43.5694, 'lng': -5.722, 'params': ['airTemperature', 'windSpeed', 'waveDirection', 'swellPeriod', 'swellHeight', 'swellDirection'], 'requestCount': 2, 'start': '2022-03-05 23:00'}}
-    
+    """
      
 
     x=1
