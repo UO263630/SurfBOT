@@ -22,9 +22,9 @@ def grafica1(grados,aux):
 
     a=[]
     i=0
-    print("--------------------------------------------")
-    print(grados)
-    print(x)
+    #print("--------------------------------------------")
+    #print(grados)
+    #print(x)
     while(i<len(grados)):
         b=-np.tan(grados[i])*x[i]
         a.append(1-b)
@@ -70,9 +70,9 @@ def grafica2(grados,aux):
 
     a=[]
     i=0
-    print("--------------------------------------------")
-    print(grados)
-    print(x)
+    #print("--------------------------------------------")
+    #print(grados)
+    #print(x)
     while(i<len(grados)):
         b=-np.tan(grados[i])*x[i]
         a.append(1-b)

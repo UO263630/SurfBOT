@@ -346,19 +346,22 @@ def Unfollow(update, context):
 
 def BotonI(update,context):
     print("BotonI")
-    #Forecast.cambioI(update)
-    Forecast.cambioI(update)
-    print("BotonIF")
-    print(threading.get_ident())
-    return ConversationHandler.END
+    if(update!=0 and context!=0):
+        #Forecast.cambioI(update)
+        Forecast.cambioI(update)
+        print("BotonIF")
+        print(threading.get_ident())
+        return ConversationHandler.END
 
 def BotonD(update,context):
     print("BotonD")
-    #Forecast.cambioD(update)
-    Forecast.cambioD(update)
-    print("BotonDF")
-    print(threading.get_ident())
-    return ConversationHandler.END
+    if(update!=0 and context!=0):
+        #Forecast.cambioD(update)
+        Forecast.cambioD(update)
+        print("BotonDF")
+        print(threading.get_ident())
+        print(threading.enumerate())
+        return ConversationHandler.END
 
 def BotonGS(update,context):
     #Forecast.cambioGS(update)
@@ -401,6 +404,7 @@ def subs_auto():
     #print(result)
     global ID,USER
     evento = threading.Event()
+    
     for x in result:
         print(x["ID"])
         id=x["ID"]
@@ -425,7 +429,7 @@ def subs_auto():
                     x = str(x).replace(",",".")
                     y = str(y).replace(",",".")
                     if(aux==1):
-                        time.sleep(10)
+                        time.sleep(60)
                     bot.sendMessage(chat_id=id,text=t)
                     print("////////////////////")
                     
@@ -447,6 +451,7 @@ def subs_auto():
 
 
 def prueba(x,y,BOT_TOKEN,id,evento):
+    Forecast.Forecast(x,y,BOT_TOKEN,id,evento)
     Forecast.buttonI
     Forecast.buttonD
     Forecast.buttonGV
@@ -463,7 +468,12 @@ def prueba(x,y,BOT_TOKEN,id,evento):
     Forecast.cambioD2(0)
     Forecast.cambioGV2(0)
     Forecast.cambioGS2(0)
-    Forecast.Forecast(x,y,BOT_TOKEN,id,evento)
+    BotonI(0,0)
+    BotonD(0,0)
+    aux=0
+    evento.set()
+    while True:
+        aux=0
     
 
 
@@ -526,7 +536,7 @@ def main():
 
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("10:20").do(subs_auto)
+    schedule.every().day.at("15:45").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
