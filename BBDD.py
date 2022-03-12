@@ -16,6 +16,8 @@ db = pymysql.connect(host= database_host,
                             charset='utf8mb4',
                             cursorclass=pymysql.cursors.DictCursor)
 
+
+
 def insertar(chat_id, user_first_name ,nombre, provincia, municipio, x,y):
     cursor = db.cursor()
 
@@ -41,19 +43,21 @@ def buscar(playa):
 def buscarNomMun(chat_id, user_first_name):
     cursor = db.cursor()
 
+    #count = cursor.execute("SELECT Nombre,Municipio,Provincia,CX,CY FROM suscrito WHERE ID = (%s) AND Usuario = (%s) ", (chat_id, user_first_name))
     count = cursor.execute("SELECT Nombre,Municipio,Provincia,CX,CY FROM suscrito WHERE ID = (%s) AND Usuario = (%s) ", (chat_id, user_first_name))
     result=cursor.fetchall()
 
     return count,result
 
+
+
 def subs_auto():
     cursor = db.cursor()
 
-    count = cursor.execute("SELECT ID,Usuario FROM suscrito ")
+    count = cursor.execute("SELECT DISTINCT ID,Usuario FROM suscrito ")
     result=cursor.fetchall()
 
     return count,result
-
 
 
 
@@ -66,6 +70,7 @@ def buscarCoo(x,y):
     return count,result
 
 
+
 def eliminar(chat_id, user_first_name, n, m, p, cx, cy):
     cursor = db.cursor()
     
@@ -73,6 +78,8 @@ def eliminar(chat_id, user_first_name, n, m, p, cx, cy):
     cursor.fetchall()
 
     db.commit()
+
+
 
 def buscarS(chat_id, user_first_name):
     cursor = db.cursor()
@@ -83,6 +90,17 @@ def buscarS(chat_id, user_first_name):
     return count,result
 
 
+
+def playas_subs():
+    cursor=db.cursor()
+    
+    count = cursor.execute("SELECT DISTINCT Nombre,Provincia,CX,CY FROM suscrito")
+    result = cursor.fetchall()
+
+    return count,result
+
+
+
 def vivo():
     cursor = db.cursor()
 
@@ -91,7 +109,5 @@ def vivo():
     print("vivo")
 
 
-
-#db.close()
 
 

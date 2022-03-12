@@ -397,14 +397,73 @@ def BotonGV2(update,context):
     return ConversationHandler.END
 
 
+import prueba
+import os
+import json
 def subs_auto():
     bot= telepot.Bot(BOT_TOKEN)
-    print("entra")
-    count,result=BBDD.subs_auto()
+    
+
+    count,result=BBDD.playas_subs()
+
+    for row in result:
+        print(row)
+        nombre=row['Nombre']
+        provincia=row['Provincia']
+        x = str(row['CX']).replace(",",".")
+        y = str(row['CY']).replace(",",".")
+
+        #LLamo al forecast
+        Forecast.busqueda(nombre,provincia,x,y)
+
+
+
+    count2,result2=BBDD.subs_auto()
     #print(result)
     global ID,USER
-    evento = threading.Event()
     
+
+    for x in result2:
+        print(x["ID"])
+        id=x["ID"]
+        print(x["Usuario"])
+        user=x["Usuario"]
+
+        bot.sendMessage(chat_id=id,text="----Mensaje automatico----")
+        bot.sendMessage(chat_id=id,text="Playas suscritas de "+ user+"\n")
+
+        count,result=BBDD.buscarNomMun(id,user)
+        print(result)
+        aux=0
+        for row in result:
+            #print(row)
+            t="Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n"
+                        
+            x=row['CX']
+            y=row['CY']
+                    
+            x = str(x).replace(",",".")
+            y = str(y).replace(",",".")
+            if(aux==1):
+                time.sleep(20)
+            bot.sendMessage(chat_id=id,text=t)
+
+            s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
+            
+            if(os.path.exists(s)):
+                file = open(s,"r")
+                json1=json.load(file)
+                Forecast.Forecast(BOT_TOKEN,id,json1)
+                #print(file.read())
+
+
+            print("////////////////////")
+                        
+            #Forecast.Forecast(x,y,BOT_TOKEN,id)
+
+            aux=1
+
+    """
     for x in result:
         print(x["ID"])
         id=x["ID"]
@@ -433,48 +492,14 @@ def subs_auto():
                     bot.sendMessage(chat_id=id,text=t)
                     print("////////////////////")
                     
-                    #print(threading.get_ident())
-                    print(threading.active_count())
-                    #n=threading.Thread(target=Forecast.Forecast , args=(x,y,BOT_TOKEN,id,evento) )
-                    n=threading.Thread(target=prueba , args=(x,y,BOT_TOKEN,id,evento) )
-                    
-                    #Forecast.Forecast(x,y,BOT_TOKEN,id)
-                    n.start()
-                    evento.wait()
-                   #print(n.getName()) 
-                    #print(threading.active_count())
-                    print(threading.enumerate())
-                    print("////////////////////FIN")
+                    Forecast.Forecast(x,y,BOT_TOKEN,id)
+
                     aux=1
             ID=id
             USER=user
+    """
 
 
-def prueba(x,y,BOT_TOKEN,id,evento):
-    Forecast.Forecast(x,y,BOT_TOKEN,id,evento)
-    Forecast.buttonI
-    Forecast.buttonD
-    Forecast.buttonGV
-    Forecast.buttonGS
-    Forecast.buttonI2
-    Forecast.buttonNUEVO
-    Forecast.buttonGV2
-    Forecast.buttonGS2
-    Forecast.cambioI(0)
-    Forecast.cambioD(0)
-    Forecast.cambioGV(0)
-    Forecast.cambioGS(0)
-    Forecast.cambioI2(0)
-    Forecast.cambioD2(0)
-    Forecast.cambioGV2(0)
-    Forecast.cambioGS2(0)
-    BotonI(0,0)
-    BotonD(0,0)
-    aux=0
-    evento.set()
-    while True:
-        aux=0
-    
 
 
 def main():
@@ -536,7 +561,7 @@ def main():
 
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("15:45").do(subs_auto)
+    schedule.every().day.at("17:52").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
