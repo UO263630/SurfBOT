@@ -2,7 +2,7 @@
 from datetime import datetime
 #from tkinter import Button
 
-from telegram import CallbackQuery
+from telegram import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler,ConversationHandler
 #from telegram.ext import InlineKeyboardMarkup, InlineKeyboardButton
 import time
@@ -30,6 +30,7 @@ GLOBALE=0
 RESULTE=""
 ID=""
 USER=""
+
 
 
 # Configuramos el comando start para enviar un mensaje de bienvenida  
@@ -344,65 +345,14 @@ def Unfollow(update, context):
 
 
 
-def BotonI(update,context):
-    print("BotonI")
-    if(update!=0 and context!=0):
-        #Forecast.cambioI(update)
-        Forecast.cambioI(update)
-        print("BotonIF")
-        print(threading.get_ident())
-        return ConversationHandler.END
 
-def BotonD(update,context):
-    print("BotonD")
-    if(update!=0 and context!=0):
-        #Forecast.cambioD(update)
-        Forecast.cambioD(update)
-        print("BotonDF")
-        print(threading.get_ident())
-        print(threading.enumerate())
-        return ConversationHandler.END
-
-def BotonGS(update,context):
-    #Forecast.cambioGS(update)
-    Forecast.cambioGS(update)
-    return ConversationHandler.END
-
-def BotonGV(update,context):
-    #Forecast.cambioGV(update)
-    Forecast.cambioGV(update)
-    return ConversationHandler.END
-
-def BotonI2(update,context):
-    print("BotonI2")
-    #Forecast.cambioI2(update)
-    Forecast.cambioI2(update)
-    print("BotonI2F")
-    return ConversationHandler.END
-
-def BotonDN(update,context):
-    print("BotonD2")
-    #Forecast.cambioD2(update)
-    Forecast.cambioD2(update)
-    return ConversationHandler.END
-
-def BotonGS2(update,context):
-    #Forecast.cambioGS2(update)
-    Forecast.cambioGS2(update)
-    return ConversationHandler.END
-
-def BotonGV2(update,context):
-    #Forecast.cambioGV2(update)
-    Forecast.cambioGV2(update)
-    return ConversationHandler.END
-
-
-import prueba
 import os
 import json
+DP=""
 def subs_auto():
     bot= telepot.Bot(BOT_TOKEN)
-    
+    global DP
+
 
     count,result=BBDD.playas_subs()
 
@@ -445,7 +395,7 @@ def subs_auto():
             x = str(x).replace(",",".")
             y = str(y).replace(",",".")
             if(aux==1):
-                time.sleep(20)
+                time.sleep(30)
             bot.sendMessage(chat_id=id,text=t)
 
             s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
@@ -453,68 +403,53 @@ def subs_auto():
             if(os.path.exists(s)):
                 file = open(s,"r")
                 json1=json.load(file)
-                Forecast.Forecast(BOT_TOKEN,id,json1)
+                s="hilo"+str(aux)
+                #hilo=threading.Thread(target=Forecast.Forecast1,args=(BOT_TOKEN,id,json1))
+                #hilo =Forecast.MiHilo(args=(BOT_TOKEN,id,json1,DP) , daemon=False)
+                #hilo.start()
+                Forecast.Forecast1(BOT_TOKEN,id,json1)
+                #print(threading.enumerate())
+                
+                #Forecast.Forecast(BOT_TOKEN,id,json1)
                 #print(file.read())
 
 
             print("////////////////////")
                         
-            #Forecast.Forecast(x,y,BOT_TOKEN,id)
 
             aux=1
 
-    """
-    for x in result:
-        print(x["ID"])
-        id=x["ID"]
-        print(x["Usuario"])
-        user=x["Usuario"]
 
-        if(id != ID and user != USER):
-            
-            count,result=BBDD.buscarNomMun(id,user)
-            print(result)
-            aux=0
-            if(len(result) !=0):
-                bot.sendMessage(chat_id=id,text="----Mensaje automatico----")
-                bot.sendMessage(chat_id=id,text="Playas suscritas de "+ user+"\n")
-                for row in result:
-                    #print(row)
-                    t="Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n"
-                    
-                    x=row['CX']
-                    y=row['CY']
-                    
-                    x = str(x).replace(",",".")
-                    y = str(y).replace(",",".")
-                    if(aux==1):
-                        time.sleep(60)
-                    bot.sendMessage(chat_id=id,text=t)
-                    print("////////////////////")
-                    
-                    Forecast.Forecast(x,y,BOT_TOKEN,id)
 
-                    aux=1
-            ID=id
-            USER=user
-    """
-
+def BotonI(update,context,**args):
+    print("----------------------------")
+    
+    query=update.callback_query
+    print(query)
+    id=query['message']['message_id']
+    chat=query['message']['chat']['id']
+    print(chat)
+    print(id)
+    Forecast.cambioI(id,chat,1)
+    print("BotonIF")
 
 
 
 def main():
     # Creamos el Updater y le pasamos el token de nuestro bot. Este se encargará de manejar las peticiones de los usuarios.
-    updater = Updater(BOT_TOKEN, use_context=True)
+    updater = Updater(BOT_TOKEN)
 
     # Obtenemos el Dispatcher para crear los comandos
     dp = updater.dispatcher
-
+    global DP
+    DP=updater
     # Creamos el comando /start y definimos que se ejecute este mismo método
     dp.add_handler(CommandHandler("start", start)) 
     # Creamos el comando /help y definimos que se ejecute el método help
     dp.add_handler(CommandHandler("help", help))
 
 
+    """
     dp.add_handler(ConversationHandler(
         entry_points=[
             CommandHandler("playa",echo),
@@ -532,8 +467,22 @@ def main():
         allow_reentry=True
     ))
     
+    """
+    dp.add_handler(ConversationHandler(
+        entry_points=[
+            CommandHandler("playa",echo),
+            CallbackQueryHandler(pattern="BI",callback =BotonI),
+
+        ],
+        states={},
+        fallbacks=[],
+        allow_reentry=True
+    ))
     
 
+    dp.add_handler(CallbackQueryHandler(pattern="BI",callback=BotonI,pass_update_queue =True))
+
+    
     dp.add_handler(CommandHandler("Subs", subs))
     dp.add_handler(CommandHandler("Eliminar", Unfollow))
 
@@ -561,7 +510,7 @@ def main():
 
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("17:52").do(subs_auto)
+    schedule.every().day.at("18:59").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
@@ -575,5 +524,6 @@ if __name__ == '__main__':
     t.start()
 
     main()
+
 
 
