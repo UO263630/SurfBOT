@@ -421,7 +421,7 @@ def subs_auto():
 
 
 
-def BotonI(update,context,**args):
+def BotonI(update,context):
     print("----------------------------")
     
     query=update.callback_query
@@ -430,9 +430,32 @@ def BotonI(update,context,**args):
     chat=query['message']['chat']['id']
     print(chat)
     print(id)
-    Forecast.cambioI(id,chat,1)
+    Forecast.cambioI(id,chat)
     print("BotonIF")
-
+"""
+def BotonD(update,context,**args):
+    print("----------------------------")
+    
+    query=update.callback_query
+    print(query)
+    id=query['message']['message_id']
+    chat=query['message']['chat']['id']
+    print(chat)
+    print(id)
+    Forecast.cambioD(id,chat)
+    print("BotonDF")
+"""
+def BotonGV(update,context):
+    print("----------------------------")
+    
+    query=update.callback_query
+    print(query)
+    id=query['message']['message_id']
+    chat=query['message']['chat']['id']
+    print(chat)
+    print(id)
+    Forecast.cambioGI(id,chat)
+    print("BotonIF")
 
 
 def main():
@@ -449,39 +472,10 @@ def main():
     dp.add_handler(CommandHandler("help", help))
 
 
-    """
-    dp.add_handler(ConversationHandler(
-        entry_points=[
-            CommandHandler("playa",echo),
-            CallbackQueryHandler(pattern="BGS",callback =BotonGS),
-            CallbackQueryHandler(pattern="BGV",callback =BotonGV),
-            CallbackQueryHandler(pattern="BI",callback =BotonI),
-            CallbackQueryHandler(pattern="BD",callback =BotonD),
-            CallbackQueryHandler(pattern="B22I",callback =BotonI2),
-            CallbackQueryHandler(pattern='B33I',callback =BotonDN),
-            CallbackQueryHandler(pattern="B22GV",callback =BotonGV2),
-            CallbackQueryHandler(pattern="B22GS",callback =BotonGS2)
-        ],
-        states={},
-        fallbacks=[],
-        allow_reentry=True
-    ))
-    
-    """
-    dp.add_handler(ConversationHandler(
-        entry_points=[
-            CommandHandler("playa",echo),
-            CallbackQueryHandler(pattern="BI",callback =BotonI),
-
-        ],
-        states={},
-        fallbacks=[],
-        allow_reentry=True
-    ))
-    
 
     dp.add_handler(CallbackQueryHandler(pattern="BI",callback=BotonI,pass_update_queue =True))
-
+    #dp.add_handler(CallbackQueryHandler(pattern="BD",callback=BotonD,pass_update_queue =True))
+    dp.add_handler(CallbackQueryHandler(pattern="BGV",callback=BotonGV,pass_update_queue =True))
     
     dp.add_handler(CommandHandler("Subs", subs))
     dp.add_handler(CommandHandler("Eliminar", Unfollow))
@@ -510,7 +504,7 @@ def main():
 
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("18:59").do(subs_auto)
+    schedule.every().day.at("19:20").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
