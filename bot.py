@@ -1,10 +1,6 @@
 #Libreria para conectarse con el bot de telegram
-from datetime import datetime
-#from tkinter import Button
-
-from telegram import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler,ConversationHandler
-#from telegram.ext import InlineKeyboardMarkup, InlineKeyboardButton
+
 import time
 import schedule
 #Para los hilos
@@ -14,8 +10,13 @@ import threading
 import telepot
 
 
-#Clase Forecast para hacer las predicciones
+#Clase Forecast y BBDD
 import Forecast
+import BBDD
+
+
+import os
+import json
 
 #Token del bot de telegram
 BOT_TOKEN = '5257201108:AAFkh9t-lYtHy2zThEvMVMst-eqwOC_jgM0'
@@ -48,7 +49,6 @@ def help(update, context):
 
 
 
-import BBDD
 
 #Busqueda de la playa en la Base de Datos
 def buscar(update,playa):
@@ -346,8 +346,6 @@ def Unfollow(update, context):
 
 
 
-import os
-import json
 DP=""
 def subs_auto():
     bot= telepot.Bot(BOT_TOKEN)
@@ -395,7 +393,7 @@ def subs_auto():
             x = str(x).replace(",",".")
             y = str(y).replace(",",".")
             if(aux==1):
-                time.sleep(30)
+                time.sleep(10)
             bot.sendMessage(chat_id=id,text=t)
 
             s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
@@ -404,14 +402,9 @@ def subs_auto():
                 file = open(s,"r")
                 json1=json.load(file)
                 s="hilo"+str(aux)
-                #hilo=threading.Thread(target=Forecast.Forecast1,args=(BOT_TOKEN,id,json1))
-                #hilo =Forecast.MiHilo(args=(BOT_TOKEN,id,json1,DP) , daemon=False)
-                #hilo.start()
+
                 Forecast.Forecast1(BOT_TOKEN,id,json1)
-                #print(threading.enumerate())
-                
-                #Forecast.Forecast(BOT_TOKEN,id,json1)
-                #print(file.read())
+
 
 
             print("////////////////////")
@@ -432,19 +425,7 @@ def BotonI(update,context):
     print(id)
     Forecast.cambioI(id,chat)
     print("BotonIF")
-"""
-def BotonD(update,context,**args):
-    print("----------------------------")
-    
-    query=update.callback_query
-    print(query)
-    id=query['message']['message_id']
-    chat=query['message']['chat']['id']
-    print(chat)
-    print(id)
-    Forecast.cambioD(id,chat)
-    print("BotonDF")
-"""
+
 def BotonGV(update,context):
     print("----------------------------")
     
@@ -504,7 +485,7 @@ def main():
 
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("19:20").do(subs_auto)
+    schedule.every().day.at("17:50").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
