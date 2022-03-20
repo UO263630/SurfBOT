@@ -353,7 +353,7 @@ def subs_auto():
 
 
     count,result=BBDD.playas_subs()
-
+    aux=0
     for row in result:
         print(row)
         nombre=row['Nombre']
@@ -362,7 +362,8 @@ def subs_auto():
         y = str(row['CY']).replace(",",".")
 
         #LLamo al forecast
-        Forecast.busqueda(nombre,provincia,x,y)
+        Forecast.busqueda(nombre,provincia,x,y,aux)
+        aux=1
 
 
 
@@ -426,6 +427,18 @@ def BotonI(update,context):
     Forecast.cambioI(id,chat)
     print("BotonIF")
 
+def BotonD(update,context):
+    print("----------------------------")
+    
+    query=update.callback_query
+    print(query)
+    id=query['message']['message_id']
+    chat=query['message']['chat']['id']
+    print(chat)
+    print(id)
+    Forecast.cambioD(id,chat)
+    print("BotonIF")
+
 def BotonGV(update,context):
     print("----------------------------")
     
@@ -437,6 +450,19 @@ def BotonGV(update,context):
     print(id)
     Forecast.cambioGI(id,chat)
     print("BotonIF")
+
+def BotonGS(update,context):
+    print("----------------------------")
+    
+    query=update.callback_query
+    print(query)
+    id=query['message']['message_id']
+    chat=query['message']['chat']['id']
+    print(chat)
+    print(id)
+    Forecast.cambioGV(id,chat)
+    print("BotonIF")
+
 
 
 def main():
@@ -455,8 +481,9 @@ def main():
 
 
     dp.add_handler(CallbackQueryHandler(pattern="BI",callback=BotonI,pass_update_queue =True))
-    #dp.add_handler(CallbackQueryHandler(pattern="BD",callback=BotonD,pass_update_queue =True))
-    dp.add_handler(CallbackQueryHandler(pattern="BGV",callback=BotonGV,pass_update_queue =True))
+    dp.add_handler(CallbackQueryHandler(pattern="BD",callback=BotonD,pass_update_queue =True))
+    dp.add_handler(CallbackQueryHandler(pattern="BGI",callback=BotonGV,pass_update_queue =True))
+    dp.add_handler(CallbackQueryHandler(pattern="BGV",callback=BotonGS,pass_update_queue =True))
     
     dp.add_handler(CommandHandler("Subs", subs))
     dp.add_handler(CommandHandler("Eliminar", Unfollow))
@@ -485,7 +512,7 @@ def main():
 
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("17:50").do(subs_auto)
+    schedule.every().day.at("11:04").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
