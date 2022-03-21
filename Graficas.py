@@ -1,9 +1,19 @@
+"""
+-Clase: Graficas.py
+-Descripción: Clase en la cual se crean las funciones que dibujan las graficas
+    que el bot manda a los usuarios periodicamente. Ademas de estas funciones
+    tambien existe una función auxiliar para el coloreado de las gráficas
+"""
+
+#Libreria para funciones matematicas de alto nivel
 import numpy as np
 
+#Libreria para el diseño de gráficas
 import matplotlib.pyplot as plt
 
 
-
+#Función que va recibiendo la temperatura para cada valor de la gráfica
+#y en función de este le otorga un color determinado
 def colors(t):
     if(t<=0):
         return 'royalblue'
@@ -30,7 +40,11 @@ def colors(t):
     
 
 
-
+#Función que crea una gráfica con los datos de dirección de viento y lo guarda en una imagen.
+#Ah esta función se le pasan tres argumentos:
+#   -grados: vector con la direccion del viento para las horas establecidas
+#   -aux: variable auxiliar que indica si la grafica es para el dia actual o para 
+#   -tem: vector con la temperatura del aire para las horas establecidas
 def grafica1(grados,aux,tem):
     print(grados)
     print(tem)
@@ -89,11 +103,14 @@ def grafica1(grados,aux,tem):
     
     else:
         plt.savefig("WindDirection2.png",bbox_inches="tight")
-    #plt.show()
 
 
 
-
+#Función que crea una gráfica con los datos de dirección de oleajey lo guarda en una imagen.
+#Ah esta función se le pasan tres argumentos:
+#   -grados: vector con la direccion de oleaje para las horas establecidas
+#   -aux: variable auxiliar que indica si la grafica es para el dia actual o para 
+#   -tem: vector con la temperatura del agua para las horas establecidas
 def grafica2(grados,aux,tem):
     print(tem)
     if(len(grados)==13):
@@ -142,8 +159,5 @@ def grafica2(grados,aux,tem):
         plt.savefig("SwellDirection.png",bbox_inches="tight")
     else:
          plt.savefig("SwellDirection2.png",bbox_inches="tight")
-    #plt.show()
 
 
-#grafica1()
-#grafica2()

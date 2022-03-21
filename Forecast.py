@@ -1,24 +1,39 @@
+"""
+-Clase: Forecast.py
+-Descripción:
+"""
+#Librerias para conectarse con Telegram
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto
 import telegram
 
+#Libreria para obtener fechas y horas y manipularlas
 import arrow
 
+#Libreraia para crear tablas de datos
 from tabulate import tabulate
 
+#lLibreria para hacer peticiones HTTP
 import requests
 
-
+#Conexión con la clase Graficas
 import Graficas
+
+#Libreria para la apertura de archivos
 import os
+
+#Librerai para tratar archivos json
 import json
     
 
-
+#Variables auxiliares globales
 AP=0
 AUX=0
 DIC=[]
 TOKEN=""
 
+#Función que obtiene las predicciones meteorologicas para cada playa
+#y las guarda en archivos json diferentes, si estos archivos ya existen
+#se sobreescriben
 def busqueda(nombre,provincia,x,y,aux):
         print()
         global AP,AUX
@@ -50,7 +65,7 @@ def busqueda(nombre,provincia,x,y,aux):
         end = start.shift(days=+2)
         print(end)
 
-        """
+        
         api =open("api.txt","r")
         n=api.readlines()
         response = requests.get(
@@ -102,13 +117,18 @@ def busqueda(nombre,provincia,x,y,aux):
         {'dwd': 8.96, 'icon': 10.09, 'meteo': 9.3, 'noaa': 9.64, 'sg': 9.3}, 'time': '2022-03-21T16:00:00+00:00', 'waterTemperature': {'meto': 12.24, 'noaa': 16.14, 'sg': 12.24}, 'waveDirection': {'icon': 306.62, 'meteo': 309.56, 'noaa': 311.86, 'sg': 309.56}, 'windSpeed': {'icon': 3.58, 'noaa': 2.81, 'sg': 3.58}}, {'airTemperature': {'dwd': 13.57, 'noaa': 14.57, 'sg': 13.57}, 'swellDirection': {'dwd': 8.34, 'icon': 307.36, 'meteo': 294.08, 'noaa': 28.81, 'sg': 294.08}, 'swellHeight': {'dwd': 1.15, 'icon': 1.68, 'meteo': 1.49, 'noaa': 0.47, 'sg': 1.49}, 'swellPeriod': {'dwd': 8.83, 'icon': 9.99, 'meteo': 9.22, 'noaa': 8.03, 'sg': 9.22}, 'time': '2022-03-21T17:00:00+00:00', 'waterTemperature': {'meto': 12.24, 'noaa': 14.4, 'sg': 12.24}, 'waveDirection': {'icon': 307.42, 'meteo': 312.12, 'noaa': 312.43, 'sg': 312.12}, 'windSpeed': {'icon': 3.57, 'noaa': 2.28, 'sg': 3.57}}, {'airTemperature': {'dwd': 13.96, 'noaa': 13.49, 'sg': 13.96}, 'swellDirection': {'dwd': 11.02, 'icon': 308.15, 'meteo': 294.27, 'noaa': 67.58, 'sg': 294.27}, 'swellHeight': {'dwd': 1.15, 'icon': 1.66, 'meteo': 1.46, 'noaa': 0.22, 'sg': 1.46}, 'swellPeriod': {'dwd': 8.7, 'icon': 9.88, 'meteo': 9.14, 'noaa': 6.41, 'sg': 9.14}, 'time': '2022-03-21T18:00:00+00:00', 'waterTemperature': {'meto': 12.23, 'noaa': 12.67, 'sg': 12.23}, 'waveDirection': {'icon': 308.23, 'meteo': 314.67, 'noaa': 313.01, 'sg': 314.67}, 'windSpeed': {'icon': 3.57, 
         'noaa': 1.74, 'sg': 3.57}}, {'airTemperature': {'dwd': 14.57, 'noaa': 12.55, 'sg': 14.57}, 'swellDirection': {'dwd': 13.06, 'icon': 308.85, 'meteo': 294.4, 'noaa': 42.0, 'sg': 294.4}, 'swellHeight': {'dwd': 1.15, 'icon': 1.65, 'meteo': 1.43, 'noaa': 0.21, 'sg': 1.43}, 'swellPeriod': {'dwd': 8.61, 'icon': 9.82, 'meteo': 9.06, 'noaa': 8.0, 'sg': 9.06}, 'time': '2022-03-21T19:00:00+00:00', 'waterTemperature': {'meto': 12.23, 'noaa': 11.57, 'sg': 12.23}, 'waveDirection': {'icon': 308.9, 'meteo': 317.41, 'noaa': 313.67, 'sg': 317.41}, 'windSpeed': {'icon': 3.27, 'noaa': 2.07, 'sg': 3.27}}, {'airTemperature': {'dwd': 14.69, 'noaa': 11.62, 'sg': 14.69}, 'swellDirection': {'dwd': 14.67, 'icon': 309.54, 'meteo': 294.54, 'noaa': 16.42, 'sg': 294.54}, 'swellHeight': {'dwd': 1.15, 'icon': 1.64, 'meteo': 1.39, 'noaa': 0.19, 'sg': 1.39}, 'swellPeriod': {'dwd': 8.56, 'icon': 9.77, 'meteo': 8.98, 'noaa': 9.6, 'sg': 8.98}, 'time': '2022-03-21T20:00:00+00:00', 'waterTemperature': {'meto': 12.22, 'noaa': 10.48, 'sg': 12.22}, 'waveDirection': {'icon': 309.58, 'meteo': 320.14, 'noaa': 314.34, 'sg': 320.14}, 'windSpeed': {'icon': 2.96, 'noaa': 2.39, 'sg': 2.96}}, {'airTemperature': {'dwd': 14.6, 'noaa': 10.68, 'sg': 14.6}, 'swellDirection': 
         {'dwd': 16.24, 'icon': 310.24, 'meteo': 294.67, 'noaa': 350.84, 'sg': 294.67}, 'swellHeight': {'dwd': 1.15, 'icon': 1.63, 'meteo': 1.36, 'noaa': 0.18, 'sg': 1.36}, 'swellPeriod': {'dwd': 8.52, 'icon': 9.71, 'meteo': 8.9, 'noaa': 11.19, 'sg': 8.9}, 'time': '2022-03-21T21:00:00+00:00', 'waterTemperature': {'meto': 12.21, 'noaa': 9.39, 'sg': 12.21}, 'waveDirection': {'icon': 310.25, 'meteo': 322.88, 'noaa': 315.0, 'sg': 322.88}, 'windSpeed': {'icon': 2.66, 'noaa': 2.72, 'sg': 2.66}}, {'airTemperature': {'dwd': 14.72, 'noaa': 10.37, 'sg': 14.72}, 'swellDirection': {'dwd': 17.85, 'icon': 310.61, 'meteo': 298.61, 'noaa': 337.27, 'sg': 298.61}, 'swellHeight': {'dwd': 1.15, 'icon': 1.64, 'meteo': 1.25, 'noaa': 0.16, 'sg': 1.25}, 'swellPeriod': {'dwd': 8.5, 'icon': 9.77, 'meteo': 8.85, 'noaa': 14.11, 'sg': 8.85}, 'time': '2022-03-21T22:00:00+00:00', 'waterTemperature': {'meto': 12.2, 'noaa': 9.07, 'sg': 12.2}, 'waveDirection': {'icon': 310.61, 'meteo': 336.57, 'noaa': 314.1, 'sg': 336.57}, 'windSpeed': {'icon': 2.83, 'noaa': 2.6, 'sg': 2.83}}, {'airTemperature': {'dwd': 14.78, 'noaa': 10.05, 'sg': 14.78}, 'swellDirection': {'dwd': 19.52, 'icon': 310.97, 'meteo': 302.56, 'noaa': 323.71, 'sg': 302.56}, 'swellHeight': {'dwd': 1.17, 'icon': 1.66, 'meteo': 1.13, 'noaa': 0.13, 'sg': 1.13}, 'swellPeriod': {'dwd': 8.51, 'icon': 9.82, 'meteo': 8.81, 'noaa': 17.03, 'sg': 8.81}, 'time': '2022-03-21T23:00:00+00:00', 'waterTemperature': {'meto': 12.2, 'noaa': 8.74, 'sg': 12.2}, 'waveDirection': {'icon': 310.98, 'meteo': 350.27, 'noaa': 313.21, 'sg': 350.27}, 'windSpeed': {'icon': 2.99, 'noaa': 2.47, 'sg': 2.99}}], 'meta': {'cost': 1, 'dailyQuota': 10, 'end': '2022-03-21 23:00', 'lat': 43.5423, 'lng': -5.6592, 'params': ['airTemperature', 'windSpeed', 'waveDirection', 'swellPeriod', 'swellHeight', 'swellDirection', 'waterTemperature'], 'requestCount': 2, 'start': '2022-03-19 23:00'}}
-        
+        """
 
         #json.dump(json.loads(json_data) , file)
         json.dump(json_data , file)
         #file.write(json_data)
         file.close()
 
+
+#Función que se llama cada vez que se pulsa un boton. Su funcionamiento
+#es el de cambiar los datos que se van a mostrar en función del boton
+#que se ha pulsado y cambiar el boton que se tiene que mostrar. Esta
+#función retorna el resultado de llamar a la función tablas
 def datos(id,chat):
     tipo=9
     json=[]
@@ -147,11 +167,11 @@ def datos(id,chat):
                 #print(tabla)
                 print(id)
                 return tabla
-            
-    
-    
 
 
+#Función que obtiene los datos del json los ordena y devuelve la tabla
+#o imagen necesaria en función del valor del parametro que se pasa como
+#primer argumento
 def tablas(id,json_data):
     
     # Primera hora del dia
@@ -345,6 +365,10 @@ def tablas(id,json_data):
     print()
 
 
+#Función que obtiene los datos del json y los ordena y devuelve las tablas
+#e imagenes necesarias para que el bot muestre al usuario. A diferencia de
+#la clase anterior esta solo se llama la primera vez que se muestran la
+#información de cada playa
 def Forecast1(BOT_TOKEN,chat_id,json_data):
     print("<<<<<<<<<<<<<<<<<<<<<<<")
 
@@ -598,11 +622,8 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
 
     DIC.append(d)
     
-    #print(DIC)
-    #while(True):
-    #   True
 
-
+#Botones utilizados en los diferentes mensajes
 buttonI = InlineKeyboardButton(
         text= "Mas Datos",
         callback_data='BD'
@@ -621,14 +642,13 @@ buttonGS = InlineKeyboardButton(
 )
 
 
+#Funciones realizan el cambio de información que se muestra en el mensaje
+#en el que se pulsa el boton. La información que se muestra varia dependiendo
+#del boton pulsado y del chat en el que esté.
 def cambioI(id,chat):
     tabla=datos(id,chat)
-    #global MSN,AUX
-    #MSN1=id
-    #chat=chat
     #print(chat)
-    print("<<<<<<<<<<<<<<<<<<<<<<<")
-    #print(threading.get_ident())
+    print("<<<<<<<<<<<<CAMBIOI<<<<<<<<<<<")
     bot2=telegram.Bot(TOKEN)
     bot2.editMessageText(text=tabla,
                     chat_id=chat,
@@ -641,12 +661,8 @@ def cambioI(id,chat):
 
 def cambioD(id,chat):
     tabla=datos(id,chat)
-    #global MSN,AUX
-    #MSN1=id
-    #chat=chat
     #print(chat)
-    print("<<<<<<<<<<<<<<<<<<<<<<<")
-    #print(threading.get_ident())
+    print("<<<<<<<<<<CAMBIOD<<<<<<<<<<<<<")
     bot2=telegram.Bot(TOKEN)
     bot2.editMessageText(text=tabla,
                     chat_id=chat,
@@ -659,12 +675,8 @@ def cambioD(id,chat):
 
 def cambioGI(id,chat):
     tabla=datos(id,chat)
-    #global MSN,AUX
-    #MSN1=id
-    #chat=chat
     #print(chat)
-    print("<<<<<<<<<<<<<<<<<<<<<<<")
-    #print(threading.get_ident())
+    print("<<<<<<<<<CAMBIOGI<<<<<<<<<<<<<<")
     bot2=telegram.Bot(TOKEN)
     bot2.editMessageMedia(
                             media=InputMediaPhoto(media = open(tabla,'rb')),
@@ -677,12 +689,8 @@ def cambioGI(id,chat):
 
 def cambioGV(id,chat):
     tabla=datos(id,chat)
-    #global MSN,AUX
-    #MSN1=id
-    #chat=chat
     #print(chat)
-    print("<<<<<<<<<<<<<<<<<<<<<<<")
-    #print(threading.get_ident())
+    print("<<<<<<<<<<CAMBIOGV<<<<<<<<<<<<<")
     bot2=telegram.Bot(TOKEN)
     bot2.editMessageMedia(
                             media=InputMediaPhoto(media = open(tabla,'rb')),

@@ -1,5 +1,5 @@
 #Libreria para conectarse con el bot de telegram
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler,ConversationHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler
 
 import time
 import schedule
@@ -34,12 +34,12 @@ USER=""
 
 
 
-# Configuramos el comando start para enviar un mensaje de bienvenida  
+#Comando start para enviar un mensaje de bienvenida  
 def start(update, context):  
     update.message.reply_text('Bienvenido, escribe /help')
 
 
-# Configuramos el comando help para enviar un mensaje con instrucciones
+#Comando help para enviar un mensaje con instrucciones
 def help(update, context):
     update.message.reply_text('Los comandos son:\n')
     update.message.reply_text('/playa <nombre de la playa> : para suscribirse a una playa\n')
@@ -47,6 +47,9 @@ def help(update, context):
     update.message.reply_text('/Eliminar : Te muestra las playas que estas suscrito para eliminarla\n')
 
 
+#Comando echo si se introduce un mal comando 
+def echo(update, context):  
+    update.message.reply_text('Comando mal introducido')
 
 
 
@@ -121,8 +124,8 @@ def buscar2(update,playa):
 
 
 
-
-def echo(update, context):
+#Comando playa para inscribirse a la playa que solicite el usuario
+def suscripcion(update, context):
     global GLOBAL
     print("GLOBAL2 "+ str(GLOBAL))
     g = GLOBAL
@@ -147,8 +150,6 @@ def echo(update, context):
                 GLOBAL = 0
                 y,x = buscar2(update,RESULT[int(t[1]) ])
                 if(y != x ):
-                    #update.message.reply_text("Coordenadas X: " + x + "Coordendas Y: " + y)
-
                     aux=suscribirse(update, x,y)
                     if(aux==1):
                         x = str(x).replace(",",".")
@@ -158,14 +159,7 @@ def echo(update, context):
                         print(y)
                         update.message.reply_text("Te acabas de suscribir con exito")
                         #print("///////////////////////")
-                        #print(threading.active_count())
-                        
-                        #chat_id = update.message.chat_id
 
-                        #threading.Thread(target=Forecast.Forecast,args=(update,x,y,BOT_TOKEN,chat_id,1)).start()
-                        #threading.Thread(target=prueba,args=(update,x,y,BOT_TOKEN,chat_id,0)).start()
-                        #print(threading.active_count())
-                        #print("///////////////////////")
                         
 
             
@@ -207,41 +201,24 @@ def echo(update, context):
                     print(x)
                     print(y)
                     update.message.reply_text("Te acabas de suscribir con exito")
-                    #print("///////////////////////")
-
-                   # print(threading.active_count())
-                    #chat_id = update.message.chat_id
-                    #threading.Thread(target=Forecast.Forecast,args=(update,x,y,BOT_TOKEN,chat_id,1)).start()
-                    #threading.Thread(target=Forecast,args=(update,x,y,BOT_TOKEN,chat_id,1)).start()
-                    
-                    #print(threading.active_count())
-                    #print("///////////////////////")
-                
+                    #print("///////////////////////")           
                 else:
                     print("")
-
-        
-
-    
-    
-
-        
-
 
     print("---------------------------------------------")
 
 
 
-
+#Función que suscribe la playa seleccionada al usuario siempre que pueda
 def suscribirse(update,x,y): 
-   # cursor = db.cursor()
+
     aux=0
     count,result = BBDD.buscarCoo(x,y)
-    #print(count)
+
 
     print(result)
     row = result[0]
-    #print(row['Nombre'])
+    
     nombre = row['Nombre']
     provincia = row['Provincia']
     municipio = row['Termino_Municipal']
@@ -276,14 +253,13 @@ def suscribirse(update,x,y):
     return aux
         
 
-
+#Comando subs que muestra las playas a las que esta suscrita el usuario
 def subs(update, context):
      
     print("entra")
     chat_id = update.message.chat_id
     user_first_name = str(update.message.chat.username)
     count,result=BBDD.buscarNomMun(chat_id, user_first_name)
-    #result= cursor.fetchall()
     print(len(result))
     if(len(result) ==0):
         update.message.reply_text("No estas suscrito a ninguna playa")
@@ -292,11 +268,10 @@ def subs(update, context):
             update.message.reply_text("Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n")
 
 
+#Comando eliminar el cual borra la playa que solicite el usuario de las que esta suscrito
 def Unfollow(update, context):
     global GLOBALE
     global RESULTE
-    #cursor = db.cursor()
-    #print("GLOBAL "+ str(GLOBALE))
     chat_id = update.message.chat_id
     user_first_name = str(update.message.chat.username)
     g = GLOBALE
@@ -306,7 +281,7 @@ def Unfollow(update, context):
         print(len(s))
         t = s.split('/')    
         t = t[1].split('p')
-        #print(t[0])
+        print("-ENTRA-")
         t=t[0]
         row = RESULTE[int(t)]
         
@@ -326,10 +301,11 @@ def Unfollow(update, context):
     
     else:
         s = update.message.text
+        print("-ENTRA2-")
         if(len(s) ==3 ):
             update.message.reply_text("Comando mal introducido")
         else:
-            count,result= BBDD.buscarS(chat_id, user_first_name)
+            count,result= BBDD.buscarNomMun(chat_id, user_first_name)
             if(count==0):
                 update.message.reply_text("No hay playas en la lista")
             else:
@@ -343,13 +319,9 @@ def Unfollow(update, context):
                 GLOBALE = 1
 
 
-
-
-
-DP=""
+#Comando automatico que muestra la información meteorologica para las playas suscritas  del usuario
 def subs_auto():
     bot= telepot.Bot(BOT_TOKEN)
-    global DP
 
 
     count,result=BBDD.playas_subs()
@@ -366,11 +338,8 @@ def subs_auto():
         aux=1
 
 
-
     count2,result2=BBDD.subs_auto()
-    #print(result)
     global ID,USER
-    
 
     for x in result2:
         print(x["ID"])
@@ -414,7 +383,7 @@ def subs_auto():
             aux=1
 
 
-
+#Funciones que capturan cuando se pulsa un boton y manda la información para cambiar el mensaje indicado
 def BotonI(update,context):
     print("----------------------------")
     
@@ -464,34 +433,30 @@ def BotonGS(update,context):
     print("BotonIF")
 
 
-
+#Función main
 def main():
     # Creamos el Updater y le pasamos el token de nuestro bot. Este se encargará de manejar las peticiones de los usuarios.
     updater = Updater(BOT_TOKEN)
 
     # Obtenemos el Dispatcher para crear los comandos
     dp = updater.dispatcher
-    global DP
-    DP=updater
-    # Creamos el comando /start y definimos que se ejecute este mismo método
+    
     dp.add_handler(CommandHandler("start", start)) 
-    # Creamos el comando /help y definimos que se ejecute el método help
     dp.add_handler(CommandHandler("help", help))
-
-
+    dp.add_handler(CommandHandler("Subs", subs))
+    dp.add_handler(CommandHandler("Eliminar", Unfollow))
+    dp.add_handler(CommandHandler("playa", suscripcion))
 
     dp.add_handler(CallbackQueryHandler(pattern="BI",callback=BotonI,pass_update_queue =True))
     dp.add_handler(CallbackQueryHandler(pattern="BD",callback=BotonD,pass_update_queue =True))
     dp.add_handler(CallbackQueryHandler(pattern="BGI",callback=BotonGV,pass_update_queue =True))
     dp.add_handler(CallbackQueryHandler(pattern="BGV",callback=BotonGS,pass_update_queue =True))
     
-    dp.add_handler(CommandHandler("Subs", subs))
-    dp.add_handler(CommandHandler("Eliminar", Unfollow))
 
     g = 10
     while(g >= 0):
         s=str(g)
-        dp.add_handler(CommandHandler(s, echo))
+        dp.add_handler(CommandHandler(s, suscripcion))
         g = g -1
     
     n = 40
@@ -509,10 +474,12 @@ def main():
     updater.idle()  
     
     
-
+#Función que se queda esperando y solo llama a la función subs_auto
+#a la hora establecida. Esta función va como un hilo paralelo al hilo
+#main
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("11:04").do(subs_auto)
+    schedule.every().day.at("18:20").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
@@ -520,12 +487,12 @@ def automatico():
         time.sleep(1)
 
 
+#Primera función que se inicia al ejecutar el programa la cual crea un hilo
+#paralelo al main 
 if __name__ == '__main__':
     
     t=threading.Thread(name="hilo automatico",target=automatico)
     t.start()
 
     main()
-
-
 
