@@ -471,7 +471,7 @@ def main():
 
     updater.start_polling()
 
-    updater.idle()  
+    updater.idle()
     
     
 #Función que se queda esperando y solo llama a la función subs_auto
@@ -479,7 +479,7 @@ def main():
 #main
 def automatico():
     schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("12:30").do(subs_auto)
+    schedule.every().day.at("12:45").do(subs_auto)
     schedule.every(200).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
