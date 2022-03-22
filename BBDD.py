@@ -101,6 +101,7 @@ def vivo():
     cursor = db.cursor()
 
     cursor.execute("SELECT * FROM suscrito ")
+    cursor.execute("SELECT * FROM BBDD ")
     cursor.fetchall()
     print("vivo")
 
