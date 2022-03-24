@@ -3,6 +3,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,Callba
 
 import time
 import schedule
+
 #Para los hilos
 import threading
 
@@ -103,8 +104,6 @@ def buscar(update,playa):
         
         
 
-
-    
 
 #Busqueda de la playa despues de haber escogido una opción.
 #Solo se accede a este metodo si se hay varias opciones
@@ -432,6 +431,16 @@ def BotonGS(update,context):
     Forecast.cambioGV(id,chat)
     print("BotonIF")
 
+def prueba():
+    
+    x=0
+    while(x<2):
+        if(x==1):
+            BBDD.vivo2()
+            x=0
+        time.sleep(70)
+        x=x+1
+    
 
 #Función main
 def main():
@@ -465,22 +474,26 @@ def main():
         dp.add_handler(CommandHandler(x, Unfollow))
         n = n -1
 
-
+    
     # De no ejecutarse ninguno de los anteriores asumimos que el usuario escribió algo y ejecutamos el método echo que nos va a permitir obtener los campos de las búsquedas del usuario
     dp.add_handler(MessageHandler(Filters.text, echo))
 
+    dp.run_async(prueba)
+    print("hola")
     updater.start_polling()
-
+    
     updater.idle()
+    
+    
     
     
 #Función que se queda esperando y solo llama a la función subs_auto
 #a la hora establecida. Esta función va como un hilo paralelo al hilo
 #main
 def automatico():
-    schedule.every().day.at("19:30").do(subs_auto)
-    schedule.every().day.at("15:30").do(subs_auto)
-    schedule.every(150).seconds.do(BBDD.vivo)
+    schedule.every().day.at("17:30").do(subs_auto)
+    schedule.every().day.at("13:00").do(subs_auto)
+    schedule.every(50).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
         

@@ -24,6 +24,12 @@ db = pymysql.connect(host= database_host,
                             charset='utf8mb4',
                             cursorclass=pymysql.cursors.DictCursor)
 
+db2 = pymysql.connect(host= database_host,
+                            user=username,
+                            password=password,
+                            database=database_name,
+                            charset='utf8mb4',
+                            cursorclass=pymysql.cursors.DictCursor)
 
 #Insercción de datos nuevos en la tabla de suscripcion
 def insertar(chat_id, user_first_name ,nombre, provincia, municipio, x,y):
@@ -34,6 +40,8 @@ def insertar(chat_id, user_first_name ,nombre, provincia, municipio, x,y):
 
     db.commit()
 
+    
+
 
 #Busqueda en la base de datos playas que contengan la palabra de la playa indicada
 def buscar(playa):
@@ -42,7 +50,7 @@ def buscar(playa):
     cursor.execute("SET @playa = (%s)",playa)
     count = cursor.execute("SELECT Coordenada_X,Coordenada_Y,Zona_Surf,Provincia,Termino_Municipal,Nombre FROM BBDD WHERE Nombre LIKE CONCAT('%' , @playa , '%') ")
     result=cursor.fetchall()
-    
+  
     return result,count
 
 
@@ -86,6 +94,7 @@ def eliminar(chat_id, user_first_name, n, m, p, cx, cy):
     db.commit()
 
 
+
 #Busqueda de las playas a las que estan suscritas todos los usuarios
 def playas_subs():
     cursor=db.cursor()
@@ -106,5 +115,10 @@ def vivo():
     print("vivo")
 
 
+def vivo2():
+    cursor = db2.cursor()
 
-
+    cursor.execute("SELECT * FROM suscrito ")
+    cursor.execute("SELECT * FROM BBDD ")
+    cursor.fetchall()
+    print("vivo2")
