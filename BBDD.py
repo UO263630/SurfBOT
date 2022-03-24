@@ -115,6 +115,7 @@ def vivo():
     print("vivo")
 
 
+#Consulta de la base de datos para mantenerla activa y que no se apague por inactividad (para hilo master)
 def vivo2():
     cursor = db2.cursor()
 

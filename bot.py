@@ -431,6 +431,7 @@ def BotonGS(update,context):
     Forecast.cambioGV(id,chat)
     print("BotonIF")
 
+
 def prueba():
     
     x=0
