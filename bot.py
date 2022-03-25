@@ -128,13 +128,18 @@ def suscripcion(update, context):
     global GLOBAL
     print("GLOBAL2 "+ str(GLOBAL))
     g = GLOBAL
-
+    s = update.message.text
+    t = s.split('/')
+    print("-------------t------------")
+    print(len(t[1]))
+    print(g)
     #Solo se entra aqui si ya se ha introducido el nombre de una playa y hay varias opciones
-    if(g != 0):  
+    if((g != 0) and (len(t[1])==1) ):  
         print("ENTRA")
         print(update.message.text)
         s = update.message.text
         t = s.split('/')
+
         #Comprobación de que no se introduzca otra playa en vez de la opcion correcta
         if(len(t[1]) !=1):
             
@@ -159,9 +164,6 @@ def suscripcion(update, context):
                         update.message.reply_text("Te acabas de suscribir con exito")
                         #print("///////////////////////")
 
-                        
-
-            
 
     else:
         print(update.message.text)
@@ -274,7 +276,9 @@ def Unfollow(update, context):
     chat_id = update.message.chat_id
     user_first_name = str(update.message.chat.username)
     g = GLOBALE
-    if(g!= 0):
+    print(s)
+    print(g)
+    if(g!= 0 and s!="/eliminar"):
 
         s = update.message.text
         print(len(s))
@@ -301,7 +305,7 @@ def Unfollow(update, context):
     else:
         s = update.message.text
         print("-ENTRA2-")
-        if(len(s) ==3 ):
+        if(len(s) == 3 ):
             update.message.reply_text("Comando mal introducido")
         else:
             count,result= BBDD.buscarNomMun(chat_id, user_first_name)
@@ -432,7 +436,7 @@ def BotonGS(update,context):
     print("BotonIF")
 
 
-def prueba():
+def vivo2():
     
     x=0
     while(x<2):
@@ -463,7 +467,7 @@ def main():
     dp.add_handler(CallbackQueryHandler(pattern="BGV",callback=BotonGS,pass_update_queue =True))
     
 
-    g = 10
+    g = 40
     while(g >= 0):
         s=str(g)
         dp.add_handler(CommandHandler(s, suscripcion))
@@ -479,7 +483,7 @@ def main():
     # De no ejecutarse ninguno de los anteriores asumimos que el usuario escribió algo y ejecutamos el método echo que nos va a permitir obtener los campos de las búsquedas del usuario
     dp.add_handler(MessageHandler(Filters.text, echo))
 
-    dp.run_async(prueba)
+    dp.run_async(vivo2)
     print("hola")
     updater.start_polling()
     
