@@ -276,6 +276,7 @@ def Unfollow(update, context):
     chat_id = update.message.chat_id
     user_first_name = str(update.message.chat.username)
     g = GLOBALE
+    s = update.message.text
     print(s)
     print(g)
     if(g!= 0 and s!="/eliminar"):
