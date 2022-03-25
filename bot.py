@@ -55,63 +55,10 @@ def echo(update, context):
 
 
 #Busqueda de la playa en la Base de Datos
-def buscar(update,playa):
+def buscar(update,playa,aux):
 
+    if (aux==1):
 
-  
-    n = playa[1:]
-    result,count = BBDD.buscar(n)
-    print(result)
-
-    if(count == 0):
-        update.message.reply_text('No se ha encontrado esa playa prueba otra vez ')
-        return 0,0
-
-    if (count == 1):
-        for row in result:
-            #print(row)
-            CX = row['Coordenada_X']
-            CY = row['Coordenada_Y']
-            ZS = row['Zona_Surf']
-            PR = row['Provincia']
-            TN = row['Nombre']
-            print("Playa= " +TN + "Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
-            return CX,CY
-
-    print(count)
-    print(result)
-    
-    t=0
-    if (count > 1):
-        update.message.reply_text('Elige una de la opciones : ')
-        for row in result:
-            #print(row)
-            CX = row['Coordenada_X']
-            CY = row['Coordenada_Y']
-            ZS = row['Zona_Surf']
-            PR = row['Provincia']
-            TM = row['Termino_Municipal']
-            TN= row['Nombre']
-            update.message.reply_text("Playa= " +TN + " ,Provincia= "+PR+",Municipio="+TM+", ZonaSurf="+ ZS + " /"+str(t) )
-            t=t+1
-
-        global GLOBAL
-        GLOBAL= t-1
-        print("GLOBAL "+ str(GLOBAL))
-        global RESULT
-        RESULT=result
-        return 0,0      
-        
-        
-
-
-#Busqueda de la playa despues de haber escogido una opción.
-#Solo se accede a este metodo si se hay varias opciones
-def buscar2(update,playa):
-    count=1
-    print(playa)
-    if (count == 1):  
-        #print(row)
         CX = playa['Coordenada_X']
         CY = playa['Coordenada_Y']
         ZS = playa['Zona_Surf']
@@ -120,6 +67,53 @@ def buscar2(update,playa):
         TN = playa['Nombre']
         print("Playa: "+ TN + "Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
         return CX,CY
+    
+
+    else:
+        n = playa[1:]
+        result,count = BBDD.buscar(n)
+        print(result)
+
+        if(count == 0):
+            update.message.reply_text('No se ha encontrado esa playa prueba otra vez ')
+            return 0,0
+
+        if (count == 1):
+            for row in result:
+                #print(row)
+                CX = row['Coordenada_X']
+                CY = row['Coordenada_Y']
+                ZS = row['Zona_Surf']
+                PR = row['Provincia']
+                TN = row['Nombre']
+                print("Playa= " +TN + "Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
+                return CX,CY
+
+        print(count)
+        print(result)
+        
+        t=0
+        if (count > 1):
+            update.message.reply_text('Elige una de la opciones : ')
+            for row in result:
+                #print(row)
+                CX = row['Coordenada_X']
+                CY = row['Coordenada_Y']
+                ZS = row['Zona_Surf']
+                PR = row['Provincia']
+                TM = row['Termino_Municipal']
+                TN= row['Nombre']
+                update.message.reply_text("Playa= " +TN + " ,Provincia= "+PR+",Municipio="+TM+", ZonaSurf="+ ZS + " /"+str(t) )
+                t=t+1
+
+            global GLOBAL
+            GLOBAL= t-1
+            print("GLOBAL "+ str(GLOBAL))
+            global RESULT
+            RESULT=result
+            return 0,0      
+        
+        
 
 
 
@@ -152,7 +146,7 @@ def suscripcion(update, context):
                 GLOBAL = 0
             else:
                 GLOBAL = 0
-                y,x = buscar2(update,RESULT[int(t[1]) ])
+                y,x = buscar(update,RESULT[int(t[1])] , 1)
                 if(y != x ):
                     aux=suscribirse(update, x,y)
                     if(aux==1):
@@ -189,7 +183,7 @@ def suscripcion(update, context):
             t = s.split('/playa')
             print(t[1])
             update.message.reply_text('Playa: ' + t[1])
-            y,x = buscar(update,t[1])
+            y,x = buscar(update,t[1],0)
             if(y != x ):    
                 #update.message.reply_text("Coordenadas X: " + x + "Coordendas Y: " + y)
                 
