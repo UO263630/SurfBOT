@@ -40,6 +40,7 @@ def colors(t):
     
 
 
+
 #Función que crea una gráfica con los datos de dirección de viento y lo guarda en una imagen.
 #Ah esta función se le pasan tres argumentos:
 #   -grados: vector con la direccion del viento para las horas establecidas

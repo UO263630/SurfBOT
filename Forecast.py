@@ -31,6 +31,8 @@ AUX=0
 DIC=[]
 TOKEN=""
 
+
+
 #Función que obtiene las predicciones meteorologicas para cada playa
 #y las guarda en archivos json diferentes, si estos archivos ya existen
 #se sobreescriben
