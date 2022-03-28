@@ -491,7 +491,7 @@ def main():
 #a la hora establecida. Esta función va como un hilo paralelo al hilo
 #main
 def automatico():
-    schedule.every().day.at("16:15").do(subs_auto)
+    schedule.every().day.at("16:20").do(subs_auto)
     schedule.every().day.at("13:00").do(subs_auto)
     schedule.every(50).seconds.do(BBDD.vivo)
     while True:
