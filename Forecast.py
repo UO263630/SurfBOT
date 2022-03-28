@@ -37,6 +37,7 @@ TOKEN=""
 def busqueda(nombre,provincia,x,y,aux):
         print()
         global AP,AUX
+        
         if(aux==0):
             AP=0
             AUX=0

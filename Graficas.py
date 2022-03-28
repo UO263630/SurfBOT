@@ -94,7 +94,8 @@ def grafica1(grados,aux,tem):
 
     print(".----------------------------------------.....")
     while i< len(x):
-        
+        print(x[i])
+        print(a[i])
         ax.quiver(x[i],0,a[i],-100 ,color= colors(t[i]) )
         i=i+1
 

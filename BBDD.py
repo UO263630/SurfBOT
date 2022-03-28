@@ -24,12 +24,6 @@ db = pymysql.connect(host= database_host,
                             charset='utf8mb4',
                             cursorclass=pymysql.cursors.DictCursor)
 
-db2 = pymysql.connect(host= database_host,
-                            user=username,
-                            password=password,
-                            database=database_name,
-                            charset='utf8mb4',
-                            cursorclass=pymysql.cursors.DictCursor)
 
 #Insercción de datos nuevos en la tabla de suscripcion
 def insertar(chat_id, user_first_name ,nombre, provincia, municipio, x,y):
@@ -117,7 +111,7 @@ def vivo():
 
 #Consulta de la base de datos para mantenerla activa y que no se apague por inactividad (para hilo master)
 def vivo2():
-    cursor = db2.cursor()
+    cursor = db.cursor()
 
     cursor.execute("SELECT * FROM suscrito ")
     cursor.execute("SELECT * FROM BBDD ")
