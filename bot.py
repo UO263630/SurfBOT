@@ -58,13 +58,20 @@ def echo(update, context):
 def buscar(update,playa,aux):
 
     if (aux==1):
-
-        CX = playa['Coordenada_X']
-        CY = playa['Coordenada_Y']
-        ZS = playa['Zona_Surf']
-        PR = playa['Provincia']
-        TM = playa['Termino_Municipal']
-        TN = playa['Nombre']
+        print(playa)
+        print("-------f---------")
+        #CX = playa['Coordenada_X']
+        #CY = playa['Coordenada_Y']
+        #ZS = playa['Zona_Surf']
+        #PR = playa['Provincia']
+        #TM = playa['Termino_Municipal']
+        #TN = playa['Nombre']
+        CX = playa[0]
+        CY = playa[1]
+        ZS = playa[2]
+        PR = playa[3]
+        TM = playa[4]
+        TN = playa[5]
         print("Playa: "+ TN + "Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
         return CX,CY
     
@@ -80,12 +87,18 @@ def buscar(update,playa,aux):
 
         if (count == 1):
             for row in result:
-                #print(row)
-                CX = row['Coordenada_X']
-                CY = row['Coordenada_Y']
-                ZS = row['Zona_Surf']
-                PR = row['Provincia']
-                TN = row['Nombre']
+                print(row)
+                print("----------------")
+                #CX = row['Coordenada_X']
+                #CY = row['Coordenada_Y']
+                #ZS = row['Zona_Surf']
+                #PR = row['Provincia']
+                #TN = row['Nombre']
+                CX = row[0]
+                CY = row[1]
+                ZS = row[2]
+                PR = row[3]
+                TN = row[5]
                 print("Playa= " +TN + "Provincia= "+PR+",Coordenada x="+ CX +", Coordenada y="+ CY + ", ZonaSurf="+ZS)
                 return CX,CY
 
@@ -96,13 +109,20 @@ def buscar(update,playa,aux):
         if (count > 1):
             update.message.reply_text('Elige una de la opciones : ')
             for row in result:
-                #print(row)
-                CX = row['Coordenada_X']
-                CY = row['Coordenada_Y']
-                ZS = row['Zona_Surf']
-                PR = row['Provincia']
-                TM = row['Termino_Municipal']
-                TN= row['Nombre']
+                print(row)
+                print("-----------f2-----")
+                #CX = row['Coordenada_X']
+                #CY = row['Coordenada_Y']
+                #ZS = row['Zona_Surf']
+                #PR = row['Provincia']
+                #TM = row['Termino_Municipal']
+                #TN= row['Nombre']
+                CX = row[0]
+                CY = row[1]
+                ZS = row[2]
+                PR = row[3]
+                TM = row[4]
+                TN= row[5]
                 update.message.reply_text("Playa= " +TN + " ,Provincia= "+PR+",Municipio="+TM+", ZonaSurf="+ ZS + " /"+str(t) )
                 t=t+1
 
@@ -114,7 +134,6 @@ def buscar(update,playa,aux):
             return 0,0      
         
         
-
 
 
 #Comando playa para inscribirse a la playa que solicite el usuario
@@ -214,9 +233,12 @@ def suscribirse(update,x,y):
     print(result)
     row = result[0]
     
-    nombre = row['Nombre']
-    provincia = row['Provincia']
-    municipio = row['Termino_Municipal']
+    #nombre = row['Nombre']
+    #provincia = row['Provincia']
+    #municipio = row['Termino_Municipal']
+    nombre = row[0]
+    provincia = row[1]
+    municipio = row[2]
     chat_id = update.message.chat_id
     user_first_name = str(update.message.chat.username)
     print(chat_id)
@@ -226,8 +248,11 @@ def suscribirse(update,x,y):
     count,result=BBDD.buscarNomMun(chat_id, user_first_name)
     t=0
     for row in result:
-        n = row['Nombre']
-        p = row['Municipio']
+        print(row)
+        #n = row['Nombre']
+        #p = row['Municipio']
+        n = row[0]
+        p = row[1]
         if(n == nombre and p == municipio):
             t= t +1;
 
@@ -260,7 +285,8 @@ def subs(update, context):
         update.message.reply_text("No estas suscrito a ninguna playa")
     else:
         for row in result:
-            update.message.reply_text("Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n")
+            #update.message.reply_text("Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n")
+            update.message.reply_text("Playa: "+ row[0] +" de "+ row[1] + " en " + row[2] + "\n")
 
 
 #Comando eliminar el cual borra la playa que solicite el usuario de las que esta suscrito
@@ -283,12 +309,19 @@ def Unfollow(update, context):
         t=t[0]
         row = RESULTE[int(t)]
         
-        #print(row)
-        n = row['Nombre'] 
-        m = row['Municipio'] 
-        p = row['Provincia']
-        cx = row['CX']
-        cy = row['CY']
+        
+        print("-----------------------------------------")
+        print(row)
+        #n = row['Nombre'] 
+        #m = row['Municipio'] 
+        #p = row['Provincia']
+        #cx = row['CX']
+        #cy = row['CY']
+        n = row[0] 
+        m = row[1] 
+        p = row[2]
+        cx = row[3]
+        cy = row[4]
 
 
         BBDD.eliminar(chat_id, user_first_name, n, m, p, cx, cy)
@@ -310,7 +343,8 @@ def Unfollow(update, context):
                 #print(result)
                 t=0
                 for row in result:
-                    update.message.reply_text("Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + " /"+str(t)+"p" + "\n")
+                    #update.message.reply_text("Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + " /"+str(t)+"p" + "\n")
+                    update.message.reply_text("Playa: "+ row[0] +" de "+ row[1] + " en " + row[2] + " /"+str(t)+"p" + "\n")
                     t=t+1
                 
                 RESULTE = result
@@ -325,11 +359,15 @@ def subs_auto():
     count,result=BBDD.playas_subs()
     aux=0
     for row in result:
-        print(row)
-        nombre=row['Nombre']
-        provincia=row['Provincia']
-        x = str(row['CX']).replace(",",".")
-        y = str(row['CY']).replace(",",".")
+        #print(row)
+        #nombre=row['Nombre']
+        #provincia=row['Provincia']
+        #x = str(row['CX']).replace(",",".")
+        #y = str(row['CY']).replace(",",".")
+        nombre=row[0]
+        provincia=row[1]
+        x = str(row[2]).replace(",",".")
+        y = str(row[3]).replace(",",".")
 
         #LLamo al forecast
         Forecast.busqueda(nombre,provincia,x,y,aux)
@@ -340,10 +378,15 @@ def subs_auto():
     global ID,USER
 
     for x in result2:
-        print(x["ID"])
-        id=x["ID"]
-        print(x["Usuario"])
-        user=x["Usuario"]
+        #print(x)
+        #print(x["ID"])
+        #id=x["ID"]
+        #print(x["Usuario"])
+        #user=x["Usuario"]
+        print(x[0])
+        id=x[0]
+        print(x[1])
+        user=x[1]
 
         bot.sendMessage(chat_id=id,text="----Mensaje automatico----")
         bot.sendMessage(chat_id=id,text="Playas suscritas de "+ user+"\n")
@@ -352,11 +395,14 @@ def subs_auto():
         print(result)
         aux=0
         for row in result:
-            #print(row)
-            t="Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n"
-                        
-            x=row['CX']
-            y=row['CY']
+            print(row)
+            #t="Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n"
+            t="Playa: "+ row[0] +" de "+ row[1] + " en " + row[2] + "\n"
+
+            x=row[3]
+            y=row[4]
+            #x=row['CX']
+            #y=row['CY']
                     
             x = str(x).replace(",",".")
             y = str(y).replace(",",".")
@@ -364,7 +410,8 @@ def subs_auto():
                 time.sleep(10)
             bot.sendMessage(chat_id=id,text=t)
 
-            s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
+            #s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
+            s="JSON"+row[0]+"_"+row[2]+".json"
             
             if(os.path.exists(s)):
                 file = open(s,"r")
@@ -494,6 +541,7 @@ def main():
 def automatico():
     schedule.every().day.at("16:20").do(subs_auto)
     schedule.every().day.at("13:00").do(subs_auto)
+    schedule.every().day.at("15:00").do(subs_auto)
     schedule.every(50).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
