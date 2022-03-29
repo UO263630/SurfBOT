@@ -21,9 +21,9 @@ db = pymysql.connect(host= database_host,
                             user=username,
                             password=password,
                             database=database_name,
-                            charset='utf8mb4',
-                            cursorclass=pymysql.cursors.DictCursor)
+                            charset='utf8mb4')
 
+#,cursorclass=pymysql.cursors.DictCursor
 
 #Insercción de datos nuevos en la tabla de suscripcion
 def insertar(chat_id, user_first_name ,nombre, provincia, municipio, x,y):
