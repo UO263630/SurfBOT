@@ -372,6 +372,7 @@ def subs_auto():
                 s="hilo"+str(aux)
 
                 Forecast.Forecast1(BOT_TOKEN,id,json1)
+                file.close()
 
 
 

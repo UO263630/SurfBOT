@@ -56,6 +56,7 @@ def busqueda(nombre,provincia,x,y,aux):
             for line in linea: 
                 if line!="nickname_to_delete"+"\n": 
                     f.write(line)
+            f.close()
 
             
         print(s)
