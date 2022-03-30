@@ -23,7 +23,7 @@ db = pymysql.connect(host= database_host,
                             database=database_name,
                             charset='utf8mb4')
 
-#,cursorclass=pymysql.cursors.DictCursor
+
 
 #Insercción de datos nuevos en la tabla de suscripcion
 def insertar(chat_id, user_first_name ,nombre, provincia, municipio, x,y):
@@ -105,35 +105,4 @@ def playas_subs():
 
     return count,result
 
-#PROBAR QUITAR VIVOS Y AÑADIR PONG A TODAS LAS FUNCIONES USANDO SOLO DB
-#SI FALLA PROBAR PRIMERO A CREAR DB2 Y MIRAR SI SE PUEDE INDEPENDIZAR HILOS 
 
-"""
-#Consulta de la base de datos para mantenerla activa y que no se apague por inactividad
-def vivo():
-    try:
-        db.ping(reconnect = True)
-        cursor = db.cursor()
-        
-        cursor.execute("SELECT * FROM suscrito ")
-        cursor.execute("SELECT * FROM BBDD ")
-        cursor.fetchall()
-        print("vivo")
-    except:
-        vivo()
-
-
-#Consulta de la base de datos para mantenerla activa y que no se apague por inactividad (para hilo master)
-def vivo2():
-    try:
-        db2.ping(reconnect = True)
-        cursor = db2.cursor()
-        
-        cursor.execute("SELECT * FROM suscrito ")
-        cursor.execute("SELECT * FROM BBDD ")
-        cursor.fetchall()
-        print("vivo2")
-    except:
-        vivo2()
-
-"""
