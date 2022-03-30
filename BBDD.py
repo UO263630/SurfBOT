@@ -5,7 +5,7 @@
     sobre todas las playas de España y la tabla suscrito la cual guarda información sobre
     las playas a las que esta suscrito cada usuario
 """
-
+import time 
 #Libreria para el acceso a la base de datos
 import pymysql
 
@@ -23,6 +23,11 @@ db = pymysql.connect(host= database_host,
                             database=database_name,
                             charset='utf8mb4')
 
+db2 = pymysql.connect(host= database_host,
+                            user=username,
+                            password=password,
+                            database=database_name,
+                            charset='utf8mb4')
 #,cursorclass=pymysql.cursors.DictCursor
 
 #Insercción de datos nuevos en la tabla de suscripcion
@@ -102,8 +107,9 @@ def playas_subs():
 #Consulta de la base de datos para mantenerla activa y que no se apague por inactividad
 def vivo():
     try:
+        db.ping(reconnect = True)
         cursor = db.cursor()
-
+        
         cursor.execute("SELECT * FROM suscrito ")
         cursor.execute("SELECT * FROM BBDD ")
         cursor.fetchall()
@@ -115,8 +121,9 @@ def vivo():
 #Consulta de la base de datos para mantenerla activa y que no se apague por inactividad (para hilo master)
 def vivo2():
     try:
-        cursor = db.cursor()
-
+        db2.ping(reconnect = True)
+        cursor = db2.cursor()
+        
         cursor.execute("SELECT * FROM suscrito ")
         cursor.execute("SELECT * FROM BBDD ")
         cursor.fetchall()
