@@ -479,15 +479,15 @@ def BotonGS(update,context):
     print("BotonIF")
 
 
-def vivo2():
+#def vivo2():
     
-    x=0
-    while(x<2):
-        if(x==1):
-            BBDD.vivo2()
-            x=0
-        time.sleep(70)
-        x=x+1
+##    x=0
+#    while(x<2):
+#        if(x==1):
+#            BBDD.vivo2()
+#            x=0
+#        time.sleep(70)
+#        x=x+1
     
 
 #Función main
@@ -526,7 +526,7 @@ def main():
     # De no ejecutarse ninguno de los anteriores asumimos que el usuario escribió algo y ejecutamos el método echo que nos va a permitir obtener los campos de las búsquedas del usuario
     dp.add_handler(MessageHandler(Filters.text, echo))
 
-    dp.run_async(vivo2)
+    #dp.run_async(vivo2)
     print("hola")
     updater.start_polling()
     
@@ -542,7 +542,7 @@ def automatico():
     schedule.every().day.at("16:20").do(subs_auto)
     schedule.every().day.at("13:00").do(subs_auto)
     schedule.every().day.at("15:00").do(subs_auto)
-    schedule.every(50).seconds.do(BBDD.vivo)
+    #schedule.every(50).seconds.do(BBDD.vivo)
     while True:
         schedule.run_pending()
         
