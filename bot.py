@@ -1,4 +1,5 @@
 #Libreria para conectarse con el bot de telegram
+from re import X
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler
 
 import time
@@ -32,20 +33,26 @@ GLOBALE=0
 RESULTE=""
 ID=""
 USER=""
-
-
+INFOS=0
+INFO=""
 
 #Comando start para enviar un mensaje de bienvenida  
-def start(update, context):  
-    update.message.reply_text('Bienvenido, escribe /help')
+def start(update, context):
+    update.message.reply_text("Bienvenido, la función principal de est bot es el envio diario al usuario"+
+                              " de la información meteorológica de las playas que este decida.\n"+
+                              "Si quieres conocer los comandos de este bot escribe el comando /help")
+
 
 
 #Comando help para enviar un mensaje con instrucciones
 def help(update, context):
-    update.message.reply_text('Los comandos son:\n')
-    update.message.reply_text('/playa <nombre de la playa> : para suscribirse a una playa\n')
-    update.message.reply_text('/Subs : para ver las playas a las que estas suscrito\n')
-    update.message.reply_text('/Eliminar : Te muestra las playas que estas suscrito para eliminarla\n')
+    update.message.reply_text("Los comandos del bot son:\n"
+                             + "/playa <nombre de la playa> : para suscribirse a una playa (max 3 playas por usuario)\n"
+                             + "/Subs : para ver las playas a las que estas suscrito\n"
+                             + "/Eliminar : Te muestra las playas que estas suscrito para eliminarla\n"
+                             + "/info: ver información sobre la playa que decidas de las que estes suscrito")
+
+
 
 
 #Comando echo si se introduce un mal comando 
@@ -132,8 +139,7 @@ def buscar(update,playa,aux):
             global RESULT
             RESULT=result
             return 0,0      
-        
-        
+
 
 
 #Comando playa para inscribirse a la playa que solicite el usuario
@@ -271,7 +277,8 @@ def suscribirse(update,x,y):
             update.message.reply_text("Ya estas suscrito a esa playa")
     print(aux)
     return aux
-        
+
+
 
 #Comando subs que muestra las playas a las que esta suscrita el usuario
 def subs(update, context):
@@ -287,6 +294,7 @@ def subs(update, context):
         for row in result:
             #update.message.reply_text("Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n")
             update.message.reply_text("Playa: "+ row[0] +" de "+ row[1] + " en " + row[2] + "\n")
+
 
 
 #Comando eliminar el cual borra la playa que solicite el usuario de las que esta suscrito
@@ -349,6 +357,7 @@ def Unfollow(update, context):
                 
                 RESULTE = result
                 GLOBALE = 1
+
 
 
 #Comando automatico que muestra la información meteorologica para las playas suscritas  del usuario
@@ -429,6 +438,7 @@ def subs_auto():
             aux=1
 
 
+
 #Funciones que capturan cuando se pulsa un boton y manda la información para cambiar el mensaje indicado
 def BotonI(update,context):
     print("----------------------------")
@@ -479,6 +489,71 @@ def BotonGS(update,context):
     print("BotonIF")
 
 
+#COmando para la busqueda de información sobre las playas suscritas
+def infoplaya(update,context):
+    print(update.message.text)
+    text=update.message.text
+    global INFOS
+    global INFO
+    n = INFOS
+
+    if( n!=0 and text!="/info"):
+        
+        n=text.split("/infoplaya")
+        #print(n[1])
+        t=n[1].split("p")
+        #print(t[0]) 
+        
+        i=INFO[int(t[0])]
+        print(i)
+
+        x=i[3]
+        y=i[4]
+        result=BBDD.info_playa(x,y)
+        
+        #print(result[0])
+        result=result[0]
+        update.message.reply_text("Playa "+ result[5] + ": " + result[8] + " Con una longitud de " + str(result[9]) + " y " + str(result[10]) + " de anchura y " 
+                                + "condiciones de agua: " +  result[17]+"\n"+
+                                "Aseos: " + result[35]+"\n"+
+                                "Lavapies: " + result[36]+"\n"+
+                                "Duchas: " + result[37] +"\n"+
+                                "Zona Deportiva: "+ result[48] +"\n"+
+                                "Zona de Surf: " + result[51] +"\n")
+
+
+
+        INFOS=0
+        INFO=""
+        print("---FIN IF INFOPLAYA---")
+
+    else:
+
+        if(text != "/info"):
+            INFOS=0
+            INFO=""
+            update.message.reply_text("Comando mal introducido")
+
+        else:
+            chat_id = update.message.chat_id
+            user_first_name = str(update.message.chat.username)
+            count,result=BBDD.buscarNomMun(chat_id, user_first_name)
+            i=0
+            if(len(result) ==0):
+                update.message.reply_text("No estas suscrito a ninguna playa")
+            else:
+                
+                for row in result:
+                    s="/infoplaya"+str(i)+"p"
+                    update.message.reply_text("Playa: "+ row[0] +" de "+ row[1] + " en " + row[2] + " " + s +"\n")
+                    i=i+1
+                
+                INFOS=1
+                INFO=result
+        
+        print("---FIN ELSE INFOPLAYA---")
+
+
 
 
 #Función main
@@ -494,6 +569,7 @@ def main():
     dp.add_handler(CommandHandler("Subs", subs))
     dp.add_handler(CommandHandler("Eliminar", Unfollow))
     dp.add_handler(CommandHandler("playa", suscripcion))
+    dp.add_handler(CommandHandler("info", infoplaya))
 
     dp.add_handler(CallbackQueryHandler(pattern="BI",callback=BotonI,pass_update_queue =True))
     dp.add_handler(CallbackQueryHandler(pattern="BD",callback=BotonD,pass_update_queue =True))
@@ -507,13 +583,20 @@ def main():
         dp.add_handler(CommandHandler(s, suscripcion))
         g = g -1
     
-    n = 40
+    n = 4
     while(n >= 0):
         x=str(n)+"p"
         dp.add_handler(CommandHandler(x, Unfollow))
         n = n -1
 
     
+    i = 4
+    while(i >= 0):
+        x="infoplaya"+str(i)+"p"
+        dp.add_handler(CommandHandler(x, infoplaya))
+        i = i -1
+
+
     # De no ejecutarse ninguno de los anteriores asumimos que el usuario escribió algo y ejecutamos el método echo que nos va a permitir obtener los campos de las búsquedas del usuario
     dp.add_handler(MessageHandler(Filters.text, echo))
 
@@ -531,8 +614,9 @@ def main():
 def automatico():
     schedule.every().day.at("08:00").do(subs_auto)  #10:00
     schedule.every().day.at("16:20").do(subs_auto)  #18:20
-    
+
     schedule.every().day.at("15:00").do(subs_auto)  #17:00
+
     while True:
         schedule.run_pending()
         

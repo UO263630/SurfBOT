@@ -5,7 +5,7 @@
     sobre todas las playas de España y la tabla suscrito la cual guarda información sobre
     las playas a las que esta suscrito cada usuario
 """
-import time 
+
 #Libreria para el acceso a la base de datos
 import pymysql
 
@@ -106,3 +106,13 @@ def playas_subs():
     return count,result
 
 
+
+#Busqueda de la infromación de la playa en funcion de sus coordenadas
+def info_playa(x,y):
+    db.ping(reconnect = True)
+    cursor=db.cursor()
+    
+    count = cursor.execute("SELECT * FROM BBDD WHERE Coordenada_Y = (%s) and Coordenada_X = (%s)" , (str(x),str(y)) )
+    result = cursor.fetchall()
+
+    return result
