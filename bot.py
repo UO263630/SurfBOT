@@ -513,8 +513,12 @@ def infoplaya(update,context):
         
         #print(result[0])
         result=result[0]
+        n=""
+        if(result[34] !=""):
+            n="( " + result[34] + " )"
         update.message.reply_text("Playa "+ result[5] + ": " + result[8] + " Con una longitud de " + str(result[9]) + " y " + str(result[10]) + " de anchura y " 
-                                + "condiciones de agua: " +  result[17]+"\n"+
+                                + "condiciones de agua: " +  result[17]+".\n"+
+                                "Aparcamiento: " + result[32]+ n + "\n"+
                                 "Aseos: " + result[35]+"\n"+
                                 "Lavapies: " + result[36]+"\n"+
                                 "Duchas: " + result[37] +"\n"+
