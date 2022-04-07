@@ -100,7 +100,7 @@ def playas_subs():
     db.ping(reconnect = True)
     cursor=db.cursor()
     
-    count = cursor.execute("SELECT DISTINCT Nombre,Provincia,CX,CY FROM suscrito")
+    count = cursor.execute("SELECT DISTINCT Nombre,Provincia,Municipio,CX,CY FROM suscrito")
     result = cursor.fetchall()
 
     return count,result

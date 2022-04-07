@@ -36,7 +36,7 @@ TOKEN=""
 #Función que obtiene las predicciones meteorologicas para cada playa
 #y las guarda en archivos json diferentes, si estos archivos ya existen
 #se sobreescriben
-def busqueda(nombre,provincia,x,y,aux):
+def busqueda(nombre,municipio,x,y,aux):
         print()
         global AP,AUX
         
@@ -46,7 +46,7 @@ def busqueda(nombre,provincia,x,y,aux):
         if(AP==10):
             AP=0
             AUX=AUX+1
-        s="JSON"+nombre+"_"+provincia+".json"
+        s="JSON"+nombre+"_"+municipio+"_"+str(x)+"_"+str(y)+"_"+".json"
 
         if(os.path.isfile(s)):
             f = open(s,"r")
@@ -93,7 +93,7 @@ def busqueda(nombre,provincia,x,y,aux):
         # Do something with response data.
         json_data = response.json()
 
-        print(json_data)
+        #print(json_data)
 
         """
         json_data = {'hours': [{'airTemperature': {'dwd': 12.56, 'noaa': 9.78, 'sg': 12.56}, 'swellDirection': {'dwd': 355.72, 'icon': 320.69, 'meteo': 315.38, 'noaa': 353.72, 'sg': 315.38}, 'swellHeight': {'dwd': 1.24, 'icon': 1.79, 'meteo': 1.29, 'noaa': 0.55, 'sg': 1.29}, 'swellPeriod': {'dwd': 10.91, 'icon': 11.77, 'meteo': 12.17, 'noaa': 11.58, 'sg': 12.17}, 'time': 
@@ -127,6 +127,7 @@ def busqueda(nombre,provincia,x,y,aux):
         json.dump(json_data , file)
         #file.write(json_data)
         file.close()
+        print("------------------------forecast---------------------")
 
 
 #Función que se llama cada vez que se pulsa un boton. Su funcionamiento

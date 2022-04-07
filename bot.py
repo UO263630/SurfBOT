@@ -368,18 +368,19 @@ def subs_auto():
     count,result=BBDD.playas_subs()
     aux=0
     for row in result:
-        #print(row)
+        print(row)
         #nombre=row['Nombre']
         #provincia=row['Provincia']
         #x = str(row['CX']).replace(",",".")
         #y = str(row['CY']).replace(",",".")
         nombre=row[0]
         provincia=row[1]
-        x = str(row[2]).replace(",",".")
-        y = str(row[3]).replace(",",".")
+        municipio=row[2]
+        x = str(row[3]).replace(",",".")
+        y = str(row[4]).replace(",",".")
 
         #LLamo al forecast
-        Forecast.busqueda(nombre,provincia,x,y,aux)
+        Forecast.busqueda(nombre,municipio,x,y,aux)
         aux=1
 
 
@@ -420,7 +421,7 @@ def subs_auto():
             bot.sendMessage(chat_id=id,text=t)
 
             #s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
-            s="JSON"+row[0]+"_"+row[2]+".json"
+            s="JSON"+row[0]+"_"+row[1]+"_"+str(x)+"_"+str(y)+"_"+".json"
             
             if(os.path.exists(s)):
                 file = open(s,"r")
@@ -619,7 +620,7 @@ def automatico():
     schedule.every().day.at("08:00").do(subs_auto)  #10:00
     schedule.every().day.at("16:20").do(subs_auto)  #18:20
 
-    schedule.every().day.at("15:00").do(subs_auto)  #17:00
+    schedule.every().day.at("15:15").do(subs_auto)  #17:15
 
     while True:
         schedule.run_pending()
