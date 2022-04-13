@@ -186,7 +186,7 @@ def guia():
     n=2
     i=0
     while i<len(l):
-        plt.text(0.6,n,l[i], ha="center")
+        plt.text(0.6,n,l[i], ha="center", size="xx-small")
         n=n+1
         i=i+1
 
