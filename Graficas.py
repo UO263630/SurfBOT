@@ -109,7 +109,7 @@ def grafica1(grados,aux,tem):
 
 
 
-#Función que crea una gráfica con los datos de dirección de oleajey lo guarda en una imagen.
+#Función que crea una gráfica con los datos de dirección de oleaje y lo guarda en una imagen.
 #Ah esta función se le pasan tres argumentos:
 #   -grados: vector con la direccion de oleaje para las horas establecidas
 #   -aux: variable auxiliar que indica si la grafica es para el dia actual o para 
@@ -164,3 +164,32 @@ def grafica2(grados,aux,tem):
          plt.savefig("SwellDirection2.png",bbox_inches="tight")
 
 
+def guia():
+    
+    i=0
+    l=["<=0ºC","0ºC>y<=5ºC","5ºC>y<=10ºC","10ºC>y<=15ºC","15ºC>y<=20ºC","20ºC>y<=25ºC","25ºC>y<=30ºC","30ºC>y<=35ºC","35ºC>y<=40ºC"
+        ,"40ºC>y<=45ºC",">45ºC"]
+
+    plt.figure(figsize=(0.4,2.5))
+    plt.axhline(y=2, xmin=0.1, xmax=0.3, color="royalblue")
+    plt.axhline(y=3, xmin=0.1, xmax=0.3, color="turquoise")
+    plt.axhline(y=4, xmin=0.1, xmax=0.3, color="mediumspringgreen")
+    plt.axhline(y=5, xmin=0.1, xmax=0.3, color="limegreen")
+    plt.axhline(y=6, xmin=0.1, xmax=0.3, color="lightsalmon")
+    plt.axhline(y=7, xmin=0.1, xmax=0.3, color="salmon")
+    plt.axhline(y=8, xmin=0.1, xmax=0.3, color="orange")
+    plt.axhline(y=9, xmin=0.1, xmax=0.3, color="orangered")
+    plt.axhline(y=10, xmin=0.1, xmax=0.3, color="firebrick")
+    plt.axhline(y=11, xmin=0.1, xmax=0.3, color="red")
+    plt.axhline(y=12, xmin=0.1, xmax=0.3, color="darkred")
+
+    n=2
+    i=0
+    while i<len(l):
+        plt.text(0.6,n,l[i], ha="center")
+        n=n+1
+        i=i+1
+
+    plt.axis('off')
+    #plt.show()
+    plt.savefig("guia.png",bbox_inches="tight")

@@ -1,7 +1,7 @@
 #Libreria para conectarse con el bot de telegram
 from re import X
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler
-
+import telegram
 import time
 import schedule
 
@@ -15,7 +15,7 @@ import telepot
 #Clase Forecast y BBDD
 import Forecast
 import BBDD
-
+import Graficas
 
 import os
 import json
@@ -559,7 +559,15 @@ def infoplaya(update,context):
         print("---FIN ELSE INFOPLAYA---")
 
 
-
+def guiacolores(update,context):
+    update.message.reply_text("Las diferentes gráficas que se muestran con las prediccciones"+
+                               "meteorologicas van coloreadas en función de la temperatura.\n"+
+                               "Estos colores y la relación con los grados centigrados son:")
+    Graficas.guia()
+    bot=telegram.Bot(BOT_TOKEN)
+    bot.sendPhoto(chat_id=update.message.chat_id,
+        photo=open('guia.png','rb')
+    )
 
 #Función main
 def main():
@@ -575,6 +583,7 @@ def main():
     dp.add_handler(CommandHandler("Eliminar", Unfollow))
     dp.add_handler(CommandHandler("playa", suscripcion))
     dp.add_handler(CommandHandler("info", infoplaya))
+    dp.add_handler(CommandHandler("guia", guiacolores))
 
     dp.add_handler(CallbackQueryHandler(pattern="BI",callback=BotonI,pass_update_queue =True))
     dp.add_handler(CallbackQueryHandler(pattern="BD",callback=BotonD,pass_update_queue =True))
@@ -610,7 +619,7 @@ def main():
     
     updater.idle()
     
-    
+
     
     
 #Función que se queda esperando y solo llama a la función subs_auto
