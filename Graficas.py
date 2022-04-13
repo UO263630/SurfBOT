@@ -170,7 +170,7 @@ def guia():
     l=["<=0ºC","0ºC>y<=5ºC","5ºC>y<=10ºC","10ºC>y<=15ºC","15ºC>y<=20ºC","20ºC>y<=25ºC","25ºC>y<=30ºC","30ºC>y<=35ºC","35ºC>y<=40ºC"
         ,"40ºC>y<=45ºC",">45ºC"]
 
-    plt.figure(figsize=(0.4,2.5))
+    plt.figure(figsize=(1,3))
     plt.axhline(y=2, xmin=0.1, xmax=0.3, color="royalblue")
     plt.axhline(y=3, xmin=0.1, xmax=0.3, color="turquoise")
     plt.axhline(y=4, xmin=0.1, xmax=0.3, color="mediumspringgreen")

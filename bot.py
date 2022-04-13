@@ -50,7 +50,8 @@ def help(update, context):
                              + "/playa <nombre de la playa> : para suscribirse a una playa (max 3 playas por usuario)\n"
                              + "/Subs : para ver las playas a las que estas suscrito\n"
                              + "/Eliminar : Te muestra las playas que estas suscrito para eliminarla\n"
-                             + "/info: ver información sobre la playa que decidas de las que estes suscrito")
+                             + "/info: ver información sobre la playa que decidas de las que estes suscrito\n"
+                             + "/guia : muestra una guia de los colores de las graficas")
 
 
 
