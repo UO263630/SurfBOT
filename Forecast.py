@@ -409,7 +409,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
     #print(int(dia[2]))
     
     wd = []
-
+    print(json_data)
     for row in json_data['hours']:
         if(row['time'] >= str(start) and x%2!=0 ):
             #print(x)
