@@ -381,7 +381,7 @@ def subs_auto():
         y = str(row[4]).replace(",",".")
 
         #LLamo al forecast
-        Forecast.busqueda(nombre,municipio,x,y,aux)
+        Forecast.busqueda(x,y,aux)
         aux=1
 
 
@@ -422,12 +422,12 @@ def subs_auto():
             bot.sendMessage(chat_id=id,text=t)
 
             #s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
-            s="JSON"+row[0]+"_"+row[1]+"_"+str(x)+"_"+str(y)+"_"+".json"
+            s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
             
             if(os.path.exists(s)):
                 file = open(s,"r")
                 json1=json.load(file)
-                s="hilo"+str(aux)
+                #s="hilo"+str(aux)
 
                 Forecast.Forecast1(BOT_TOKEN,id,json1)
                 file.close()
@@ -438,6 +438,18 @@ def subs_auto():
                         
 
             aux=1
+
+
+    count,result=BBDD.playas_subs()
+    aux=0
+    for row in result:
+        print(row)
+
+        x = str(row[3]).replace(",",".")
+        y = str(row[4]).replace(",",".")
+        s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
+        os.remove(s)
+
 
 
 
@@ -631,7 +643,6 @@ def automatico():
     schedule.every().day.at("16:20").do(subs_auto)  #18:20
 
     schedule.every().day.at("14:40").do(subs_auto)  #16:40
-
     while True:
         schedule.run_pending()
         

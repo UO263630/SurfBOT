@@ -36,7 +36,7 @@ TOKEN=""
 #Función que obtiene las predicciones meteorologicas para cada playa
 #y las guarda en archivos json diferentes, si estos archivos ya existen
 #se sobreescriben
-def busqueda(nombre,municipio,x,y,aux):
+def busqueda(x,y,aux):
         print()
         global AP,AUX
         
@@ -46,8 +46,9 @@ def busqueda(nombre,municipio,x,y,aux):
         if(AP==10):
             AP=0
             AUX=AUX+1
-        s="JSON"+nombre+"_"+municipio+"_"+str(x)+"_"+str(y)+"_"+".json"
+        s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
 
+        """
         if(os.path.isfile(s)):
             f = open(s,"r")
             linea= f.readlines()
@@ -57,7 +58,7 @@ def busqueda(nombre,municipio,x,y,aux):
                 if line!="nickname_to_delete"+"\n": 
                     f.write(line)
             f.close()
-
+        """
             
         print(s)
         file = open(s,"w")
@@ -69,7 +70,7 @@ def busqueda(nombre,municipio,x,y,aux):
         end = start.shift(days=+2)
         print(end)
 
-        
+        txt=""
         api =open("api.txt","r")
         n=api.readlines()
         response = requests.get(
