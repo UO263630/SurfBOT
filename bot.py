@@ -221,7 +221,9 @@ def suscripcion(update, context):
 
                     print(x)
                     print(y)
-                    update.message.reply_text("Te acabas de suscribir con exito")
+                    update.message.reply_text("Te acabas de suscribir con exito.\n"+
+                                              " Recibiras un mensaje automatico junto con la prediccion de la playa\n"+
+                                              " a las 10 y a las 18")
                     #print("///////////////////////")           
                 else:
                     print("")
