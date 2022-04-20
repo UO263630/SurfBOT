@@ -51,7 +51,9 @@ def help(update, context):
                              + "/Subs : para ver las playas a las que estas suscrito\n"
                              + "/Eliminar : Te muestra las playas que estas suscrito para eliminarla\n"
                              + "/info: ver información sobre la playa que decidas de las que estes suscrito\n"
-                             + "/guia : muestra una guia de los colores de las graficas")
+                             + "/guia : muestra una guia de los colores de las graficas.\n"
+                             + "A las 10:00 y a las 18:00 recibira un mensaje automatico junto con las\n"
+                             + "predicciones de las playas suscritas")
 
 
 
@@ -646,7 +648,7 @@ def automatico():
 
     schedule.every().day.at("14:40").do(subs_auto)  #16:40
 
-    schedule.every().day.at("17:04").do(subs_auto)  #18:55
+    #schedule.every().day.at("17:04").do(subs_auto)  #18:55
     while True:
         schedule.run_pending()
         
