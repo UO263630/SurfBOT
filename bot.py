@@ -55,6 +55,7 @@ def help(update, context):
                              + "/Eliminar : Te muestra las playas que estas suscrito para eliminarla\n"
                              + "/info: ver información sobre la playa que decidas de las que estes suscrito\n"
                              + "/guia : muestra una guia de los colores de las graficas.\n"
+                             + "/prediccion : muestra una predicción de las playas suscritas.\n"
                              + "A las 10:00 y a las 18:00 recibira un mensaje automatico junto con las\n"
                              + "predicciones de las playas suscritas")
 
@@ -371,22 +372,20 @@ def Unfollow(update, context):
 #Comando automatico que muestra la información meteorologica para las playas suscritas  del usuario
 def subs_auto():
     bot= telepot.Bot(BOT_TOKEN)
-    global FECHA
+  
 
-    f=datetime.today().strftime('%Y-%m-%d')
-    if(FECHA!=f):
-        count,result=BBDD.playas_subs()
-        aux=0
-        for row in result:
-            print(row)
+    count,result=BBDD.playas_subs()
+    aux=0
+    for row in result:
+        print(row)
 
-            x = str(row[3]).replace(",",".")
-            y = str(row[4]).replace(",",".")
-            s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
+        x = str(row[3]).replace(",",".")
+        y = str(row[4]).replace(",",".")
+        s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
+        if(os.path.exists(s)):
             os.remove(s)
 
-    print(datetime.today().strftime('%Y-%m-%d'))
-    FECHA=datetime.today().strftime('%Y-%m-%d')
+
     count,result=BBDD.playas_subs()
     aux=0
     for row in result:
@@ -524,23 +523,6 @@ def infoplaya(update,context):
     global INFO
     n = INFOS
 
-    global FECHA
-
-    f=datetime.today().strftime('%Y-%m-%d')
-    if(FECHA!=f):
-        count,result=BBDD.playas_subs()
-        aux=0
-        for row in result:
-            print(row)
-
-            x = str(row[3]).replace(",",".")
-            y = str(row[4]).replace(",",".")
-            s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
-            os.remove(s)
-
-    print(datetime.today().strftime('%Y-%m-%d'))
-    FECHA=datetime.today().strftime('%Y-%m-%d')
-
     if( n!=0 and text!="/info"):
         
         n=text.split("/infoplaya")
@@ -616,7 +598,7 @@ def guiacolores(update,context):
 def prediccion(update,context):
     print("----------------------------")
     bot = telepot.Bot(BOT_TOKEN)
-    
+    p=0
     chat_id = update.message.chat_id
     user_first_name = str(update.message.chat.username)
     print(chat_id)
@@ -624,27 +606,48 @@ def prediccion(update,context):
     count,result=BBDD.buscarNomMun(chat_id,user_first_name)
     print(count)
     print(result)
-    if(count==0):
-        update.message.reply_text("No esta suscrito a ninguna playa")
-    else:
 
-        print(result)
+    global FECHA
+
+    f=datetime.today().strftime('%Y-%m-%d')
+    if(FECHA!=f):
+        count,result=BBDD.playas_subs()
         aux=0
         for row in result:
             print(row)
-            #nombre=row['Nombre']
-            #provincia=row['Provincia']
-            #x = str(row['CX']).replace(",",".")
-            #y = str(row['CY']).replace(",",".")
-            nombre=row[0]
-            provincia=row[1]
-            municipio=row[2]
+
             x = str(row[3]).replace(",",".")
             y = str(row[4]).replace(",",".")
+            s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
+            if(os.path.exists(s)):
+                os.remove(s)
+        p=1
 
-            #Llamo al forecast
-            Forecast.busqueda(x,y,aux)
-            aux=1
+    print(datetime.today().strftime('%Y-%m-%d'))
+    FECHA=datetime.today().strftime('%Y-%m-%d')
+
+
+    if(count==0):
+        update.message.reply_text("No esta suscrito a ninguna playa")
+    else:
+        if(p==1):
+            print(result)
+            aux=0
+            for row in result:
+                print(row)
+                #nombre=row['Nombre']
+                #provincia=row['Provincia']
+                #x = str(row['CX']).replace(",",".")
+                #y = str(row['CY']).replace(",",".")
+                nombre=row[0]
+                provincia=row[1]
+                municipio=row[2]
+                x = str(row[3]).replace(",",".")
+                y = str(row[4]).replace(",",".")
+
+                #Llamo al forecast
+                Forecast.busqueda(x,y,aux)
+                aux=1
         
 
         bot.sendMessage(chat_id=chat_id,text="Playas suscritas de "+ user_first_name+"\n")
