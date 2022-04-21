@@ -597,8 +597,9 @@ def prediccion(update,context):
     print(chat_id)
     print(user_first_name)
     count,result=BBDD.buscarNomMun(chat_id,user_first_name)
-
-    if(count!=1):
+    print(count)
+    print(result)
+    if(count==0):
         update.message.reply_text("No esta suscrito a ninguna playa")
     else:
 
@@ -621,8 +622,8 @@ def prediccion(update,context):
             aux=1
         
 
-        bot.sendMessage(chat_id=id,text="----Mensaje automatico----")
-        bot.sendMessage(chat_id=id,text="Playas suscritas de "+ user_first_name+"\n")
+        bot.sendMessage(chat_id=chat_id,text="----Mensaje automatico----")
+        bot.sendMessage(chat_id=chat_id,text="Playas suscritas de "+ user_first_name+"\n")
 
         aux=0
         for row in result:
@@ -639,7 +640,7 @@ def prediccion(update,context):
             y = str(y).replace(",",".")
             if(aux==1):
                 time.sleep(10)
-            bot.sendMessage(chat_id=id,text=t)
+            bot.sendMessage(chat_id=chat_id,text=t)
 
             #s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
             s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
@@ -649,7 +650,7 @@ def prediccion(update,context):
                 json1=json.load(file)
                 #s="hilo"+str(aux)
 
-                Forecast.Forecast1(BOT_TOKEN,id,json1)
+                Forecast.Forecast1(BOT_TOKEN,chat_id,json1)
                 file.close()
 
 
