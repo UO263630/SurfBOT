@@ -370,6 +370,7 @@ def subs_auto():
     bot= telepot.Bot(BOT_TOKEN)
 
 
+
     count,result=BBDD.playas_subs()
     aux=0
     for row in result:
@@ -586,6 +587,17 @@ def guiacolores(update,context):
         photo=open('guia.png','rb')
     )
 
+
+def prediccion(update,context):
+    print("----------------------------")
+    
+    query=update.callback_query
+    print(query)
+    id=query['message']['message_id']
+    chat=query['message']['chat']['id']
+    print(id)
+    #count,result=BBDD.buscarNomMun(id,user)
+
 #Función main
 def main():
     # Creamos el Updater y le pasamos el token de nuestro bot. Este se encargará de manejar las peticiones de los usuarios.
@@ -601,6 +613,7 @@ def main():
     dp.add_handler(CommandHandler("playa", suscripcion))
     dp.add_handler(CommandHandler("info", infoplaya))
     dp.add_handler(CommandHandler("guia", guiacolores))
+    dp.add_handler(CommandHandler("prediccion", prediccion))
 
     dp.add_handler(CallbackQueryHandler(pattern="BI",callback=BotonI,pass_update_queue =True))
     dp.add_handler(CallbackQueryHandler(pattern="BD",callback=BotonD,pass_update_queue =True))
@@ -627,6 +640,11 @@ def main():
         dp.add_handler(CommandHandler(x, infoplaya))
         i = i -1
 
+    i = 4
+    while(i >= 0):
+        x="pred"+str(i)+"n"
+        dp.add_handler(CommandHandler(x, infoplaya))
+        i = i -1
 
     # De no ejecutarse ninguno de los anteriores asumimos que el usuario escribió algo y ejecutamos el método echo que nos va a permitir obtener los campos de las búsquedas del usuario
     dp.add_handler(MessageHandler(Filters.text, echo))
