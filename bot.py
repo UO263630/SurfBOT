@@ -385,7 +385,7 @@ def subs_auto():
         x = str(row[3]).replace(",",".")
         y = str(row[4]).replace(",",".")
 
-        #LLamo al forecast
+        #Llamo al forecast
         Forecast.busqueda(x,y,aux)
         aux=1
 
@@ -591,13 +591,14 @@ def guiacolores(update,context):
 def prediccion(update,context):
     print("----------------------------")
     
+    update.message.reply_text('Prueba')
     query=update.callback_query
     print(query)
     id=query['message']['message_id']
     chat=query['message']['chat']['id']
     print(id)
     #count,result=BBDD.buscarNomMun(id,user)
-    
+
 
 #Función main
 def main():
