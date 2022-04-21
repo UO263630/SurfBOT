@@ -20,6 +20,8 @@ import Graficas
 import os
 import json
 
+from datetime import datetime 
+
 #Token del bot de telegram
 BOT_TOKEN = '5257201108:AAFkh9t-lYtHy2zThEvMVMst-eqwOC_jgM0'
 
@@ -35,6 +37,7 @@ ID=""
 USER=""
 INFOS=0
 INFO=""
+FECHA=""
 
 #Comando start para enviar un mensaje de bienvenida  
 def start(update, context):
@@ -368,9 +371,22 @@ def Unfollow(update, context):
 #Comando automatico que muestra la información meteorologica para las playas suscritas  del usuario
 def subs_auto():
     bot= telepot.Bot(BOT_TOKEN)
+    global FECHA
 
+    f=datetime.today().strftime('%Y-%m-%d')
+    if(FECHA!=f):
+        count,result=BBDD.playas_subs()
+        aux=0
+        for row in result:
+            print(row)
 
+            x = str(row[3]).replace(",",".")
+            y = str(row[4]).replace(",",".")
+            s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
+            os.remove(s)
 
+    print(datetime.today().strftime('%Y-%m-%d'))
+    FECHA=datetime.today().strftime('%Y-%m-%d')
     count,result=BBDD.playas_subs()
     aux=0
     for row in result:
@@ -445,15 +461,7 @@ def subs_auto():
             aux=1
 
 
-    count,result=BBDD.playas_subs()
-    aux=0
-    for row in result:
-        print(row)
 
-        x = str(row[3]).replace(",",".")
-        y = str(row[4]).replace(",",".")
-        s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
-        os.remove(s)
 
 
 
@@ -515,6 +523,23 @@ def infoplaya(update,context):
     global INFOS
     global INFO
     n = INFOS
+
+    global FECHA
+
+    f=datetime.today().strftime('%Y-%m-%d')
+    if(FECHA!=f):
+        count,result=BBDD.playas_subs()
+        aux=0
+        for row in result:
+            print(row)
+
+            x = str(row[3]).replace(",",".")
+            y = str(row[4]).replace(",",".")
+            s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
+            os.remove(s)
+
+    print(datetime.today().strftime('%Y-%m-%d'))
+    FECHA=datetime.today().strftime('%Y-%m-%d')
 
     if( n!=0 and text!="/info"):
         
@@ -622,7 +647,6 @@ def prediccion(update,context):
             aux=1
         
 
-        bot.sendMessage(chat_id=chat_id,text="----Mensaje automatico----")
         bot.sendMessage(chat_id=chat_id,text="Playas suscritas de "+ user_first_name+"\n")
 
         aux=0
