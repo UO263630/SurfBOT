@@ -597,6 +597,7 @@ def prediccion(update,context):
     chat=query['message']['chat']['id']
     print(id)
     #count,result=BBDD.buscarNomMun(id,user)
+    
 
 #Función main
 def main():
