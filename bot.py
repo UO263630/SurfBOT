@@ -498,7 +498,7 @@ def BotonGV(update,context):
 def BotonGS(update,context):
     print("----------------------------")
     
-    query=update.callback_query
+    query=update.callback_query.chat.id
     print(query)
     id=query['message']['message_id']
     chat=query['message']['chat']['id']
@@ -591,12 +591,11 @@ def guiacolores(update,context):
 def prediccion(update,context):
     print("----------------------------")
     
-    update.message.reply_text('Prueba')
-    query=update.callback_query
-    print(query)
-    id=query['message']['message_id']
-    chat=query['message']['chat']['id']
-    print(id)
+    #update.message.reply_text('Prueba')
+    chat_id = update.message.chat_id
+    user_first_name = str(update.message.chat.username)
+    print(chat_id)
+    print(user_first_name)
     #count,result=BBDD.buscarNomMun(id,user)
 
 
