@@ -372,8 +372,26 @@ def Unfollow(update, context):
 #Comando automatico que muestra la información meteorologica para las playas suscritas  del usuario
 def subs_auto():
     bot= telepot.Bot(BOT_TOKEN)
-  
+    global FECHA
+    p=0
+    f=datetime.today().strftime('%Y-%m-%d')
+    if(FECHA!=f):
+        count,result=BBDD.playas_subs()
+        aux=0
+        for row in result:
+            print(row)
 
+            x = str(row[3]).replace(",",".")
+            y = str(row[4]).replace(",",".")
+            s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
+            if(os.path.exists(s)):
+                os.remove(s)
+        p=1
+
+    print(datetime.today().strftime('%Y-%m-%d'))
+    FECHA=datetime.today().strftime('%Y-%m-%d')
+
+    """
     count,result=BBDD.playas_subs()
     aux=0
     for row in result:
@@ -384,25 +402,25 @@ def subs_auto():
         s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
         if(os.path.exists(s)):
             os.remove(s)
+    """
+    if(p==1):
+        count,result=BBDD.playas_subs()
+        aux=0
+        for row in result:
+            print(row)
+            #nombre=row['Nombre']
+            #provincia=row['Provincia']
+            #x = str(row['CX']).replace(",",".")
+            #y = str(row['CY']).replace(",",".")
+            nombre=row[0]
+            provincia=row[1]
+            municipio=row[2]
+            x = str(row[3]).replace(",",".")
+            y = str(row[4]).replace(",",".")
 
-
-    count,result=BBDD.playas_subs()
-    aux=0
-    for row in result:
-        print(row)
-        #nombre=row['Nombre']
-        #provincia=row['Provincia']
-        #x = str(row['CX']).replace(",",".")
-        #y = str(row['CY']).replace(",",".")
-        nombre=row[0]
-        provincia=row[1]
-        municipio=row[2]
-        x = str(row[3]).replace(",",".")
-        y = str(row[4]).replace(",",".")
-
-        #Llamo al forecast
-        Forecast.busqueda(x,y,aux)
-        aux=1
+            #Llamo al forecast
+            Forecast.busqueda(x,y,aux)
+            aux=1
 
 
     count2,result2=BBDD.subs_auto()
