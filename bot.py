@@ -590,13 +590,74 @@ def guiacolores(update,context):
 
 def prediccion(update,context):
     print("----------------------------")
+    bot = telepot.Bot(BOT_TOKEN)
     
-    #update.message.reply_text('Prueba')
     chat_id = update.message.chat_id
     user_first_name = str(update.message.chat.username)
     print(chat_id)
     print(user_first_name)
-    #count,result=BBDD.buscarNomMun(id,user)
+    count,result=BBDD.buscarNomMun(chat_id,user_first_name)
+
+    if(count!=1):
+        update.message.reply_text("No esta suscrito a ninguna playa")
+    else:
+
+        print(result)
+        aux=0
+        for row in result:
+            print(row)
+            #nombre=row['Nombre']
+            #provincia=row['Provincia']
+            #x = str(row['CX']).replace(",",".")
+            #y = str(row['CY']).replace(",",".")
+            nombre=row[0]
+            provincia=row[1]
+            municipio=row[2]
+            x = str(row[3]).replace(",",".")
+            y = str(row[4]).replace(",",".")
+
+            #Llamo al forecast
+            Forecast.busqueda(x,y,aux)
+            aux=1
+        
+
+        bot.sendMessage(chat_id=id,text="----Mensaje automatico----")
+        bot.sendMessage(chat_id=id,text="Playas suscritas de "+ user_first_name+"\n")
+
+        aux=0
+        for row in result:
+            print(row)
+            #t="Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n"
+            t="Playa: "+ row[0] +" de "+ row[1] + " en " + row[2] + "\n"
+
+            x=row[3]
+            y=row[4]
+            #x=row['CX']
+            #y=row['CY']
+                    
+            x = str(x).replace(",",".")
+            y = str(y).replace(",",".")
+            if(aux==1):
+                time.sleep(10)
+            bot.sendMessage(chat_id=id,text=t)
+
+            #s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
+            s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
+            
+            if(os.path.exists(s)):
+                file = open(s,"r")
+                json1=json.load(file)
+                #s="hilo"+str(aux)
+
+                Forecast.Forecast1(BOT_TOKEN,id,json1)
+                file.close()
+
+
+
+            print("////////////////////")
+                        
+
+            aux=1
 
 
 #Función main
