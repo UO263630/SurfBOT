@@ -12,28 +12,32 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-#Función que va recibiendo la temperatura para cada valor de la gráfica
+#Función que va recibiendo la velocidad del viento para cada valor de la gráfica
 #y en función de este le otorga un color determinado
 def colors(t):
-    if(t<=0):
+    if(t>=0 and t<0,555556):
         return 'royalblue'
-    if(t>0 and t<=5):
+    if(t>=0,555556 and t<=1,66667):
         return 'turquoise'
-    if(t>5 and t<=10):
+    if(t>1,66667 and t<=3,33333):
         return 'mediumspringgreen'
-    if(t>10 and t<=15):
+    if(t>3,33333 and t<=5,55556):
         return 'limegreen'
-    if(t>15 and t<=20):
+    if(t>5,55556 and t<=8,1):
         return 'lightsalmon'
-    if(t>20 and t<=25):
+    if(t>8,1 and t<=10,8333):
         return 'salmon'
-    if(t>25 and t<=30):
+    if(t>10,8333 and t<=13,8889):
         return 'orange'
-    if(t>30 and t<=35):
+    if(t>13,8889 and t<=17,2222):
         return 'orangered'
-    if(t>35 and t<=40):
+    if(t>17,2222 and t<=20,8333):
         return 'firebrick'
-    if(t>40 and t<=45):
+    if(t>20,8333 and t<=24,7222):
+        return 'red'
+    if(t>24,7222 and t<=28,6111):
+        return 'firebrick'
+    if(t>28,6111 and t<=32,7778):
         return 'red'
     else:
         return 'darkred'

@@ -571,10 +571,10 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
     print("-----MSN-----")
     print(msn)
     
-    #print(DIRS)
-    Graficas.grafica1(dirs,0,tem1)
+    print(data)
+    Graficas.grafica1(dirs,0,tem1,data)
     #dirs=[]
-    Graficas.grafica2(dirv,0,tem3)
+    Graficas.grafica2(dirv,0,tem3,data2)
     #dirv=[]
 
     n=bot.sendPhoto(chat_id=chat,
@@ -614,9 +614,9 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
     DIC.append(d)
     
 
-    Graficas.grafica1(dirs2,1,tem2)
+    Graficas.grafica1(dirs2,1,tem2,data3)
     #dirs2=[]
-    Graficas.grafica2(dirv2,1,tem4)
+    Graficas.grafica2(dirv2,1,tem4,data4)
     #dirv2=[]
 
  
