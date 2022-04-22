@@ -649,6 +649,7 @@ def prediccion(update,context):
         update.message.reply_text("No esta suscrito a ninguna playa")
     else:
         if(p==1):
+            print("____________ENTRA____________")
             print(result)
             aux=0
             for row in result:
