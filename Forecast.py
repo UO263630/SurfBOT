@@ -80,7 +80,7 @@ def busqueda(x,y,aux):
             params={
                 'lat': x,
                 'lng': y,
-                'params': ','.join(['airTemperature', 'windSpeed','waveDirection','swellPeriod','swellHeight','swellDirection','waterTemperature']),
+                'params': ','.join(['airTemperature', 'windSpeed','waveHeight','waveDirection','swellPeriod','swellHeight','swellDirection','waterTemperature']),
                 'start': start.to('UTC+1').timestamp(),  # Convert to UTC timestamp
                 'end': end.to('UTC+1').timestamp()  # Convert to UTC timestamp
             },

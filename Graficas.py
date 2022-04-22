@@ -43,7 +43,33 @@ def colors(t):
         return 'darkred'
     
 
-
+def colors2(t):
+    if(t>=0 and t<0.555556):
+        return 'royalblue'
+    if(t>=0.555556 and t<=1.66667):
+        return 'turquoise'
+    if(t>1.66667 and t<=3.33333):
+        return 'mediumspringgreen'
+    if(t>3.33333 and t<=5.55556):
+        return 'limegreen'
+    if(t>5.55556 and t<=8.1):
+        return 'lightsalmon'
+    if(t>8.1 and t<=10.8333):
+        return 'salmon'
+    if(t>10.8333 and t<=13.8889):
+        return 'orange'
+    if(t>13.8889 and t<=17.2222):
+        return 'orangered'
+    if(t>17.2222 and t<=20.8333):
+        return 'firebrick'
+    if(t>20.8333 and t<=24.7222):
+        return 'red'
+    if(t>24.7222 and t<=28.6111):
+        return 'firebrick'
+    if(t>28.6111 and t<=32.7778):
+        return 'red'
+    else:
+        return 'darkred'
 
 #Función que crea una gráfica con los datos de dirección de viento y lo guarda en una imagen.
 #Ah esta función se le pasan tres argumentos:
@@ -95,7 +121,7 @@ def grafica1(grados,aux,tem,data):
     plt.xticks(x,ejex)
     plt.xlabel("horas",size=8)
     plt.title("Dirección del viento")
-    ax.get_yaxis().set_visible(True)
+    #ax.get_yaxis().set_visible(True)
     i=0
 
     d=[]
@@ -177,7 +203,7 @@ def grafica2(grados,aux,tem,data):
     ax.get_yaxis().set_visible(False)
     i=0
     while i< len(x):
-        ax.quiver(x[i],0,a[i],-100,color=colors(t[i]) )
+        ax.quiver(x[i],0,a[i],-100,color=colors2(t[i]) )
         i=i+1
 
     if(aux==0):
