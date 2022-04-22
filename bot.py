@@ -542,7 +542,7 @@ def BotonGG(update,context):
     chat=query['message']['chat']['id']
     print(chat)
     print(id)
-    Forecast.cambioGG(id,chat)
+    Forecast.cambioGG(id,chat,BOT_TOKEN)
     print("BotonGG")
 
 
@@ -555,7 +555,7 @@ def BotonGG2(update,context):
     chat=query['message']['chat']['id']
     print(chat)
     print(id)
-    Forecast.cambioGG2(id,chat)
+    Forecast.cambioGG2(id,chat,BOT_TOKEN)
     print("BotonGG2")
 
 #COmando para la busqueda de información sobre las playas suscritas

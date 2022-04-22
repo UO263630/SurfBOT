@@ -709,11 +709,11 @@ def cambioGV(id,chat):
                             message_id=id
         )
 
-def cambioGG(id,chat):
+def cambioGG(id,chat,token):
     #tabla=datos(id,chat)
     #print(chat)
     print("<<<<<<<<<<CAMBIOGG<<<<<<<<<<<<<")
-    bot2=telegram.Bot(TOKEN)
+    bot2=telegram.Bot(token)
     bot2.editMessageMedia(
                             media=InputMediaPhoto(media = open("guia.png",'rb')),
                             reply_markup= InlineKeyboardMarkup([
@@ -723,11 +723,11 @@ def cambioGG(id,chat):
                             message_id=id
         )
 
-def cambioGG2(id,chat):
+def cambioGG2(id,chat,token):
     #tabla=datos(id,chat)
     #print(chat)
     print("<<<<<<<<<<CAMBIOGG2<<<<<<<<<<<<<")
-    bot2=telegram.Bot(TOKEN)
+    bot2=telegram.Bot(token)
     bot2.editMessageMedia(
                             media=InputMediaPhoto(media = open("guia.png",'rb')),
                             reply_markup= InlineKeyboardMarkup([
