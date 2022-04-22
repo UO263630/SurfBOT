@@ -24,7 +24,7 @@ import os
 #Librerai para tratar archivos json
 import json
     
-
+import bot
 #Variables auxiliares globales
 AP=0
 AUX=0
@@ -253,7 +253,7 @@ def tablas(id,json_data):
 
                 sP=sP + " s"
     
-                sH=str(row['swellHeight']['noaa'])
+                sH=str(row['waveHeight']['noaa'])
 
                 w=sH.split(".")
                 if(len(w[1])==1):
@@ -314,7 +314,7 @@ def tablas(id,json_data):
 
                 sP=sP + " s"
 
-                sH=str(row['swellHeight']['noaa']) 
+                sH=str(row['waveHeight']['noaa']) 
 
                 w=sH.split(".")
                 if(len(w[1])==1):
@@ -459,7 +459,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
 
                 sP=sP + " s"
 
-                sH=str(row['swellHeight']['noaa'])
+                sH=str(row['waveHeight']['noaa'])
 
                 w=sH.split(".")
                 if(len(w[1])==1):
@@ -520,7 +520,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
 
                 sP=sP + " s"
 
-                sH=str(row['swellHeight']['noaa'])
+                sH=str(row['waveHeight']['noaa'])
 
                 w=sH.split(".")
                 if(len(w[1])==1):
@@ -704,6 +704,34 @@ def cambioGV(id,chat):
                             media=InputMediaPhoto(media = open(tabla,'rb')),
                             reply_markup= InlineKeyboardMarkup([
                             [buttonGS]
+                            ]),
+                            chat_id=chat,
+                            message_id=id
+        )
+
+def cambioGG(id,chat):
+    #tabla=datos(id,chat)
+    #print(chat)
+    print("<<<<<<<<<<CAMBIOGG<<<<<<<<<<<<<")
+    bot2=telegram.Bot(TOKEN)
+    bot2.editMessageMedia(
+                            media=InputMediaPhoto(media = open("guia.png",'rb')),
+                            reply_markup= InlineKeyboardMarkup([
+                            [bot.buttonG]
+                            ]),
+                            chat_id=chat,
+                            message_id=id
+        )
+
+def cambioGG2(id,chat):
+    #tabla=datos(id,chat)
+    #print(chat)
+    print("<<<<<<<<<<CAMBIOGG2<<<<<<<<<<<<<")
+    bot2=telegram.Bot(TOKEN)
+    bot2.editMessageMedia(
+                            media=InputMediaPhoto(media = open("guia.png",'rb')),
+                            reply_markup= InlineKeyboardMarkup([
+                            [bot.buttonG2]
                             ]),
                             chat_id=chat,
                             message_id=id

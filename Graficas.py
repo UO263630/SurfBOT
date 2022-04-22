@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 def colors(t):
     if(t>=0 and t<0.555556):
         return 'royalblue'
-    if(t>=0.555556 and t<=1.66667):
+    if(t>0.555556 and t<=1.66667):
         return 'turquoise'
     if(t>1.66667 and t<=3.33333):
         return 'mediumspringgreen'
@@ -44,32 +44,26 @@ def colors(t):
     
 
 def colors2(t):
-    if(t>=0 and t<0.555556):
+    if(t<=0):
         return 'royalblue'
-    if(t>=0.555556 and t<=1.66667):
+    if(t>0 and t<=0.10):
         return 'turquoise'
-    if(t>1.66667 and t<=3.33333):
+    if(t>0.10 and t<=0.5):
         return 'mediumspringgreen'
-    if(t>3.33333 and t<=5.55556):
+    if(t>0.5 and t<=1.25):
         return 'limegreen'
-    if(t>5.55556 and t<=8.1):
+    if(t>1.25 and t<=2.5):
         return 'lightsalmon'
-    if(t>8.1 and t<=10.8333):
+    if(t>2.5 and t<=4):
         return 'salmon'
-    if(t>10.8333 and t<=13.8889):
+    if(t>4 and t<=6):
         return 'orange'
-    if(t>13.8889 and t<=17.2222):
+    if(t>6 and t<=9):
         return 'orangered'
-    if(t>17.2222 and t<=20.8333):
+    if(t>9 and t<=14):
         return 'firebrick'
-    if(t>20.8333 and t<=24.7222):
-        return 'red'
-    if(t>24.7222 and t<=28.6111):
-        return 'firebrick'
-    if(t>28.6111 and t<=32.7778):
-        return 'red'
     else:
-        return 'darkred'
+        return 'red'
 
 #Función que crea una gráfica con los datos de dirección de viento y lo guarda en una imagen.
 #Ah esta función se le pasan tres argumentos:
@@ -202,9 +196,28 @@ def grafica2(grados,aux,tem,data):
     plt.title("Dirección de oleaje")
     ax.get_yaxis().set_visible(False)
     i=0
+    d=[]
+    for r in data:
+        n=r[2].split(" m")
+        d.append(float(n[0]))
+
     while i< len(x):
-        ax.quiver(x[i],0,a[i],-100,color=colors2(t[i]) )
+        ax.quiver(x[i],22,a[i],-100,color=colors2(t[i]) )
         i=i+1
+
+    y=[0,5,10,15,20,25,30,35,40,45]
+    ejey=["0ºC","5ºC","10ºC","15ºC","20ºC","25ºC","30ºC","35ºC","40ºC","45ºC"]
+    t=[]
+    for row in tem:
+        r=row.split(" ºC")
+        t.append(float(r[0]))
+
+
+    plt.plot(x,t,marker=".",color="black",linestyle='solid')
+    print(t)
+    plt.yticks(y,ejey)
+    plt.ylabel("Temperatura(ºC)",size=8)
+
 
     if(aux==0):
         plt.savefig("SwellDirection.png",bbox_inches="tight")

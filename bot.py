@@ -1,6 +1,7 @@
 #Libreria para conectarse con el bot de telegram
 from re import X
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 import telegram
 import time
 import schedule
@@ -532,6 +533,30 @@ def BotonGS(update,context):
     Forecast.cambioGV(id,chat)
     print("BotonIF")
 
+def BotonGG(update,context):
+    print("----------------------------")
+    
+    query=update.callback_query.chat.id
+    print(query)
+    id=query['message']['message_id']
+    chat=query['message']['chat']['id']
+    print(chat)
+    print(id)
+    Forecast.cambioGG(id,chat)
+    print("BotonGG")
+
+
+def BotonGG2(update,context):
+    print("----------------------------")
+    
+    query=update.callback_query.chat.id
+    print(query)
+    id=query['message']['message_id']
+    chat=query['message']['chat']['id']
+    print(chat)
+    print(id)
+    Forecast.cambioGG2(id,chat)
+    print("BotonGG2")
 
 #COmando para la busqueda de información sobre las playas suscritas
 def infoplaya(update,context):
@@ -602,6 +627,17 @@ def infoplaya(update,context):
         print("---FIN ELSE INFOPLAYA---")
 
 
+
+buttonG = InlineKeyboardButton(
+        text= "Guia grafica de oleajes",
+        callback_data='BGG'
+)
+
+buttonG2 = InlineKeyboardButton(
+        text= "Guia grafica de viento",
+        callback_data='BG2'
+)
+
 def guiacolores(update,context):
     update.message.reply_text("Las diferentes gráficas que se muestran con las prediccciones"+
                                "meteorologicas van coloreadas en función de la temperatura.\n"+
@@ -609,8 +645,11 @@ def guiacolores(update,context):
     Graficas.guia()
     bot=telegram.Bot(BOT_TOKEN)
     bot.sendPhoto(chat_id=update.message.chat_id,
-        photo=open('guia.png','rb')
-    )
+        photo=open('guia.png','rb'),
+        reply_markup=InlineKeyboardMarkup([
+                        [buttonG]])
+                    )
+    
 
 
 def prediccion(update,context):
@@ -728,6 +767,8 @@ def main():
     dp.add_handler(CallbackQueryHandler(pattern="BD",callback=BotonD,pass_update_queue =True))
     dp.add_handler(CallbackQueryHandler(pattern="BGI",callback=BotonGV,pass_update_queue =True))
     dp.add_handler(CallbackQueryHandler(pattern="BGV",callback=BotonGS,pass_update_queue =True))
+    dp.add_handler(CallbackQueryHandler(pattern="BGG",callback=BotonGG,pass_update_queue =True))
+    dp.add_handler(CallbackQueryHandler(pattern="BGG2",callback=BotonGG2,pass_update_queue =True))
     
 
     g = 40
