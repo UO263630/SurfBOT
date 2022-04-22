@@ -95,19 +95,19 @@ def grafica1(grados,aux,tem,data):
     plt.xticks(x,ejex)
     plt.xlabel("horas",size=8)
     plt.title("Dirección del viento")
-    ax.get_yaxis().set_visible(False)
+    ax.get_yaxis().set_visible(True)
     i=0
 
     d=[]
     for r in data:
         n=r[2].split(" m/s")
         d.append(float(n[0]))
-        
+
     print(".----------------------------------------.....")
     while i< len(x):
         print(x[i])
         print(a[i])
-        ax.quiver(x[i],0,a[i],-100 ,color= colors(t[i]) )
+        ax.quiver(x[i],22,a[i],-100 ,color= colors(t[i]) )
         i=i+1
 
     y=[0,5,10,15,20,25,30,35,40,45]
