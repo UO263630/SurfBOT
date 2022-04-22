@@ -536,7 +536,7 @@ def BotonGS(update,context):
 def BotonGG(update,context):
     print("----------------------------")
     
-    query=update.callback_query.chat.id
+    query=update.callback_query
     print(query)
     id=query['message']['message_id']
     chat=query['message']['chat']['id']
@@ -549,7 +549,7 @@ def BotonGG(update,context):
 def BotonGG2(update,context):
     print("----------------------------")
     
-    query=update.callback_query.chat.id
+    query=update.callback_query
     print(query)
     id=query['message']['message_id']
     chat=query['message']['chat']['id']
