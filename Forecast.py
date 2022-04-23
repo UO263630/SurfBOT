@@ -266,7 +266,7 @@ def tablas(id,json_data):
 
                 #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
                 d= [ time , aT ,  wS ]
-                d2= [time, sP,sH]
+                d2= [time, sP,sH, wT]
                 data.append(d[:])
                 data2.append(d2[:])
                 dirv.append(wD)
@@ -326,8 +326,8 @@ def tablas(id,json_data):
                 wT=str(row['waterTemperature']['noaa'])+" ºC"
 
                 #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
-                d= [ time , aT ,  wS ]
-                d2= [time, sP,sH]
+                d= [time, aT, wS]
+                d2= [time, sP, sH, wT]
                 data3.append(d[:])
                 data4.append(d2[:])
                 dirs2.append(sD)
@@ -354,7 +354,7 @@ def tablas(id,json_data):
         g="WindDirection2.png"
         return g
     if(id==4):
-        tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola"]  ) 
+        tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola", "Temperatura del agua"]  ) 
         return tabla2
     if(id==5):
         Graficas.grafica2(dirv,0,tem3,data2)
@@ -362,7 +362,7 @@ def tablas(id,json_data):
         g="SwellDirection.png"
         return g
     if(id==6):
-        tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola"]  )
+        tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola", "Temperatura del agua"]  )
         return tabla4
     if(id==7):
         Graficas.grafica2(dirv2,1,tem4,data4)
