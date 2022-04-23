@@ -151,8 +151,8 @@ def datos(id,chat):
         if(x[0] ==id):
             #print(x[1])
             print(x[2])
-            
-            if(x[3] == str(chat)):
+            print(x[3])
+            if(str(x[3]) == str(chat)):
                 if(x[2]<=3 and aux==0):
                     x[2]=x[2]+4
                     tipo=x[2]

@@ -392,18 +392,7 @@ def subs_auto():
     print(datetime.today().strftime('%Y-%m-%d'))
     FECHA=datetime.today().strftime('%Y-%m-%d')
 
-    """
-    count,result=BBDD.playas_subs()
-    aux=0
-    for row in result:
-        print(row)
 
-        x = str(row[3]).replace(",",".")
-        y = str(row[4]).replace(",",".")
-        s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
-        if(os.path.exists(s)):
-            os.remove(s)
-    """
     if(p==1):
         count,result=BBDD.playas_subs()
         aux=0
