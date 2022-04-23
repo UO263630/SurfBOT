@@ -700,7 +700,7 @@ def prediccion(update,context):
                 aux=1
         
         count2,result2=BBDD.playas_subs()
-        for r in result2:
+        for row2 in result2:
             x = str(row2[3]).replace(",",".")
             y = str(row2[4]).replace(",",".")
             s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
