@@ -741,7 +741,7 @@ def prediccion(update,context):
                 Forecast.Forecast1(BOT_TOKEN,chat_id,json1)
                 file.close()
 
-
+            print("DIC")
             print(Forecast.DIC)
             print("////////////////////")
                         
