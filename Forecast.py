@@ -471,8 +471,8 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
                 wT=str(row['waterTemperature']['noaa'])+" ºC"
 
                 #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
-                d= [ time , aT ,  wS ]
-                d2= [time, sP,sH]
+                d= [time ,aT ,wS ]
+                d2= [time, sP ,sH, wT]
                 data.append(d[:])
                 data2.append(d2[:])
                 dirv.append(wD)
@@ -533,7 +533,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
 
                 #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
                 d= [ time , aT ,  wS ]
-                d2= [time, sP,sH]
+                d2= [time, sP,sH, wT]
                 data3.append(d[:])
                 data4.append(d2[:])
                 dirs2.append(sD)
@@ -552,7 +552,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
     tabla1=tabulate( data , headers=["hora","Temperatura" , "Velocidad viento"]  ) 
     
     
-    tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola"]  ) 
+    tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola", "Temperatura del agua"]  ) 
     
     
     partes = str(start).split("T")[0].split("-")
@@ -602,7 +602,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
 
     tabla3=tabulate( data3 , headers=["hora","Temperatura" , "Velocidad viento"]  ) 
 
-    tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola"]  )
+    tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola", "Temperatura del agua"]  )
 
     
     n=bot.sendMessage( chat, tabla3 ,           

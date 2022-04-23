@@ -705,6 +705,7 @@ def prediccion(update,context):
             y = str(row2[4]).replace(",",".")
             s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
             if(os.path.exists(s) ==False):
+                print("____________ENTRA2____________")
                 Forecast.busqueda(x,y,aux)
 
 
