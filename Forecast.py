@@ -718,7 +718,7 @@ def cambioGG(id,chat,token):
     bot2.editMessageMedia(
                             media=InputMediaPhoto(media = open("guia2.png",'rb')),
                             reply_markup= InlineKeyboardMarkup([
-                            [bot.buttonG]
+                            [bot.buttonG2]
                             ]),
                             chat_id=chat,
                             message_id=id
@@ -733,7 +733,7 @@ def cambioGG2(id,chat,token):
     bot2.editMessageMedia(
                             media=InputMediaPhoto(media = open("guia.png",'rb')),
                             reply_markup= InlineKeyboardMarkup([
-                            [bot.buttonG2]
+                            [bot.buttonG]
                             ]),
                             chat_id=chat,
                             message_id=id
