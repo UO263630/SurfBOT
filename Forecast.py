@@ -49,22 +49,11 @@ def busqueda(x,y,aux):
                 AP=0
                 AUX=AUX+1
             s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
-
-            """
-            if(os.path.isfile(s)):
-                f = open(s,"r")
-                linea= f.readlines()
-                f.close()
-                f = open(s,"w")
-                for line in linea: 
-                    if line!="nickname_to_delete"+"\n": 
-                        f.write(line)
-                f.close()
-            """
+            s2="JSON_"+str(x)+"_"+str(y)+"_OLAS"+".json"
                 
             print(s)
             file = open(s,"w")
-
+            file2=open(s2,"w")
             # Get first hour of today
             start = arrow.now().floor('day')
             print(start)
@@ -89,13 +78,28 @@ def busqueda(x,y,aux):
             }
             )
 
+            response2 = requests.get(
+            'https://api.stormglass.io/v2/tide/extremes/point',
+            params={
+                'lat': x,
+                'lng': y,
+                
+                'start': start.to('UTC+1').timestamp(),  # Convert to UTC timestamp
+                'end': end.to('UTC+1').timestamp(),  # Convert to UTC timestam
+            },
+            headers={
+                'Authorization': n[AUX].rstrip()
+            }
+            )
+
             AP=AP+1
             print(AP)
             api.close()
 
             # Do something with response data.
             json_data = response.json()
-
+            json_data2= response2.json()
+            print(json_data2)
             #print(json_data)
 
             """
@@ -128,8 +132,10 @@ def busqueda(x,y,aux):
 
             #json.dump(json.loads(json_data) , file)
             json.dump(json_data , file)
+            json.dump(json_data2,file2)
             #file.write(json_data)
             file.close()
+            file2.close()
             print("------------------------forecast---------------------")
 
 
@@ -354,7 +360,7 @@ def tablas(id,json_data):
         g="WindDirection2.png"
         return g
     if(id==4):
-        tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola", "Temperatura del agua"]  ) 
+        tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola", "Tem. del agua"]  ) 
         return tabla2
     if(id==5):
         Graficas.grafica2(dirv,0,tem3,data2)
@@ -362,7 +368,7 @@ def tablas(id,json_data):
         g="SwellDirection.png"
         return g
     if(id==6):
-        tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola", "Temperatura del agua"]  )
+        tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola", "Tem. del agua"]  )
         return tabla4
     if(id==7):
         Graficas.grafica2(dirv2,1,tem4,data4)
@@ -552,7 +558,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
     tabla1=tabulate( data , headers=["hora","Temperatura" , "Velocidad viento"]  ) 
     
     
-    tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola", "Temperatura del agua"]  ) 
+    tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola", "Tem. del agua"]  ) 
     
     
     partes = str(start).split("T")[0].split("-")
@@ -602,7 +608,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
 
     tabla3=tabulate( data3 , headers=["hora","Temperatura" , "Velocidad viento"]  ) 
 
-    tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola", "Temperatura del agua"]  )
+    tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola", "Tem. del agua"]  )
 
     
     n=bot.sendMessage( chat, tabla3 ,           
