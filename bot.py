@@ -524,7 +524,8 @@ def BotonGV(update,context):
 def BotonGS(update,context):
     print("----------------------------")
     
-    query=update.callback_query.chat.id
+    #query=update.callback_query.chat.id
+    query=update.callback_query
     print(query)
     id=query['message']['message_id']
     chat=query['message']['chat']['id']
@@ -642,7 +643,7 @@ def guiacolores(update,context):
     update.message.reply_text("Las diferentes gráficas que se muestran con las prediccciones"+
                                "meteorologicas van coloreadas en función de la temperatura.\n"+
                                "Estos colores y la relación con los grados centigrados son:")
-    Graficas.guia()
+    Graficas.guia(0)
     bot=telegram.Bot(BOT_TOKEN)
     bot.sendPhoto(chat_id=update.message.chat_id,
         photo=open('guia.png','rb'),

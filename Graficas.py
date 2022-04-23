@@ -35,10 +35,6 @@ def colors(t):
         return 'firebrick'
     if(t>20.8333 and t<=24.7222):
         return 'red'
-    if(t>24.7222 and t<=28.6111):
-        return 'firebrick'
-    if(t>28.6111 and t<=32.7778):
-        return 'red'
     else:
         return 'darkred'
     
@@ -225,32 +221,70 @@ def grafica2(grados,aux,tem,data):
          plt.savefig("SwellDirection2.png",bbox_inches="tight")
 
 
-def guia():
+def guia(x):
     
-    i=0
-    l=["<=0ºC","0ºC>y<=5ºC","5ºC>y<=10ºC","10ºC>y<=15ºC","15ºC>y<=20ºC","20ºC>y<=25ºC","25ºC>y<=30ºC","30ºC>y<=35ºC","35ºC>y<=40ºC"
-        ,"40ºC>y<=45ºC",">45ºC"]
+    if(x==0):
+        i=0
+        l=["<0.555556 m/s",
+        "0.56 m/s > y <=1.67","1.67 m/s > y <=3.34 m/s",
+        "3.34 m/s > y <=5.56 m/s","5.56 m/s > y <=8.1 m/s",
+        "8.1 m/s > y <=10.84 m/s","10.84 m/s > y <=13.89 m/s",
+        "13.89 m/s > y <=17.23 m/s","17.23 m/s > y <=20.84 m/s",
+        "20.84 m/s > y <=24.73 m/s",">24.73 m/s"]
 
-    plt.figure(figsize=(2.5,3))
-    plt.axhline(y=2, xmin=0.1, xmax=0.3, color="royalblue")
-    plt.axhline(y=3, xmin=0.1, xmax=0.3, color="turquoise")
-    plt.axhline(y=4, xmin=0.1, xmax=0.3, color="mediumspringgreen")
-    plt.axhline(y=5, xmin=0.1, xmax=0.3, color="limegreen")
-    plt.axhline(y=6, xmin=0.1, xmax=0.3, color="lightsalmon")
-    plt.axhline(y=7, xmin=0.1, xmax=0.3, color="salmon")
-    plt.axhline(y=8, xmin=0.1, xmax=0.3, color="orange")
-    plt.axhline(y=9, xmin=0.1, xmax=0.3, color="orangered")
-    plt.axhline(y=10, xmin=0.1, xmax=0.3, color="firebrick")
-    plt.axhline(y=11, xmin=0.1, xmax=0.3, color="red")
-    plt.axhline(y=12, xmin=0.1, xmax=0.3, color="darkred")
+        plt.figure(figsize=(2.5,3))
+        plt.axhline(y=2, xmin=0.1, xmax=0.3, color="royalblue")
+        plt.axhline(y=3, xmin=0.1, xmax=0.3, color="turquoise")
+        plt.axhline(y=4, xmin=0.1, xmax=0.3, color="mediumspringgreen")
+        plt.axhline(y=5, xmin=0.1, xmax=0.3, color="limegreen")
+        plt.axhline(y=6, xmin=0.1, xmax=0.3, color="lightsalmon")
+        plt.axhline(y=7, xmin=0.1, xmax=0.3, color="salmon")
+        plt.axhline(y=8, xmin=0.1, xmax=0.3, color="orange")
+        plt.axhline(y=9, xmin=0.1, xmax=0.3, color="orangered")
+        plt.axhline(y=10, xmin=0.1, xmax=0.3, color="firebrick")
+        plt.axhline(y=11, xmin=0.1, xmax=0.3, color="red")
+        plt.axhline(y=12, xmin=0.1, xmax=0.3, color="darkred")
 
-    n=2
-    i=0
-    while i<len(l):
-        plt.text(0.6,n,l[i], ha="center", size="x-small")
-        n=n+1
-        i=i+1
+        n=2
+        i=0
+        while i<len(l):
+            plt.text(0.6,n,l[i], ha="center", size="x-small")
+            n=n+1
+            i=i+1
 
-    plt.axis('off')
-    #plt.show()
-    plt.savefig("guia.png",bbox_inches="tight")
+        plt.axis('off')
+        #plt.show()
+        plt.savefig("guia.png",bbox_inches="tight")
+    else:
+        i=0
+        l=["<0 m",
+        "0 m > y <=0.10","0.10 m > y <=0.5 m",
+        "0.5 m > y <=1.25 m","1.25 m > y <=2.5 m",
+        "2.5 m > y <=4 m","4 m > y <=6 m",
+        "6 m > y <=9 m","9 m > y <=14 m",
+        ">14 m"]
+
+        plt.figure(figsize=(2.5,3))
+        plt.axhline(y=2, xmin=0.1, xmax=0.3, color="royalblue")
+        plt.axhline(y=3, xmin=0.1, xmax=0.3, color="turquoise")
+        plt.axhline(y=4, xmin=0.1, xmax=0.3, color="mediumspringgreen")
+        plt.axhline(y=5, xmin=0.1, xmax=0.3, color="limegreen")
+        plt.axhline(y=6, xmin=0.1, xmax=0.3, color="lightsalmon")
+        plt.axhline(y=7, xmin=0.1, xmax=0.3, color="salmon")
+        plt.axhline(y=8, xmin=0.1, xmax=0.3, color="orange")
+        plt.axhline(y=9, xmin=0.1, xmax=0.3, color="orangered")
+        plt.axhline(y=10, xmin=0.1, xmax=0.3, color="firebrick")
+        plt.axhline(y=11, xmin=0.1, xmax=0.3, color="red")
+
+        n=2
+        i=0
+        while i<len(l):
+            plt.text(0.6,n,l[i], ha="center", size="x-small")
+            n=n+1
+            i=i+1
+
+        plt.axis('off')
+        #plt.show()
+        plt.savefig("guia2.png",bbox_inches="tight")
+
+

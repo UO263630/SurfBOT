@@ -714,8 +714,9 @@ def cambioGG(id,chat,token):
     #print(chat)
     print("<<<<<<<<<<CAMBIOGG<<<<<<<<<<<<<")
     bot2=telegram.Bot(token)
+    Graficas.guia(1)
     bot2.editMessageMedia(
-                            media=InputMediaPhoto(media = open("guia.png",'rb')),
+                            media=InputMediaPhoto(media = open("guia2.png",'rb')),
                             reply_markup= InlineKeyboardMarkup([
                             [bot.buttonG]
                             ]),
@@ -728,6 +729,7 @@ def cambioGG2(id,chat,token):
     #print(chat)
     print("<<<<<<<<<<CAMBIOGG2<<<<<<<<<<<<<")
     bot2=telegram.Bot(token)
+    Graficas.guia(0)
     bot2.editMessageMedia(
                             media=InputMediaPhoto(media = open("guia.png",'rb')),
                             reply_markup= InlineKeyboardMarkup([
