@@ -190,7 +190,7 @@ def grafica2(grados,aux,tem,data):
     plt.xticks(x,ejex)
     plt.xlabel("horas",size=8)
     plt.title("Dirección de oleaje")
-    ax.get_yaxis().set_visible(False)
+    ax.get_yaxis().set_visible(True)
     i=0
     d=[]
     for r in data:

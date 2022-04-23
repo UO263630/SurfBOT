@@ -660,13 +660,13 @@ def prediccion(update,context):
 
     f=datetime.today().strftime('%Y-%m-%d')
     if(FECHA!=f):
-        count,result=BBDD.playas_subs()
+        count,result2=BBDD.playas_subs()
         aux=0
-        for row in result:
-            print(row)
+        for row2 in result2:
+            print(row2)
 
-            x = str(row[3]).replace(",",".")
-            y = str(row[4]).replace(",",".")
+            x = str(row2[3]).replace(",",".")
+            y = str(row2[4]).replace(",",".")
             s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
             if(os.path.exists(s)):
                 os.remove(s)
