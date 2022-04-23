@@ -645,11 +645,13 @@ def guiacolores(update,context):
                                "Estos colores y la relación con los grados centigrados son:")
     Graficas.guia(0)
     bot=telegram.Bot(BOT_TOKEN)
-    bot.sendPhoto(chat_id=update.message.chat_id,
+    f=bot.sendPhoto(chat_id=update.message.chat_id,
         photo=open('guia.png','rb'),
         reply_markup=InlineKeyboardMarkup([
                         [buttonG]])
                     )
+
+
     
 
 
@@ -769,7 +771,7 @@ def main():
     dp.add_handler(CallbackQueryHandler(pattern="BGI",callback=BotonGV,pass_update_queue =True))
     dp.add_handler(CallbackQueryHandler(pattern="BGV",callback=BotonGS,pass_update_queue =True))
     dp.add_handler(CallbackQueryHandler(pattern="BGG",callback=BotonGG,pass_update_queue =True))
-    dp.add_handler(CallbackQueryHandler(pattern="BGG2",callback=BotonGG2,pass_update_queue =True))
+    dp.add_handler(CallbackQueryHandler(pattern="BG2",callback=BotonGG2,pass_update_queue =True))
     
 
     g = 40
