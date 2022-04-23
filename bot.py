@@ -640,8 +640,8 @@ buttonG2 = InlineKeyboardButton(
 )
 
 def guiacolores(update,context):
-    update.message.reply_text("Las diferentes gráficas que se muestran con las prediccciones"+
-                               "meteorologicas van coloreadas en función de la temperatura.\n"+
+    update.message.reply_text("Las diferentes gráficas que se muestran con las prediccciones "+
+                               "meteorologicas van coloreadas en función de la temperatura del aire y del agua respectivamente.\n"+
                                "Estos colores y la relación con los grados centigrados son:")
     Graficas.guia(0)
     bot=telegram.Bot(BOT_TOKEN)
@@ -742,7 +742,7 @@ def prediccion(update,context):
                 file.close()
 
 
-
+            print(Forecast.DIC)
             print("////////////////////")
                         
 
