@@ -657,10 +657,10 @@ def prediccion(update,context):
     print(result)
 
     global FECHA
-
+ 
     f=datetime.today().strftime('%Y-%m-%d')
     if(FECHA!=f):
-        count,result2=BBDD.playas_subs()
+        count2,result2=BBDD.playas_subs()
         aux=0
         for row2 in result2:
             print(row2)
@@ -699,6 +699,14 @@ def prediccion(update,context):
                 Forecast.busqueda(x,y,aux)
                 aux=1
         
+        count2,result2=BBDD.playas_subs()
+        for r in result2:
+            x = str(row2[3]).replace(",",".")
+            y = str(row2[4]).replace(",",".")
+            s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
+            if(os.path.exists(s) ==False):
+                Forecast.busqueda(x,y,aux)
+
 
         bot.sendMessage(chat_id=chat_id,text="Playas suscritas de "+ user_first_name+"\n")
 
