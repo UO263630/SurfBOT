@@ -597,21 +597,21 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
 
     convertida = "/".join(reversed(partes))
     aux=0
-    te="Fecha:"+ convertida+"\n"+"Pleamar: ("
+    te="Fecha:"+ convertida+"\n"+"Pleamar: "
     for row in pl:
         if(aux==0):
             te=te+row
         else:
             te=te+" ,"+row
         aux=1
-    te=te+")\n"+"Bajamar: "
+    te=te+"\n"+"Bajamar: "
     for row in bj:
         if(aux==0):
             te=te+row
         else:
             te=te+" ,"+row
         aux=1
-    te=te+")"
+
 
     bot.sendMessage(chat,text=te)
     f=bot.sendMessage( chat, tabla1,           
@@ -650,21 +650,21 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     #print(partes)
     aux=0
     convertida = "/".join(reversed(partes))
-    te2="Dia siguiente:"+ convertida+"\n"+"Pleamar: ("
+    te2="Dia siguiente:"+ convertida+"\n"+"Pleamar: "
     for row in pl2:
         if(aux==0):
-            te=te+row
+            te2=te2+row
         else:
-            te=te+" ,"+row
+            te2=te2+" ,"+row
         aux=1
-    te=te+")\n"+"Bajamar: "
+    te2=te2+"\n"+"Bajamar: "
     for row in bj2:
         if(aux==0):
-            te=te+row
+            te2=te2+row
         else:
-            te=te+" ,"+row
+            te2=te2+" ,"+row
         aux=1
-    te=te+")"
+
     bot.sendMessage(chat,text=te2)
 
 
