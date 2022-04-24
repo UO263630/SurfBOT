@@ -596,9 +596,24 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     #print(partes)
 
     convertida = "/".join(reversed(partes))
-    fe="Fecha:"+ convertida
+    aux=0
+    te="Fecha:"+ convertida+"\n"+"Pleamar: ("
+    for row in pl:
+        if(aux==0):
+            te=te+row
+        else:
+            te=te+" ,"+row
+        aux=1
+    te=te+")\n"+"Bajamar: "
+    for row in bj:
+        if(aux==0):
+            te=te+row
+        else:
+            te=te+" ,"+row
+        aux=1
+    te=te+")"
 
-    bot.sendMessage(chat,text=fe+"\n"+"Pleamar: "+str(pl)+"\n"+"Bajamar: "+str(bj))
+    bot.sendMessage(chat,text=te)
     f=bot.sendMessage( chat, tabla1,           
                     reply_markup=InlineKeyboardMarkup([
                         [buttonI]])
@@ -633,10 +648,24 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     f=start.shift(days=+1)
     partes = str(f).split("T")[0].split("-")
     #print(partes)
-
+    aux=0
     convertida = "/".join(reversed(partes))
-
-    bot.sendMessage(chat,text="Dia siguiente:"+ convertida+"\n"+"Pleamar: "+str(pl2)+"\n"+"Bajamar: "+str(bj2))
+    te2="Dia siguiente:"+ convertida+"\n"+"Pleamar: ("
+    for row in pl2:
+        if(aux==0):
+            te=te+row
+        else:
+            te=te+" ,"+row
+        aux=1
+    te=te+")\n"+"Bajamar: "
+    for row in bj2:
+        if(aux==0):
+            te=te+row
+        else:
+            te=te+" ,"+row
+        aux=1
+    te=te+")"
+    bot.sendMessage(chat,text=te2)
 
 
     tabla3=tabulate( data3 , headers=["hora","Temperatura" , "Velocidad viento"]  ) 
