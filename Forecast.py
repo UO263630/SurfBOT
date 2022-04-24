@@ -99,6 +99,7 @@ def busqueda(x,y,aux):
             # Do something with response data.
             json_data = response.json()
             json_data2= response2.json()
+            print("JSON")
             print(json_data2)
             #print(json_data)
 
