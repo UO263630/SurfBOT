@@ -552,19 +552,34 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
         
     pl=[]
     bj=[]
+    pl2=[]
+    bj2=[]
     for row in json_data2['data']:
         if(row['type']=='high'):
             p=row['time'].split("T")
-            p=p[1].split("+")
-            p=p[0].split(":")
-            n=p[0]+":"+p[1]
-            pl.append(n)
+            if(p[0]==start):
+                p=p[1].split("+")
+                p=p[0].split(":")
+                n=p[0]+":"+p[1]
+                pl.append(n)
+            else:
+                p=p[1].split("+")
+                p=p[0].split(":")
+                n=p[0]+":"+p[1]
+                pl2.append(n)
         else:
             p=row['time'].split("T")
-            p=p[1].split("+")
-            p=p[0].split(":")
-            n=p[0]+":"+p[1]
-            bj.append(n)
+            if(p[0]==start):
+                p=p[1].split("+")
+                p=p[0].split(":")
+                n=p[0]+":"+p[1]
+                bj.append(n)
+            else:
+                p=row['time'].split("T")
+                p=p[1].split("+")
+                p=p[0].split(":")
+                n=p[0]+":"+p[1]
+                bj2.append(n)
 
     bot= telegram.Bot(BOT_TOKEN)
     
@@ -583,7 +598,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     convertida = "/".join(reversed(partes))
     fe="Fecha:"+ convertida
 
-    bot.sendMessage(chat,text=fe+"\n"+"Pleamar: "+pl+"\n"+"Bajamar: "+bj)
+    bot.sendMessage(chat,text=fe+"\n"+"Pleamar: "+str(pl)+"\n"+"Bajamar: "+str(bj))
     f=bot.sendMessage( chat, tabla1,           
                     reply_markup=InlineKeyboardMarkup([
                         [buttonI]])
@@ -621,7 +636,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
 
     convertida = "/".join(reversed(partes))
 
-    bot.sendMessage(chat,text="Dia siguiente:"+ convertida+"\n"+"Pleamar: "+pl+"\n"+"Bajamar: "+bj)
+    bot.sendMessage(chat,text="Dia siguiente:"+ convertida+"\n"+"Pleamar: "+str(pl2)+"\n"+"Bajamar: "+str(bj2))
 
 
     tabla3=tabulate( data3 , headers=["hora","Temperatura" , "Velocidad viento"]  ) 
