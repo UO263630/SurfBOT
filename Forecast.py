@@ -151,6 +151,7 @@ def datos(id,chat):
     print(id)
     print(chat)
     aux=0
+    previa=0
     for x in DIC:
         print(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,INICIO,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
         print(x[0])
@@ -167,12 +168,25 @@ def datos(id,chat):
                     aux=1
                     print(x[2])
                 if(x[2]>=4 and x[2]<=7 and aux==0):
+                    if(x[2]==4 or x[2]==6):
+                        x[2]=x[2]+4
+                        tipo=x[2]
+                        json=x[1]
+                        aux=1
+                        print(x[2])
+                    else:
+                        x[2]=x[2]-4
+                        tipo=x[2]
+                        json=x[1]
+                        aux=1
+                        print(x[2])
+                if(x[2]>=8 and aux==0):
                     x[2]=x[2]-4
                     tipo=x[2]
                     json=x[1]
                     aux=1
                     print(x[2])
-                if(x[2]>=8 and aux==0):
+                else:
                     print("ERROR")
 
                 print(tipo)
