@@ -70,8 +70,8 @@ def busqueda(x,y,aux):
                 'lat': x,
                 'lng': y,
                 'params': ','.join(['airTemperature', 'windSpeed','waveHeight','waveDirection','swellPeriod','swellHeight','swellDirection','waterTemperature']),
-                'start': start.to('UTC+1').timestamp(),  # Convert to UTC timestamp
-                'end': end.to('UTC+1').timestamp()  # Convert to UTC timestamp
+                'start': start.to('UTC+2').timestamp(),  # Convert to UTC timestamp
+                'end': end.to('UTC+2').timestamp()  # Convert to UTC timestamp
             },
             headers={
                 'Authorization': n[AUX].rstrip()
@@ -84,8 +84,8 @@ def busqueda(x,y,aux):
                 'lat': x,
                 'lng': y,
                 
-                'start': start.to('UTC+1').timestamp(),  # Convert to UTC timestamp
-                'end': end.to('UTC+1').timestamp(),  # Convert to UTC timestam
+                'start': start.to('UTC+2').timestamp(),  # Convert to UTC timestamp
+                'end': end.to('UTC+2').timestamp(),  # Convert to UTC timestam
             },
             headers={
                 'Authorization': n[AUX].rstrip()
@@ -384,7 +384,7 @@ def tablas(id,json_data):
 #e imagenes necesarias para que el bot muestre al usuario. A diferencia de
 #la clase anterior esta solo se llama la primera vez que se muestran la
 #información de cada playa
-def Forecast1(BOT_TOKEN,chat_id,json_data):
+def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     print("<<<<<<<<<<<<<<<<<<<<<<<")
 
     global TOKEN,DIC
@@ -550,7 +550,22 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
 
         x=x+1
         
-    
+    pl=[]
+    bj=[]
+    for row in json_data2['data']:
+        if(row['type']=='high'):
+            p=row['time'].split("T")
+            p=p[1].split("+")
+            p=p[0].split(":")
+            n=p[0]+":"+p[1]
+            pl.append(n)
+        else:
+            p=row['time'].split("T")
+            p=p[1].split("+")
+            p=p[0].split(":")
+            n=p[0]+":"+p[1]
+            bj.append(n)
+
     bot= telegram.Bot(BOT_TOKEN)
     
 
@@ -566,7 +581,9 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
     #print(partes)
 
     convertida = "/".join(reversed(partes))
-    bot.sendMessage(chat,text="Fecha:"+ convertida)
+    fe="Fecha:"+ convertida
+
+    bot.sendMessage(chat,text=fe+"\n"+"Pleamar: "+pl+"\n"+"Bajamar: "+bj)
     f=bot.sendMessage( chat, tabla1,           
                     reply_markup=InlineKeyboardMarkup([
                         [buttonI]])
@@ -604,7 +621,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data):
 
     convertida = "/".join(reversed(partes))
 
-    bot.sendMessage(chat,text="Dia siguiente:"+ convertida)
+    bot.sendMessage(chat,text="Dia siguiente:"+ convertida+"\n"+"Pleamar: "+pl+"\n"+"Bajamar: "+bj)
 
 
     tabla3=tabulate( data3 , headers=["hora","Temperatura" , "Velocidad viento"]  ) 
