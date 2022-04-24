@@ -557,7 +557,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     for row in json_data2['data']:
         if(row['type']=='high'):
             p=row['time'].split("T")
-            if(p[0]==start):
+            if(p[0]==f[0]):
                 p=p[1].split("+")
                 p=p[0].split(":")
                 n=p[0]+":"+p[1]
@@ -569,7 +569,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
                 pl2.append(n)
         else:
             p=row['time'].split("T")
-            if(p[0]==start):
+            if(p[0]==f[0]):
                 p=p[1].split("+")
                 p=p[0].split(":")
                 n=p[0]+":"+p[1]
