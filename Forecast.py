@@ -209,7 +209,7 @@ def tablas(id,json_data):
     tem3=[]
     tem4=[]
     x=1
-
+    
 
     f=str(start).split("T")
     dia=f[0].split("-")
@@ -269,11 +269,21 @@ def tablas(id,json_data):
 
                 sD=row['swellDirection']['noaa'] 
                 
-                wT=str(row['waterTemperature']['noaa'])+" ºC"
+                wT=str(row['waterTemperature']['noaa'])
+
+                n=wT.split(".")
+                if(len(n[1]) ==1):
+                    wT=n[0]+"."+n[1]+"0"
+                if(len(n[0]) ==1):
+                    wT="0"+n[0]+"."+n[1]
+                if(len(n[0]) ==1 and len(n[1]) ==1):
+                    wT="0"+n[0]+"."+n[1]+"0"
+
+                wT=wT + " ºC"
 
                 #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
                 d= [ time , aT ,  wS ]
-                d2= [time, sP,sH, wT]
+                d2= [time, sP,sH]
                 data.append(d[:])
                 data2.append(d2[:])
                 dirv.append(wD)
@@ -330,11 +340,21 @@ def tablas(id,json_data):
 
                 sD=row['swellDirection']['noaa'] 
 
-                wT=str(row['waterTemperature']['noaa'])+" ºC"
+                wT=str(row['waterTemperature']['noaa'])
+
+                n=wT.split(".")
+                if(len(n[1]) ==1):
+                    wT=n[0]+"."+n[1]+"0"
+                if(len(n[0]) ==1):
+                    wT="0"+n[0]+"."+n[1]
+                if(len(n[0]) ==1 and len(n[1]) ==1):
+                    wT="0"+n[0]+"."+n[1]+"0"
+
+                wT=wT + " ºC"
 
                 #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
                 d= [time, aT, wS]
-                d2= [time, sP, sH, wT]
+                d2= [time, sP, sH]
                 data3.append(d[:])
                 data4.append(d2[:])
                 dirs2.append(sD)
@@ -361,7 +381,7 @@ def tablas(id,json_data):
         g="WindDirection2.png"
         return g
     if(id==4):
-        tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola", "Tem. del agua"]  ) 
+        tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola"]  ) 
         return tabla2
     if(id==5):
         Graficas.grafica2(dirv,0,tem3,data2)
@@ -369,13 +389,19 @@ def tablas(id,json_data):
         g="SwellDirection.png"
         return g
     if(id==6):
-        tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola", "Tem. del agua"]  )
+        tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola"]  )
         return tabla4
     if(id==7):
         Graficas.grafica2(dirv2,1,tem4,data4)
         #dirv2=[]
         g="SwellDirection2.png"
         return g
+    if(id==8):
+        tabla2= tabulate( tem3 , headers=["Tem. del agua"]  ) 
+        return tabla2
+    if(id==10):
+        tabla2= tabulate( tem4 , headers=["Tem. del agua"]  ) 
+        return tabla2
         
     print()
 
@@ -475,11 +501,21 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
 
                 sD=row['swellDirection']['noaa'] 
                 
-                wT=str(row['waterTemperature']['noaa'])+" ºC"
+                wT=str(row['waterTemperature']['noaa'])
+
+                n=wT.split(".")
+                if(len(n[1]) ==1):
+                    wT=n[0]+"."+n[1]+"0"
+                if(len(n[0]) ==1):
+                    wT="0"+n[0]+"."+n[1]
+                if(len(n[0]) ==1 and len(n[1]) ==1):
+                    wT="0"+n[0]+"."+n[1]+"0"
+
+                wT=wT + " ºC"
 
                 #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
                 d= [time ,aT ,wS ]
-                d2= [time, sP ,sH, wT]
+                d2= [time, sP ,sH]
                 data.append(d[:])
                 data2.append(d2[:])
                 dirv.append(wD)
@@ -536,11 +572,21 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
 
                 sD=row['swellDirection']['noaa'] 
 
-                wT=str(row['waterTemperature']['noaa'])+" ºC"
+                wT=str(row['waterTemperature']['noaa'])
+
+                n=wT.split(".")
+                if(len(n[1]) ==1):
+                    wT=n[0]+"."+n[1]+"0"
+                if(len(n[0]) ==1):
+                    wT="0"+n[0]+"."+n[1]
+                if(len(n[0]) ==1 and len(n[1]) ==1):
+                    wT="0"+n[0]+"."+n[1]+"0"
+
+                wT=wT + " ºC"
 
                 #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
                 d= [ time , aT ,  wS ]
-                d2= [time, sP,sH, wT]
+                d2= [time, sP,sH]
                 data3.append(d[:])
                 data4.append(d2[:])
                 dirs2.append(sD)
@@ -589,7 +635,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     tabla1=tabulate( data , headers=["hora","Temperatura" , "Velocidad viento"]  ) 
     
     
-    tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola", "Tem. del agua"]  ) 
+    tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola"]  ) 
     
     
     partes = str(start).split("T")[0].split("-")
@@ -604,6 +650,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
         else:
             te=te+" ,"+row
         aux=1
+    aux=0
     te=te+"\n"+"Bajamar: "
     for row in bj:
         if(aux==0):
@@ -657,6 +704,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
         else:
             te2=te2+" ,"+row
         aux=1
+    aux=0
     te2=te2+"\n"+"Bajamar: "
     for row in bj2:
         if(aux==0):
@@ -670,7 +718,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
 
     tabla3=tabulate( data3 , headers=["hora","Temperatura" , "Velocidad viento"]  ) 
 
-    tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola", "Tem. del agua"]  )
+    tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola"]  )
 
     
     n=bot.sendMessage( chat, tabla3 ,           
@@ -744,7 +792,7 @@ def cambioD(id,chat):
                     chat_id=chat,
                     message_id=id,
                     reply_markup=InlineKeyboardMarkup([
-                    [buttonD]]
+                    [buttonD,buttonI]]
                     
                 )
     )
