@@ -64,7 +64,7 @@ def busqueda(x,y,aux):
             txt=""
             api =open("api.txt","r")
             n=api.readlines()
-            """
+           
             response = requests.get(
             'https://api.stormglass.io/v2/weather/point',
             params={
@@ -111,6 +111,7 @@ def busqueda(x,y,aux):
             file3=open("JSON_43.5423_-5.6592_OLAS.json","r")
             json_data2=json.load(file3)
             file3.close()
+             """
             #json.dump(json.loads(json_data) , file)
             json.dump(json_data , file)
             json.dump(json_data2,file2)
