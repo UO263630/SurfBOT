@@ -451,14 +451,17 @@ def subs_auto():
 
             #s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
             s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
-            
+            s2="JSON_"+str(x)+"_"+str(y)+"_OLAS"+".json"
+
             if(os.path.exists(s)):
                 file = open(s,"r")
                 json1=json.load(file)
                 #s="hilo"+str(aux)
-
-                Forecast.Forecast1(BOT_TOKEN,id,json1)
+                file2=open(s2,"r")
+                json2=json.load(file2) 
+                Forecast.Forecast1(BOT_TOKEN,id,json1,json2)
                 file.close()
+                file2.close()
 
 
 
