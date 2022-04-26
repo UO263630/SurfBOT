@@ -162,8 +162,8 @@ def datos(id,chat,b):
                         for r in DIC2:
                             if(r[0]==id):
                                 z=r[1]
-                                print("z1")
-                                print(z)
+                                #print("z1")
+                                #print(z)
                         if(z==0):
                             if(b==0):
                                 x[2]=x[2]-4
@@ -174,7 +174,7 @@ def datos(id,chat,b):
                                     if(r[0]==id):
                                         r[1]=0
 
-                                print("z")
+                                #print("z")
                                 print(x[2])
                             else:
                                 x[2]=x[2]+4
@@ -185,7 +185,7 @@ def datos(id,chat,b):
                                     if(r[0]==id):
                                         r[1]=1
 
-                                print("z")
+                                #print("z")
                                 print(x[2])
                         else:
                             if(b==0):
@@ -193,14 +193,14 @@ def datos(id,chat,b):
                                 tipo=x[2]
                                 json=x[1]
                                 aux=1
-                                print("z")
+                                #print("z")
                                 print(x[2])
                             else:
                                 x[2]=x[2]+4
                                 tipo=x[2]
                                 json=x[1]
                                 aux=1
-                                print("z")
+                                #print("z")
                                 print(x[2])
                     else:
                         x[2]=x[2]-4
@@ -421,7 +421,7 @@ def tablas(id,json_data):
         g="WindDirection2.png"
         return g
     if(id==4):
-        print(data2)
+        #print(data2)
         tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola"]  ) 
         return tabla2
     if(id==5):
@@ -443,7 +443,7 @@ def tablas(id,json_data):
             n=[r]
             d.append(n)
         tabla2= tabulate( d , headers=["Temperatura del agua"]  ) 
-        print(tabla2)
+        #print(tabla2)
         return tabla2
     if(id==10):
         d=[]
