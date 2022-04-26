@@ -58,7 +58,8 @@ def help(update, context):
                              + "/guia : muestra una guia de los colores de las graficas.\n"
                              + "/prediccion : muestra una predicción de las playas suscritas.\n"
                              + "A las 10:00 y a las 18:00 recibira un mensaje automatico junto con las\n"
-                             + "predicciones de las playas suscritas")
+                             + "predicciones de las playas suscritas. El horario de estas predicciones\n"
+                             + "esta establecido en UTC+2 (hora de verano en la peninsula iberica)")
 
 
 
