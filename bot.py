@@ -168,7 +168,7 @@ def suscripcion(update, context):
         t = s.split('/')
         print(g)
         #Comprobación de que no se introduzca otra playa en vez de la opcion correcta
-        if( (len(t[1])!=2) or (len(t[1])!=1) ):
+        if( (len(t[1])!=2) and (len(t[1])!=1) ):
             print("ENTRA2")
             print(t[1])
             print(g)
