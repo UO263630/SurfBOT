@@ -1,5 +1,4 @@
 #Libreria para conectarse con el bot de telegram
-from re import X
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters,CallbackQueryHandler
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 import telegram
@@ -153,7 +152,7 @@ def buscar(update,playa,aux):
 
 #Comando playa para inscribirse a la playa que solicite el usuario
 def suscripcion(update, context):
-    global GLOBAL
+    global GLOBAL,RESULT
     print("GLOBAL2 "+ str(GLOBAL))
     g = GLOBAL
     s = update.message.text
@@ -162,7 +161,7 @@ def suscripcion(update, context):
     print(len(t[1]))
     print(g)
     #Solo se entra aqui si ya se ha introducido el nombre de una playa y hay varias opciones
-    if((g != 0) and (len(t[1])==1) ):  
+    if((g != 0) and ( (len(t[1])==1) or (len(t[1])==2)  ) ):  
         print("ENTRA")
         print(update.message.text)
         s = update.message.text
@@ -180,6 +179,7 @@ def suscripcion(update, context):
                 GLOBAL = 0
             else:
                 GLOBAL = 0
+                print(RESULT)
                 y,x = buscar(update,RESULT[int(t[1])] , 1)
                 if(y != x ):
                     aux=suscribirse(update, x,y)
@@ -189,7 +189,9 @@ def suscripcion(update, context):
 
                         print(x)
                         print(y)
-                        update.message.reply_text("Te acabas de suscribir con exito")
+                        update.message.reply_text("Te acabas de suscribir con exito.\n"+
+                                              " Recibiras un mensaje automatico junto con la prediccion de la playa\n"+
+                                              " a las 10 y a las 18")
                         #print("///////////////////////")
 
 
@@ -646,8 +648,6 @@ def guiacolores(update,context):
 
 
     
-
-
 def prediccion(update,context):
     print("----------------------------")
     bot = telepot.Bot(BOT_TOKEN)
@@ -821,7 +821,7 @@ def automatico():
     schedule.every().day.at("08:00").do(subs_auto)  #10:00
     schedule.every().day.at("16:00").do(subs_auto)  #18:00
 
-    schedule.every().day.at("14:40").do(subs_auto)  #16:40
+    #schedule.every().day.at("14:40").do(subs_auto)  #16:40
 
     while True:
         schedule.run_pending()

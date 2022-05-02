@@ -856,6 +856,7 @@ def cambioI(id,chat):
                     
                 )
         )
+
 def cambioD(id,chat):
     tabla,tipo=datos(id,chat,1)
     print(tipo)
