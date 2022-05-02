@@ -166,14 +166,16 @@ def suscripcion(update, context):
         print(update.message.text)
         s = update.message.text
         t = s.split('/')
-
+        print(g)
         #Comprobación de que no se introduzca otra playa en vez de la opcion correcta
-        if( (len(t[1])!=2) or (len(t[1]) !=1) ):
-            
-            update.message.reply_text("Esa no es una opcion valida. Vuelve a introducir el nombre de la playa correcta")
+        if( (len(t[1])!=2) or (len(t[1])!=1) ):
+            print("ENTRA2")
+            print(t[1])
+            print(g)
+            update.message.reply_text("Esta no es una opcion valida. Vuelve a introducir el nombre de la playa correcta")
             GLOBAL = 0
         else:
-            print("ENTRA2")
+            print("ENTRA3")
             print(t[1])
             print(g)
             #Comprobación de que la opcion que se ha introducida es una de las validas
