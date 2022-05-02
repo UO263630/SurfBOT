@@ -173,6 +173,9 @@ def suscripcion(update, context):
             update.message.reply_text("Esa no es una opcion valida. Vuelve a introducir el nombre de la playa correcta")
             GLOBAL = 0
         else:
+            print("ENTRA2")
+            print(t[1])
+            print(g)
             #Comprobación de que la opcion que se ha introducida es una de las validas
             if(int(t[1]) > g):
                 update.message.reply_text("Esa no es una opcion valida. Vuelve a introducir el nombre de la playa correcta")
