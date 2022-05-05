@@ -630,7 +630,7 @@ def infoplaya(update,context):
 
 
 buttonG = InlineKeyboardButton(
-        text= "Guia grafica de oleajes",
+        text= "Guia grafica de oleaje",
         callback_data='BGG'
 )
 
@@ -641,7 +641,7 @@ buttonG2 = InlineKeyboardButton(
 
 def guiacolores(update,context):
     update.message.reply_text("Las diferentes gráficas que se muestran con las prediccciones "+
-                               "meteorologicas van coloreadas en función de la temperatura del aire y del agua respectivamente.\n"+
+                               "meteorologicas van coloreadas en función de la intensidad del viento y la altura de las olas respectivamente.\n"+
                                "Estos colores y la relación con los grados centigrados son:")
     Graficas.guia(0)
     bot=telegram.Bot(BOT_TOKEN)
