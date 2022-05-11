@@ -15,25 +15,25 @@ import matplotlib.pyplot as plt
 #Función que va recibiendo la velocidad del viento para cada valor de la gráfica
 #y en función de este le otorga un color determinado
 def colors(t):
-    if(t>=0 and t<0.555556):
+    if(t>=0 and t<(0.555556*3.6)):
         return 'royalblue'
-    if(t>0.555556 and t<=1.66667):
+    if(t>(0.555556*3.6) and t<=(1.66667*3.6)):
         return 'turquoise'
-    if(t>1.66667 and t<=3.33333):
+    if(t>(1.66667*3.6) and t<=(3.33333*3.6)):
         return 'mediumspringgreen'
-    if(t>3.33333 and t<=5.55556):
+    if(t>(3.33333*3.6) and t<=(5.55556*3.6)):
         return 'limegreen'
-    if(t>5.55556 and t<=8.1):
+    if(t>(5.55556*3.6) and t<=(8.1*3.6)):
         return 'lightsalmon'
-    if(t>8.1 and t<=10.8333):
+    if(t>(8.1*3.6) and t<=(10.8333*3.6)):
         return 'salmon'
-    if(t>10.8333 and t<=13.8889):
+    if(t>(10.8333*3.6) and t<=(13.8889*3.6)):
         return 'orange'
-    if(t>13.8889 and t<=17.2222):
+    if(t>(13.8889*3.6) and t<=(17.2222*3.6)):
         return 'orangered'
-    if(t>17.2222 and t<=20.8333):
+    if(t>(17.2222*3.6) and t<=(20.8333*3.6)):
         return 'firebrick'
-    if(t>20.8333 and t<=24.7222):
+    if(t>(20.8333*3.6) and t<=(24.7222*3.6)):
         return 'red'
     else:
         return 'darkred'
@@ -116,7 +116,7 @@ def grafica1(grados,aux,tem,data):
 
     d=[]
     for r in data:
-        n=r[2].split(" m/s")
+        n=r[2].split(" km/h")
         d.append(float(n[0]))
 
     print(".----------------------------------------.....")
