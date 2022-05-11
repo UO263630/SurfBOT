@@ -15,25 +15,25 @@ import matplotlib.pyplot as plt
 #Función que va recibiendo la velocidad del viento para cada valor de la gráfica
 #y en función de este le otorga un color determinado
 def colors(t):
-    if(t>=0 and t<(0.555556*3.6)):
+    if(t>=0 and t<2.0000016):
         return 'royalblue'
-    if(t>(0.555556*3.6) and t<=(1.66667*3.6)):
+    if(t>2.0000016 and t<=6.000012000000001):
         return 'turquoise'
-    if(t>(1.66667*3.6) and t<=(3.33333*3.6)):
+    if(t>6.000012000000001 and t<=11.999988):
         return 'mediumspringgreen'
-    if(t>(3.33333*3.6) and t<=(5.55556*3.6)):
+    if(t>11.999988 and t<=20.000016):
         return 'limegreen'
-    if(t>(5.55556*3.6) and t<=(8.1*3.6)):
+    if(t>20.000016 and t<=29.16):
         return 'lightsalmon'
-    if(t>(8.1*3.6) and t<=(10.8333*3.6)):
+    if(t>29.16 and t<=38.99988):
         return 'salmon'
-    if(t>(10.8333*3.6) and t<=(13.8889*3.6)):
+    if(t>38.99988 and t<=50.00004):
         return 'orange'
-    if(t>(13.8889*3.6) and t<=(17.2222*3.6)):
+    if(t>50.00004 and t<=61.99992):
         return 'orangered'
-    if(t>(17.2222*3.6) and t<=(20.8333*3.6)):
+    if(t>61.99992 and t<=74.99988):
         return 'firebrick'
-    if(t>(20.8333*3.6) and t<=(24.7222*3.6)):
+    if(t>74.99988and t<=88.99992):
         return 'red'
     else:
         return 'darkred'
@@ -225,12 +225,12 @@ def guia(x):
     
     if(x==0):
         i=0
-        l=["<0.555556 m/s",
-        "0.56 m/s > y <=1.67","1.67 m/s > y <=3.34 m/s",
-        "3.34 m/s > y <=5.56 m/s","5.56 m/s > y <=8.1 m/s",
-        "8.1 m/s > y <=10.84 m/s","10.84 m/s > y <=13.89 m/s",
-        "13.89 m/s > y <=17.23 m/s","17.23 m/s > y <=20.84 m/s",
-        "20.84 m/s > y <=24.73 m/s",">24.73 m/s"]
+        l=["<2 km/h",
+        "2 km/h > y <=6 km/h","6 km/h > y <=12 km/h",
+        "12 km/h > y <=20 km/h","20 km/h > y <=29.16 km/h",
+        "29.16 km/h > y <=39 km/h","39 km/h > y <=50 km/h",
+        "50 km/h > y <=62km/h","62 km/h > y <=75 km/h",
+        "75 km/h > y <=89 km/h",">89 km/h"]
 
         plt.figure(figsize=(2.5,3))
         plt.axhline(y=2, xmin=0.1, xmax=0.3, color="royalblue")
