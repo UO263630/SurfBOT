@@ -123,7 +123,7 @@ def grafica1(grados,aux,tem,data):
     while i< len(x):
         print(x[i])
         print(a[i])
-        ax.quiver(x[i],22,a[i],-100 ,color= colors(t[i]) )
+        ax.quiver(x[i],22,a[i],-100 ,color= colors(d[i]) )
         i=i+1
 
     y=[0,5,10,15,20,25,30,35,40,45]

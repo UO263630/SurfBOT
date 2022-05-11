@@ -280,11 +280,13 @@ def tablas(id,json_data):
 
 
                 wS=str(row['windSpeed']['noaa'])
-
+                wS=float(wS)
+                wS=wS*3.6
+                wS=str(wS)
                 w=wS.split(".")
                 if(len(w[1])==1):
                     wS=w[0]+"."+w[1]+"0"
-                wS=wS+ " m/s"
+                wS=wS+ " km/h"
 
                 wD=row['waveDirection']['noaa']
 
@@ -351,11 +353,13 @@ def tablas(id,json_data):
 
 
                 wS=str(row['windSpeed']['noaa'])
-
+                wS=float(wS)
+                wS=wS*3.6
+                wS=str(wS)
                 w=wS.split(".")
                 if(len(w[1])==1):
                     wS=w[0]+"."+w[1]+"0"
-                wS=wS+ " m/s"
+                wS=wS+ " km/h"
 
                 wD=row['waveDirection']['noaa']
 
@@ -522,11 +526,13 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
                 
 
                 wS=str(row['windSpeed']['noaa'])
-
+                wS=float(wS)
+                wS=wS*3.6
+                wS=str(wS)
                 w=wS.split(".")
                 if(len(w[1])==1):
                     wS=w[0]+"."+w[1]+"0"
-                wS=wS+ " m/s"
+                wS=wS+ " km/h"
 
                 wD=row['waveDirection']['noaa']
 
@@ -593,11 +599,13 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
                 
 
                 wS=str(row['windSpeed']['noaa'])
-
+                wS=float(wS)
+                wS=wS*3.6
+                wS=str(wS)
                 w=wS.split(".")
                 if(len(w[1])==1):
                     wS=w[0]+"."+w[1]+"0"
-                wS=wS+ " m/s"
+                wS=wS+ " km/h"
 
                 wD=row['waveDirection']['noaa']
 
