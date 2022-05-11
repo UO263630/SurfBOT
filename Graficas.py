@@ -198,7 +198,7 @@ def grafica2(grados,aux,tem,data):
         d.append(float(n[0]))
 
     while i< len(x):
-        ax.quiver(x[i],22,a[i],-100,color=colors2(t[i]) )
+        ax.quiver(x[i],22,a[i],-100,color=colors2(d[i]) )
         i=i+1
 
     y=[0,5,10,15,20,25,30,35,40,45]
