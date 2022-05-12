@@ -66,7 +66,7 @@ def colors2(t):
 #   -grados: vector con la direccion del viento para las horas establecidas
 #   -aux: variable auxiliar que indica si la grafica es para el dia actual o para 
 #   -tem: vector con la temperatura del aire para las horas establecidas
-def grafica1(grados,aux,tem,data):
+def graficaViento(grados,aux,tem,data):
     print(grados)
     print(tem)
     if(len(grados)==13):
@@ -152,7 +152,7 @@ def grafica1(grados,aux,tem,data):
 #   -grados: vector con la direccion de oleaje para las horas establecidas
 #   -aux: variable auxiliar que indica si la grafica es para el dia actual o para 
 #   -tem: vector con la temperatura del agua para las horas establecidas
-def grafica2(grados,aux,tem,data):
+def graficaOleaje(grados,aux,tem,data):
     print(tem)
     if(len(grados)==13):
         x= np.linspace(0,24,13)

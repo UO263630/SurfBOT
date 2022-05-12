@@ -482,8 +482,6 @@ def subs_auto():
 
 
 
-
-
 #Funciones que capturan cuando se pulsa un boton y manda la información para cambiar el mensaje indicado
 def BotonI(update,context):
     print("----------------------------")

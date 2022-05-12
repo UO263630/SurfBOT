@@ -422,7 +422,7 @@ def tablas(id,json_data):
         tabla1=tabulate( data , headers=["hora","Temperatura" , "Velocidad viento"]  )
         return tabla1
     if(id==1):
-        Graficas.grafica1(dirs,0,tem1,data)
+        Graficas.graficaViento(dirs,0,tem1,data)
         #dirs=[]
         g="WindDirection.png"
         return g
@@ -430,7 +430,7 @@ def tablas(id,json_data):
         tabla3=tabulate( data3 , headers=["hora","Temperatura" , "Velocidad viento"]  )
         return tabla3
     if(id==3):
-        Graficas.grafica1(dirs2,1,tem2,data3)
+        Graficas.graficaViento(dirs2,1,tem2,data3)
         #dirs2=[]
         g="WindDirection2.png"
         return g
@@ -439,7 +439,7 @@ def tablas(id,json_data):
         tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola"]  ) 
         return tabla2
     if(id==5):
-        Graficas.grafica2(dirv,0,tem3,data2)
+        Graficas.graficaOleaje(dirv,0,tem3,data2)
         #dirv=[]
         g="SwellDirection.png"
         return g
@@ -447,7 +447,7 @@ def tablas(id,json_data):
         tabla4=tabulate( data4 , headers=["hora","Periodo oleaje" , "Altura de ola"]  )
         return tabla4
     if(id==7):
-        Graficas.grafica2(dirv2,1,tem4,data4)
+        Graficas.graficaOleaje(dirv2,1,tem4,data4)
         #dirv2=[]
         g="SwellDirection2.png"
         return g
@@ -752,9 +752,9 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     print(msn)
     
     print(data)
-    Graficas.grafica1(dirs,0,tem1,data)
+    Graficas.graficaViento(dirs,0,tem1,data)
     #dirs=[]
-    Graficas.grafica2(dirv,0,tem3,data2)
+    Graficas.graficaOleaje(dirv,0,tem3,data2)
     #dirv=[]
 
     n=bot.sendPhoto(chat_id=chat,
@@ -809,9 +809,9 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     DIC.append(d)
     
 
-    Graficas.grafica1(dirs2,1,tem2,data3)
+    Graficas.graficaViento(dirs2,1,tem2,data3)
     #dirs2=[]
-    Graficas.grafica2(dirv2,1,tem4,data4)
+    Graficas.graficaOleaje(dirv2,1,tem4,data4)
     #dirv2=[]
 
  
