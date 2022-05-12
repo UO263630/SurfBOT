@@ -751,7 +751,10 @@ def prediccion(update,context):
                 file2.close()
 
             print("DIC")
-            print(Forecast.DIC)
+            n=Forecast.DIC
+            for linea in n:
+                print(linea[0])
+            #print(Forecast.DIC)
             print("////////////////////")
                         
 
