@@ -421,19 +421,18 @@ def subs_auto():
             aux=1
 
 
-    count2,result2=BBDD.subs_auto()
-    for row2 in result2:
-            aux=1
-            x = str(row2[3]).replace(",",".")
-            y = str(row2[4]).replace(",",".")
-            s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
-            if(os.path.exists(s) ==False):
-                print("____________ENTRA2____________")
-                Forecast.busqueda(x,y,aux)
-
+    for row2 in result:
+        aux=1
+        print(row2)
+        x = str(row2[3]).replace(",",".")
+        y = str(row2[4]).replace(",",".")
+        s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
+        if(os.path.exists(s) ==False):
+            print("____________ENTRA2____________")
+            Forecast.busqueda(x,y,aux)
 
     global ID,USER
-
+    count2,result2=BBDD.subs_auto()
     for x in result2:
         #print(x)
         #print(x["ID"])
@@ -691,7 +690,7 @@ def prediccion(update,context):
 
     print(datetime.today().strftime('%Y-%m-%d'))
     FECHA=datetime.today().strftime('%Y-%m-%d')
-
+   
 
     if(count==0):
         update.message.reply_text("No esta suscrito a ninguna playa")
@@ -838,8 +837,9 @@ def automatico():
     schedule.every().day.at("08:00").do(subs_auto)  #10:00
     schedule.every().day.at("16:00").do(subs_auto)  #18:00
 
-    #schedule.every().day.at("14:40").do(subs_auto)  #16:40
+    #schedule.every().day.at("18:30").do(subs_auto)  #16:40
 
+    #schedule.every().day.at("18:35").do(subs_auto)  #16:40
     while True:
         schedule.run_pending()
         
