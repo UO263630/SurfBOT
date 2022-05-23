@@ -422,6 +422,16 @@ def subs_auto():
 
 
     count2,result2=BBDD.subs_auto()
+    for row2 in result2:
+            aux=1
+            x = str(row2[3]).replace(",",".")
+            y = str(row2[4]).replace(",",".")
+            s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
+            if(os.path.exists(s) ==False):
+                print("____________ENTRA2____________")
+                Forecast.busqueda(x,y,aux)
+
+
     global ID,USER
 
     for x in result2:
