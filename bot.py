@@ -420,7 +420,7 @@ def subs_auto():
             Forecast.busqueda(x,y,aux)
             aux=1
 
-
+    count,result=BBDD.playas_subs()
     for row2 in result:
         aux=1
         print(row2)
