@@ -430,7 +430,7 @@ def subs_auto():
         if(os.path.exists(s) ==False):
             print("____________ENTRA2____________")
             Forecast.busqueda(x,y,aux)
-
+    
     global ID,USER
     count2,result2=BBDD.subs_auto()
     for x in result2:
@@ -837,7 +837,7 @@ def automatico():
     schedule.every().day.at("08:00").do(subs_auto)  #10:00
     schedule.every().day.at("16:00").do(subs_auto)  #18:00
 
-    #schedule.every().day.at("18:30").do(subs_auto)  #16:40
+    schedule.every().day.at("12:30").do(subs_auto)  #16:40
 
     #schedule.every().day.at("18:35").do(subs_auto)  #16:40
     while True:

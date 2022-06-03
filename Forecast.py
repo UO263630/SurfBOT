@@ -31,6 +31,12 @@ AUX=0
 DIC=[]
 DIC2=[]
 TOKEN=""
+N=[
+'a8351102-a7a1-11ec-b16d-0242ac130002-a8351170-a7a1-11ec-b16d-0242ac130002',
+'2149585a-a7a2-11ec-9a99-0242ac130002-214958d2-a7a2-11ec-9a99-0242ac130002',
+'e827db8c-a7a1-11ec-b16d-0242ac130002-e827dc22-a7a1-11ec-b16d-0242ac130002',
+'0434d41e-716b-11ec-9e35-0242ac130002-0434d48c-716b-11ec-9e35-0242ac130002'
+]
 
 
 #Función que obtiene las predicciones meteorologicas para cada playa
@@ -38,7 +44,7 @@ TOKEN=""
 #se sobreescriben
 def busqueda(x,y,aux):
         print()
-        global AP,AUX
+        global AP,AUX,N
         s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
         if(os.path.exists(s) == False):
             
@@ -60,10 +66,6 @@ def busqueda(x,y,aux):
             # Get last hour of today
             end = start.shift(days=+2)
             print(end)
-
-            txt=""
-            api =open("api.txt","r")
-            n=api.readlines()
            
             response = requests.get(
             'https://api.stormglass.io/v2/weather/point',
@@ -75,7 +77,7 @@ def busqueda(x,y,aux):
                 'end': end.to('UTC+2').timestamp()  # Convert to UTC timestamp
             },
             headers={
-                'Authorization': n[AUX].rstrip()
+                'Authorization': N[AUX].rstrip()
             }
             )
 
@@ -89,13 +91,12 @@ def busqueda(x,y,aux):
                 'end': end.to('UTC+2').timestamp(),  # Convert to UTC timestam
             },
             headers={
-                'Authorization': n[AUX].rstrip()
+                'Authorization': N[AUX].rstrip()
             }
             )
 
             AP=AP+1
             print(AP)
-            api.close()
 
             # Do something with response data.
             json_data = response.json()
