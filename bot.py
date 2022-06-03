@@ -837,7 +837,7 @@ def automatico():
     schedule.every().day.at("08:00").do(subs_auto)  #10:00
     schedule.every().day.at("16:00").do(subs_auto)  #18:00
 
-    schedule.every().day.at("12:30").do(subs_auto)  #16:40
+    #schedule.every().day.at("12:30").do(subs_auto)  #14:30
 
     #schedule.every().day.at("18:35").do(subs_auto)  #16:40
     while True:
