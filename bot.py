@@ -75,12 +75,6 @@ def buscar(update,playa,aux):
     if (aux==1):
         print(playa)
         print("-------f---------")
-        #CX = playa['Coordenada_X']
-        #CY = playa['Coordenada_Y']
-        #ZS = playa['Zona_Surf']
-        #PR = playa['Provincia']
-        #TM = playa['Termino_Municipal']
-        #TN = playa['Nombre']
         CX = playa[0]
         CY = playa[1]
         ZS = playa[2]
@@ -104,11 +98,6 @@ def buscar(update,playa,aux):
             for row in result:
                 print(row)
                 print("----------------")
-                #CX = row['Coordenada_X']
-                #CY = row['Coordenada_Y']
-                #ZS = row['Zona_Surf']
-                #PR = row['Provincia']
-                #TN = row['Nombre']
                 CX = row[0]
                 CY = row[1]
                 ZS = row[2]
@@ -126,12 +115,6 @@ def buscar(update,playa,aux):
             for row in result:
                 print(row)
                 print("-----------f2-----")
-                #CX = row['Coordenada_X']
-                #CY = row['Coordenada_Y']
-                #ZS = row['Zona_Surf']
-                #PR = row['Provincia']
-                #TM = row['Termino_Municipal']
-                #TN= row['Nombre']
                 CX = row[0]
                 CY = row[1]
                 ZS = row[2]
@@ -226,8 +209,6 @@ def suscripcion(update, context):
             update.message.reply_text('Playa: ' + t[1])
             y,x = buscar(update,t[1],0)
             if(y != x ):    
-                #update.message.reply_text("Coordenadas X: " + x + "Coordendas Y: " + y)
-                
                 
                 aux=suscribirse(update, x,y)
                 if(aux==1):
@@ -257,9 +238,6 @@ def suscribirse(update,x,y):
     print(result)
     row = result[0]
     
-    #nombre = row['Nombre']
-    #provincia = row['Provincia']
-    #municipio = row['Termino_Municipal']
     nombre = row[0]
     provincia = row[1]
     municipio = row[2]
@@ -273,8 +251,6 @@ def suscribirse(update,x,y):
     t=0
     for row in result:
         print(row)
-        #n = row['Nombre']
-        #p = row['Municipio']
         n = row[0]
         p = row[1]
         if(n == nombre and p == municipio):
@@ -310,7 +286,6 @@ def subs(update, context):
         update.message.reply_text("No estas suscrito a ninguna playa")
     else:
         for row in result:
-            #update.message.reply_text("Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n")
             update.message.reply_text("Playa: "+ row[0] +" de "+ row[1] + " en " + row[2] + "\n")
 
 
@@ -338,11 +313,6 @@ def Unfollow(update, context):
         
         print("-----------------------------------------")
         print(row)
-        #n = row['Nombre'] 
-        #m = row['Municipio'] 
-        #p = row['Provincia']
-        #cx = row['CX']
-        #cy = row['CY']
         n = row[0] 
         m = row[1] 
         p = row[2]
@@ -366,10 +336,8 @@ def Unfollow(update, context):
             if(count==0):
                 update.message.reply_text("No hay playas en la lista")
             else:
-                #print(result)
                 t=0
                 for row in result:
-                    #update.message.reply_text("Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + " /"+str(t)+"p" + "\n")
                     update.message.reply_text("Playa: "+ row[0] +" de "+ row[1] + " en " + row[2] + " /"+str(t)+"p" + "\n")
                     t=t+1
                 
@@ -406,10 +374,6 @@ def subs_auto():
         aux=0
         for row in result:
             print(row)
-            #nombre=row['Nombre']
-            #provincia=row['Provincia']
-            #x = str(row['CX']).replace(",",".")
-            #y = str(row['CY']).replace(",",".")
             nombre=row[0]
             provincia=row[1]
             municipio=row[2]
@@ -434,11 +398,6 @@ def subs_auto():
     global ID,USER
     count2,result2=BBDD.subs_auto()
     for x in result2:
-        #print(x)
-        #print(x["ID"])
-        #id=x["ID"]
-        #print(x["Usuario"])
-        #user=x["Usuario"]
         print(x[0])
         id=x[0]
         print(x[1])
@@ -452,13 +411,10 @@ def subs_auto():
         aux=0
         for row in result:
             print(row)
-            #t="Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n"
             t="Playa: "+ row[0] +" de "+ row[1] + " en " + row[2] + "\n"
 
             x=row[3]
             y=row[4]
-            #x=row['CX']
-            #y=row['CY']
                     
             x = str(x).replace(",",".")
             y = str(y).replace(",",".")
@@ -466,14 +422,12 @@ def subs_auto():
                 time.sleep(10)
             bot.sendMessage(chat_id=id,text=t)
 
-            #s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
             s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
             s2="JSON_"+str(x)+"_"+str(y)+"_OLAS"+".json"
 
             if(os.path.exists(s)):
                 file = open(s,"r")
                 json1=json.load(file)
-                #s="hilo"+str(aux)
                 file2=open(s2,"r")
                 json2=json.load(file2) 
                 Forecast.Forecast1(BOT_TOKEN,id,json1,json2)
@@ -531,7 +485,6 @@ def BotonGV(update,context):
 def BotonGS(update,context):
     print("----------------------------")
     
-    #query=update.callback_query.chat.id
     query=update.callback_query
     print(query)
     id=query['message']['message_id']
@@ -553,7 +506,6 @@ def BotonGG(update,context):
     Forecast.cambioGG(id,chat,BOT_TOKEN)
     print("BotonGG")
 
-
 def BotonGG2(update,context):
     print("----------------------------")
     
@@ -566,7 +518,8 @@ def BotonGG2(update,context):
     Forecast.cambioGG2(id,chat,BOT_TOKEN)
     print("BotonGG2")
 
-#COmando para la busqueda de información sobre las playas suscritas
+
+#Comando para la busqueda de información sobre las playas suscritas
 def infoplaya(update,context):
     print(update.message.text)
     text=update.message.text
@@ -577,9 +530,7 @@ def infoplaya(update,context):
     if( n!=0 and text!="/info"):
         
         n=text.split("/infoplaya")
-        #print(n[1])
         t=n[1].split("p")
-        #print(t[0]) 
         
         i=INFO[int(t[0])]
         print(i)
@@ -588,7 +539,6 @@ def infoplaya(update,context):
         y=i[4]
         result=BBDD.info_playa(x,y)
         
-        #print(result[0])
         result=result[0]
         n=""
         if(result[34] !=""):
@@ -701,10 +651,6 @@ def prediccion(update,context):
             aux=0
             for row in result:
                 print(row)
-                #nombre=row['Nombre']
-                #provincia=row['Provincia']
-                #x = str(row['CX']).replace(",",".")
-                #y = str(row['CY']).replace(",",".")
                 nombre=row[0]
                 provincia=row[1]
                 municipio=row[2]
@@ -731,13 +677,10 @@ def prediccion(update,context):
         aux=0
         for row in result:
             print(row)
-            #t="Playa: "+ row['Nombre'] +" de "+ row['Municipio'] + " en " + row['Provincia'] + "\n"
             t="Playa: "+ row[0] +" de "+ row[1] + " en " + row[2] + "\n"
 
             x=row[3]
             y=row[4]
-            #x=row['CX']
-            #y=row['CY']
                     
             x = str(x).replace(",",".")
             y = str(y).replace(",",".")
@@ -745,13 +688,11 @@ def prediccion(update,context):
                 time.sleep(10)
             bot.sendMessage(chat_id=chat_id,text=t)
 
-            #s="JSON"+row['Nombre']+"_"+row['Provincia']+".json"
             s="JSON_"+str(x)+"_"+str(y)+"_"+".json"
             s2="JSON_"+str(x)+"_"+str(y)+"_OLAS"+".json"
             if(os.path.exists(s)):
                 file = open(s,"r")
                 json1=json.load(file)
-                #s="hilo"+str(aux)
                 file2=open(s2,"r")
                 json2=json.load(file2)
                 Forecast.Forecast1(BOT_TOKEN,chat_id,json1,json2)
@@ -762,7 +703,6 @@ def prediccion(update,context):
             n=Forecast.DIC
             for linea in n:
                 print(linea[0])
-            #print(Forecast.DIC)
             print("////////////////////")
                         
 

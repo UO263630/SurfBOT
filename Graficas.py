@@ -82,8 +82,7 @@ def graficaViento(grados,aux,tem,data):
     fig = plt.figure()
     fig.set_size_inches(8,2)
     ax = fig.gca()
-    #print(x)
-    #print(np.zeros(x.shape))
+
 
     print(tem)
     t=[]
@@ -107,11 +106,9 @@ def graficaViento(grados,aux,tem,data):
         i=i+1;
 
     print(len(x))
-    #print(a)
     plt.xticks(x,ejex)
     plt.xlabel("horas",size=8)
     plt.title("Dirección del viento")
-    #ax.get_yaxis().set_visible(True)
     i=0
 
     d=[]
@@ -166,7 +163,6 @@ def graficaOleaje(grados,aux,tem,data):
     fig = plt.figure()
     fig.set_size_inches(8,2)
     ax = fig.gca()
-    #print(np.zeros(x.shape))
 
     t=[]
     characters=" ºC"
@@ -179,9 +175,6 @@ def graficaOleaje(grados,aux,tem,data):
 
     a=[]
     i=0
-    #print("--------------------------------------------")
-    #print(grados)
-    #print(x)
     while(i<len(grados)):
         b=-np.tan(grados[i])*x[i]
         a.append(1-b)

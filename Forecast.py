@@ -60,10 +60,10 @@ def busqueda(x,y,aux):
             print(s)
             file = open(s,"w")
             file2=open(s2,"w")
-            # Get first hour of today
+            # Primera hora del día
             start = arrow.now().floor('day')
             print(start)
-            # Get last hour of today
+            # Última hora del día
             end = start.shift(days=+2)
             print(end)
            
@@ -98,25 +98,13 @@ def busqueda(x,y,aux):
             AP=AP+1
             print(AP)
 
-            # Do something with response data.
             json_data = response.json()
             json_data2= response2.json()
             print("JSON")
             print(json_data2)
-            #print(json_data)
 
-            """
-            file3=open("JSON_43.5423_-5.6592_.json","r")
-            json_data=json.load(file3)
-            file3.close()
-            file3=open("JSON_43.5423_-5.6592_OLAS.json","r")
-            json_data2=json.load(file3)
-            file3.close()
-             """
-            #json.dump(json.loads(json_data) , file)
             json.dump(json_data , file)
             json.dump(json_data2,file2)
-            #file.write(json_data)
             file.close()
             file2.close()
             print("------------------------forecast---------------------")
@@ -163,8 +151,7 @@ def datos(id,chat,b):
                         for r in DIC2:
                             if(r[0]==id):
                                 z=r[1]
-                                #print("z1")
-                                #print(z)
+                                
                         if(z==0):
                             if(b==0):
                                 x[2]=x[2]-4
@@ -175,7 +162,6 @@ def datos(id,chat,b):
                                     if(r[0]==id):
                                         r[1]=0
 
-                                #print("z")
                                 print(x[2])
                             else:
                                 x[2]=x[2]+4
@@ -186,7 +172,6 @@ def datos(id,chat,b):
                                     if(r[0]==id):
                                         r[1]=1
 
-                                #print("z")
                                 print(x[2])
                         else:
                             if(b==0):
@@ -194,14 +179,12 @@ def datos(id,chat,b):
                                 tipo=x[2]
                                 json=x[1]
                                 aux=1
-                                #print("z")
                                 print(x[2])
                             else:
                                 x[2]=x[2]+4
                                 tipo=x[2]
                                 json=x[1]
                                 aux=1
-                                #print("z")
                                 print(x[2])
                     else:
                         x[2]=x[2]-4
@@ -217,10 +200,8 @@ def datos(id,chat,b):
                     print(x[2])
                 
                 print(tipo)
-                #print(json)
                 tabla=tablas(tipo,json)
                 print(",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,FIN,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
-                #print(tabla)
                 print(id)
                 return tabla,tipo
 
@@ -256,11 +237,9 @@ def tablas(id,json_data):
     dia=f[0].split("-")
     for row in json_data['hours']:
         if(row['time'] >= str(start) and x%2!=0 ):
-            #print(x)
             dyh=row['time']
             fecha=dyh.split("T")
             di=fecha[0].split("-")
-            #print(int(di[2]))
             if(fecha[0] == f[0] ):
                 fecha=dyh.split("T")
                 fecha=fecha[1].split("+")
@@ -329,7 +308,6 @@ def tablas(id,json_data):
 
                 wT=wT + " ºC"
 
-                #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
                 d= [ time , aT ,  wS ]
                 d2= [time, sP,sH]
                 data.append(d[:])
@@ -407,7 +385,6 @@ def tablas(id,json_data):
 
                 wT=wT + " ºC"
 
-                #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
                 d= [time, aT, wS]
                 d2= [time, sP, sH]
                 data3.append(d[:])
@@ -424,7 +401,6 @@ def tablas(id,json_data):
         return tabla1
     if(id==1):
         Graficas.graficaViento(dirs,0,tem1,data)
-        #dirs=[]
         g="WindDirection.png"
         return g
     if(id==2):
@@ -432,16 +408,13 @@ def tablas(id,json_data):
         return tabla3
     if(id==3):
         Graficas.graficaViento(dirs2,1,tem2,data3)
-        #dirs2=[]
         g="WindDirection2.png"
         return g
     if(id==4):
-        #print(data2)
         tabla2= tabulate( data2 , headers=["hora","Periodo oleaje" , "Altura de ola"]  ) 
         return tabla2
     if(id==5):
         Graficas.graficaOleaje(dirv,0,tem3,data2)
-        #dirv=[]
         g="SwellDirection.png"
         return g
     if(id==6):
@@ -449,7 +422,6 @@ def tablas(id,json_data):
         return tabla4
     if(id==7):
         Graficas.graficaOleaje(dirv2,1,tem4,data4)
-        #dirv2=[]
         g="SwellDirection2.png"
         return g
     if(id==8):
@@ -457,8 +429,7 @@ def tablas(id,json_data):
         for r in tem3:
             n=[r]
             d.append(n)
-        tabla2= tabulate( d , headers=["Temperatura del agua"]  ) 
-        #print(tabla2)
+        tabla2= tabulate( d , headers=["Temperatura del agua"]  )
         return tabla2
     if(id==10):
         d=[]
@@ -506,17 +477,14 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     tem4=[]
     f=str(start).split("T")
     dia=f[0].split("-")
-    #print(int(dia[2]))
     
     wd = []
     print(json_data)
     for row in json_data['hours']:
         if(row['time'] >= str(start) and x%2!=0 ):
-            #print(x)
             dyh=row['time']
             fecha=dyh.split("T")
             di=fecha[0].split("-")
-            #print(int(di[2]))
             if(fecha[0] == f[0] ):
                 fecha=dyh.split("T")
                 fecha=fecha[1].split("+")
@@ -585,7 +553,6 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
 
                 wT=wT + " ºC"
 
-                #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
                 d= [time ,aT ,wS ]
                 d2= [time, sP ,sH]
                 data.append(d[:])
@@ -663,7 +630,6 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
 
                 wT=wT + " ºC"
 
-                #d= [ time , aT ,  wS, wD ,sP , sH , sD ]
                 d= [ time , aT ,  wS ]
                 d2= [time, sP,sH]
                 data3.append(d[:])
@@ -679,7 +645,6 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     bj=[]
     pl2=[]
     bj2=[]
-    #print(json_data2)
     for row in json_data2['data']:
         if(row['type']=='high'):
             p=row['time'].split("T")
@@ -719,7 +684,6 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     
     
     partes = str(start).split("T")[0].split("-")
-    #print(partes)
 
     convertida = "/".join(reversed(partes))
     aux=0
@@ -745,7 +709,7 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
                     reply_markup=InlineKeyboardMarkup([
                         [buttonI]])
                     )
-    #print(f)
+
     msn=f['message_id']
     d=[msn,json_data,0,chat_id]
     DIC.append(d)
@@ -754,9 +718,9 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     
     print(data)
     Graficas.graficaViento(dirs,0,tem1,data)
-    #dirs=[]
+
     Graficas.graficaOleaje(dirv,0,tem3,data2)
-    #dirv=[]
+
 
     n=bot.sendPhoto(chat_id=chat,
         photo=open('WindDirection.png','rb') ,
@@ -811,9 +775,8 @@ def Forecast1(BOT_TOKEN,chat_id,json_data,json_data2):
     
 
     Graficas.graficaViento(dirs2,1,tem2,data3)
-    #dirs2=[]
+
     Graficas.graficaOleaje(dirv2,1,tem4,data4)
-    #dirv2=[]
 
  
     n=bot.sendPhoto(chat_id=chat,
@@ -851,7 +814,7 @@ buttonGS = InlineKeyboardButton(
 #del boton pulsado y del chat en el que esté.
 def cambioI(id,chat):
     tabla,tipo=datos(id,chat,0)
-    #print(chat)
+
     print(tipo)
     print("<<<<<<<<<<<<CAMBIOI_VOLVER<<<<<<<<<<<")
     bot2=telegram.Bot(TOKEN)
@@ -865,17 +828,6 @@ def cambioI(id,chat):
                     
                 )
         )
-    
-    #if(tipo==2):
-    #    print("ENTRA2")
-    #    bot2.editMessageText(text=tabla,
-    #                chat_id=chat,
-    #                message_id=id,
-    #                reply_markup=InlineKeyboardMarkup([
-    #                [buttonI]]
-    #                
-    #            )
-    #    )
     
     else:
         bot2.editMessageText(text=tabla,
@@ -903,18 +855,6 @@ def cambioD(id,chat):
                         
                     )
         )
-    
-    #if(tipo!=10 ):
-    #    print("ENTRA2")
-    #    bot2.editMessageText(text=tabla,
-    #                    chat_id=chat,
-    #                    message_id=id,
-    #                    reply_markup=InlineKeyboardMarkup([
-    #                    [buttonD,buttonI]]
-    #                    
-    #                )
-    #    )
-   
     else:
         bot2.editMessageText(text=tabla,
                         chat_id=chat,
@@ -927,7 +867,6 @@ def cambioD(id,chat):
 
 def cambioGI(id,chat):
     tabla,tipo=datos(id,chat,2)
-    #print(chat)
     print("<<<<<<<<<CAMBIOGI<<<<<<<<<<<<<<")
     bot2=telegram.Bot(TOKEN)
     bot2.editMessageMedia(
@@ -941,7 +880,6 @@ def cambioGI(id,chat):
 
 def cambioGV(id,chat):
     tabla,tipo=datos(id,chat,2)
-    #print(chat)
     print("<<<<<<<<<<CAMBIOGV<<<<<<<<<<<<<")
     bot2=telegram.Bot(TOKEN)
     bot2.editMessageMedia(
@@ -954,8 +892,6 @@ def cambioGV(id,chat):
         )
 
 def cambioGG(id,chat,token):
-    #tabla=datos(id,chat)
-    #print(chat)
     print("<<<<<<<<<<CAMBIOGG<<<<<<<<<<<<<")
     bot2=telegram.Bot(token)
     Graficas.guia(1)
@@ -969,8 +905,6 @@ def cambioGG(id,chat,token):
         )
 
 def cambioGG2(id,chat,token):
-    #tabla=datos(id,chat)
-    #print(chat)
     print("<<<<<<<<<<CAMBIOGG2<<<<<<<<<<<<<")
     bot2=telegram.Bot(token)
     Graficas.guia(0)
